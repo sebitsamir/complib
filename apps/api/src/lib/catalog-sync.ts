@@ -62,6 +62,36 @@ function splitSearchTerms(query: string): string[] {
     .filter(Boolean);
 }
 
+async function updateCatalogSearchVector(componentId: string, input: {
+  name: string;
+  description: string;
+  category: string;
+  problemTags: string[];
+  tags: string[];
+  styleLabels: string[];
+}): Promise<void> {
+  const weightedDocument = [
+    `name: ${input.name}`,
+    `name: ${input.name}`,
+    `category: ${input.category}`,
+    `category: ${input.category}`,
+    ...input.problemTags.map((tag) => `problem: ${tag}`),
+    ...input.tags.map((tag) => `tag: ${tag}`),
+    `description: ${input.description}`,
+    ...input.styleLabels.map((label) => `style: ${label}`),
+  ].join(" ");
+
+  try {
+    await prisma.$executeRaw`
+      UPDATE "CatalogComponent"
+      SET "searchVector" = to_tsvector('english', ${weightedDocument})
+      WHERE id = ${componentId}
+    `;
+  } catch {
+    // FTS column may not exist until migration is applied.
+  }
+}
+
 export async function syncComponentCatalog(slug: string): Promise<boolean> {
   const bundle = await readComponentBundleFromDisk(slug);
   if (!bundle) return false;
@@ -200,6 +230,15 @@ export async function syncComponentCatalog(slug: string): Promise<boolean> {
     tagSlugs,
   });
 
+  await updateCatalogSearchVector(component.id, {
+    name: bundle.json.name,
+    description: bundle.json.description,
+    category: bundle.json.category,
+    problemTags: bundle.json.problemTags,
+    tags: bundle.json.tags,
+    styleLabels: bundle.styleVariants.map((variant) => variant.label),
+  });
+
   return true;
 }
 
@@ -237,11 +276,99 @@ export async function removeComponentCatalog(slug: string): Promise<void> {
   await prisma.catalogComponent.deleteMany({ where: { slug } });
 }
 
+type CatalogSearchBaseRow = {
+  slug: string;
+  name: string;
+  description: string;
+  tier: string;
+  layer: string;
+  category: string;
+  problemTags: string[];
+  defaultStyleId: string;
+  filesystemPath: string;
+};
+
+async function hydrateCatalogHits(
+  rows: CatalogSearchBaseRow[],
+  filters: CatalogSearchFilters,
+  limit: number,
+): Promise<CatalogSearchHit[]> {
+  const filtered = rows.filter((row) => {
+    if (filters.layer && row.layer !== filters.layer) return false;
+    if (filters.category && row.category !== filters.category) return false;
+    if (filters.tier && row.tier !== filters.tier) return false;
+    if (filters.problem && !row.problemTags.includes(filters.problem)) return false;
+    return true;
+  });
+
+  const slugs = filtered.slice(0, limit).map((row) => row.slug);
+  if (slugs.length === 0) return [];
+
+  const enriched = (await prisma.catalogComponent.findMany({
+    where: { slug: { in: slugs } },
+    include: {
+      variants: {
+        orderBy: { styleId: "asc" },
+        select: { styleId: true, label: true },
+      },
+      tags: { include: { tag: { select: { slug: true } } } },
+    },
+  })) as CatalogSearchRow[];
+
+  const order = new Map(slugs.map((slug, index) => [slug, index]));
+  return enriched
+    .sort((a, b) => (order.get(a.slug) ?? 0) - (order.get(b.slug) ?? 0))
+    .map((row) => ({
+      slug: row.slug,
+      name: row.name,
+      description: row.description,
+      tier: row.tier,
+      layer: row.layer,
+      category: row.category,
+      problemTags: row.problemTags,
+      defaultStyleId: row.defaultStyleId,
+      styleVariants: row.variants.map((variant) => ({
+        id: variant.styleId,
+        label: variant.label,
+      })),
+      tags: row.tags.map((entry) => entry.tag.slug),
+      filesystemPath: row.filesystemPath,
+    }));
+}
+
 export async function searchCatalog(
   filters: CatalogSearchFilters = {},
 ): Promise<CatalogSearchHit[]> {
   const terms = splitSearchTerms(filters.q ?? "");
   const limit = Math.min(Math.max(filters.limit ?? 60, 1), 200);
+  const query = terms.join(" ").trim();
+
+  if (query) {
+    try {
+      const ftsRows = (await prisma.$queryRaw`
+        SELECT
+          c.slug,
+          c.name,
+          c.description,
+          c.tier::text AS tier,
+          c.layer::text AS layer,
+          c.category,
+          c."problemTags",
+          c."defaultStyleId",
+          c."filesystemPath"
+        FROM "CatalogComponent" c
+        WHERE c."searchVector" @@ plainto_tsquery('english', ${query})
+        ORDER BY ts_rank(c."searchVector", plainto_tsquery('english', ${query})) DESC, c.name ASC
+        LIMIT ${limit * 3}
+      `) as CatalogSearchBaseRow[];
+
+      if (ftsRows.length > 0) {
+        return hydrateCatalogHits(ftsRows, filters, limit);
+      }
+    } catch {
+      // Fall back to contains search when FTS is unavailable.
+    }
+  }
 
   const rows = (await prisma.catalogComponent.findMany({
     where: {
