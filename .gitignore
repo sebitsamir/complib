@@ -35,18 +35,10 @@ Thumbs.db
 # Prisma generated client (regenerated on install)
 apps/api/src/generated/
 
-# Legacy split-repo copies (kept locally until the monorepo is verified)
-/frontend/node_modules/
-/backend/node_modules/
-/frontend/.next/
-/backend/dist/
-
 # Large generated artifacts that can be rebuilt
 storage/generated/
+storage/revisions/
 
-# Office scratch and legacy split-repo checkouts (not part of the monorepo)
+# Office scratch files
 *.docx
 ~$*
-/frontend/
-/backend/
-/scripts/sync-backend-from-frontend.mjs

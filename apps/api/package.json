@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
+    "db:repair": "node -r dotenv/config -r ts-node/register scripts/db-repair.ts",
     "db:migrate:dev": "prisma migrate dev",
     "db:seed": "node -r dotenv/config -r ts-node/register prisma/seed.ts",
     "sync:catalog": "node -r dotenv/config -r ts-node/register prisma/seed.ts",

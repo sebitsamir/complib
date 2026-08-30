@@ -3,7 +3,7 @@
 import path from "node:path";
 import dotenv from "dotenv";
 
-// Scripts like `npm run sync:catalog` do not go through server.ts — load backend/.env here.
+// Scripts like `npm run sync:catalog` do not go through server.ts — load apps/api/.env here.
 dotenv.config({ path: path.resolve(process.cwd(), ".env"), override: true });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -15,6 +15,27 @@ Copy each `.env.example` beside the app that uses it. Never commit real secrets.
 | `COMPLIB_ALLOWED_DEV_ORIGINS` | No | Extra hosts for Next.js 16 `allowedDevOrigins` |
 | `PORT` | No | Next dev port (default `3000`) |
 
+## Database
+
+| Command | Purpose |
+|---|---|
+| `npm run db:migrate` | Apply pending Prisma migrations (`apps/api`) |
+| `npm run db:repair` | Reset failed/legacy migration state and re-apply init (destructive — see below) |
+| `npm run sync:catalog` | Index `storage/components` into PostgreSQL |
+
+### Failed migration (P3009)
+
+If `db:migrate` reports a failed migration from the old split-repo history:
+
+```bash
+# PowerShell
+$env:COMPLIB_DB_REPAIR_CONFIRM="yes"
+npm run db:repair
+npm run sync:catalog
+```
+
+This drops CompLib application tables, clears `_prisma_migrations`, and applies the squashed `20260830120000_init` migration.
+
 ## `apps/api/.env`
 
 | Variable | Required | Purpose |

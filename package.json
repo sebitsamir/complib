@@ -16,6 +16,7 @@
     "lint": "npm run lint -w @complib/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "db:migrate": "npm run db:migrate -w @complib/api",
+    "db:repair": "npm run db:repair -w @complib/api",
     "db:generate": "npm run db:generate -w @complib/api",
     "sync:catalog": "npm run sync:catalog -w @complib/api",
     "test": "npm run test --workspaces --if-present",
