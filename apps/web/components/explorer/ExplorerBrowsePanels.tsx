@@ -20,6 +20,11 @@ import {
   libraryStyleToQuery,
   type LibraryStyleOption,
 } from "@/lib/variant-utils";
+import {
+  ExplorerLayerIcon,
+  IconLightbulb,
+  IconPalette,
+} from "@/components/explorer/explorer-icons";
 
 type TileProps = {
   title: string;
@@ -38,7 +43,7 @@ function ExplorerTile({ title, subtitle, count, href, onClick, accent, icon }: T
     <div className="flex items-start gap-3">
       {icon ? (
         <span
-          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-sm font-bold ${accent ?? "from-muted to-muted/50 text-foreground"}`}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br text-foreground ${accent ?? "from-muted to-muted/50"}`}
         >
           {icon}
         </span>
@@ -82,13 +87,6 @@ function PanelGrid({ children }: { children: ReactNode }) {
   );
 }
 
-const LAYER_ICONS: Record<string, string> = {
-  primitives: "🧱",
-  patterns: "🧩",
-  sections: "🚀",
-  templates: "📄",
-};
-
 type LayerTilesProps = {
   navLayers: LibraryNavLayer[];
   searchParams: URLSearchParams;
@@ -125,7 +123,7 @@ export function ExplorerLayerTiles({
             subtitle="Browse categories"
             count={count}
             accent={meta.iconBg}
-            icon={LAYER_ICONS[slug] ?? "📦"}
+            icon={<ExplorerLayerIcon layer={slug} size={18} />}
             href={onNavigate ? undefined : buildExplorerUrl(searchParams, overrides)}
             onClick={onNavigate ? () => onNavigate(overrides) : undefined}
           />
@@ -204,7 +202,7 @@ export function ExplorerStyleFamilyTiles({
             subtitle="Design language"
             count={family.count}
             accent="from-violet-500/25 to-violet-600/10"
-            icon="🎨"
+            icon={<IconPalette size={18} className="text-violet-700 dark:text-violet-300" />}
             href={onNavigate ? undefined : buildExplorerUrl(searchParams, overrides)}
             onClick={onNavigate ? () => onNavigate(overrides) : undefined}
           />
@@ -245,7 +243,7 @@ export function ExplorerProblemTiles({
             subtitle="Use case"
             count={group.components.length}
             accent="from-emerald-500/25 to-emerald-600/10"
-            icon="💡"
+            icon={<IconLightbulb size={18} className="text-emerald-700 dark:text-emerald-300" />}
             href={onNavigate ? undefined : buildExplorerUrl(searchParams, overrides)}
             onClick={onNavigate ? () => onNavigate(overrides) : undefined}
           />

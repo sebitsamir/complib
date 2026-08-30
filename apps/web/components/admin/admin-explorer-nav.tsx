@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { ExplorerLayerIcon, IconChevronRight, IconPackage } from "@/components/explorer/explorer-icons";
 import { useCallback, useMemo, useTransition } from "react";
 import { buildAdminStudioUrl } from "@/lib/admin-form";
 import { TAXONOMY_DEFAULTS } from "@/lib/taxonomy-defaults";
@@ -22,11 +24,11 @@ type Props = {
   view: "browse" | "studio";
 };
 
-const LAYER_ICONS: Record<string, string> = {
-  primitives: "🧱",
-  patterns: "🧩",
-  sections: "🚀",
-  templates: "📄",
+const LAYER_ICONS: Record<string, ReactNode> = {
+  primitives: <ExplorerLayerIcon layer="primitives" size={16} />,
+  patterns: <ExplorerLayerIcon layer="patterns" size={16} />,
+  sections: <ExplorerLayerIcon layer="sections" size={16} />,
+  templates: <ExplorerLayerIcon layer="templates" size={16} />,
 };
 
 function NavItem({
@@ -38,7 +40,7 @@ function NavItem({
 }: {
   href: string;
   active: boolean;
-  icon: string;
+  icon: ReactNode;
   label: string;
   count?: number;
 }) {
@@ -51,7 +53,7 @@ function NavItem({
           : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
       }`}
     >
-      <span className="text-base leading-none" aria-hidden>
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
         {icon}
       </span>
       <span className="min-w-0 flex-1 truncate">{label}</span>
@@ -115,7 +117,7 @@ export default function AdminExplorerNav({
             <NavItem
               href={buildAdminStudioUrl({ view: "browse" })}
               active={view === "browse" && !activeLayer && !editingSlug}
-              icon="📦"
+              icon={<IconPackage size={16} />}
               label="All layers"
             />
             {TAXONOMY_DEFAULTS.map((layer) => (
@@ -123,7 +125,7 @@ export default function AdminExplorerNav({
                 key={layer.id}
                 href={buildAdminStudioUrl({ layer: layer.id, view: "browse" })}
                 active={activeLayer === layer.id && !activeCategory && view === "browse"}
-                icon={LAYER_ICONS[layer.id] ?? "📦"}
+                icon={LAYER_ICONS[layer.id] ?? <IconPackage size={16} />}
                 label={layer.label}
                 count={layerCounts.get(layer.id)}
               />
@@ -150,7 +152,7 @@ export default function AdminExplorerNav({
                       view: "browse",
                     })}
                     active={activeCategory === category.slug && view === "browse" && !editingSlug}
-                    icon="▸"
+                    icon={<IconChevronRight size={14} />}
                     label={category.label}
                     count={count}
                   />

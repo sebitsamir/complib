@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useTransition } from "react";
 import LibrarySearchInput from "@/components/library/LibrarySearchInput";
@@ -13,13 +14,21 @@ import {
 import { LAYER_ORDER, layerNavMeta } from "@/lib/library-nav-shared";
 import type { LibraryNavLayer } from "@/lib/component-store";
 import { useLibraryPersistence } from "@/lib/use-library-persistence";
+import {
+  ExplorerLayerIcon,
+  IconClock,
+  IconLightbulb,
+  IconPackage,
+  IconPalette,
+  IconStar,
+} from "@/components/explorer/explorer-icons";
 
 type NavItemProps = {
   href?: string;
   onClick?: () => void;
   onNavigate?: () => void;
   active: boolean;
-  icon: string;
+  icon: ReactNode;
   label: string;
   count?: number;
 };
@@ -33,7 +42,7 @@ function NavItem({ href, onClick, onNavigate, active, icon, label, count }: NavI
 
   const content = (
     <>
-      <span className="text-base leading-none" aria-hidden>
+      <span className="flex h-5 w-5 shrink-0 items-center justify-center text-muted-foreground" aria-hidden>
         {icon}
       </span>
       <span className="min-w-0 flex-1 truncate">{label}</span>
@@ -57,13 +66,6 @@ function NavItem({ href, onClick, onNavigate, active, icon, label, count }: NavI
     </Link>
   );
 }
-
-const LAYER_ICONS: Record<string, string> = {
-  primitives: "🧱",
-  patterns: "🧩",
-  sections: "🚀",
-  templates: "📄",
-};
 
 type Props = {
   layers?: LibraryNavLayer[];
@@ -268,7 +270,7 @@ export default function ExplorerSidebar({
             }
             onNavigate={afterNav}
             active={collection === "favorites"}
-            icon="⭐"
+            icon={<IconStar size={16} />}
             label="Favorites"
             count={favoriteSlugs.length}
           />
@@ -300,7 +302,7 @@ export default function ExplorerSidebar({
             }
             onNavigate={afterNav}
             active={collection === "recent"}
-            icon="🕒"
+            icon={<IconClock size={16} />}
             label="Recent"
             count={recentSlugs.length}
           />
@@ -339,7 +341,7 @@ export default function ExplorerSidebar({
               }
               onNavigate={afterNav}
               active={browse === "layer" && !params.layer && !collection && !params.q}
-              icon="📦"
+              icon={<IconPackage size={16} />}
               label="All layers"
             />
             {orderedLayers.map((layer) => (
@@ -372,7 +374,7 @@ export default function ExplorerSidebar({
                 }
                 onNavigate={afterNav}
                 active={isLayerActive(layer.slug)}
-                icon={LAYER_ICONS[layer.slug] ?? "📦"}
+                icon={<ExplorerLayerIcon layer={layer.slug} size={16} />}
                 label={layerNavMeta(layer.slug).label}
                 count={layerCounts.get(layer.slug)}
               />
@@ -390,7 +392,7 @@ export default function ExplorerSidebar({
               onClick={onNavigate ? () => pushParams(browseTabOverrides("style")) : undefined}
               onNavigate={afterNav}
               active={browse === "style" && !params.q}
-              icon="🎨"
+              icon={<IconPalette size={16} />}
               label="Visual style"
             />
             <NavItem
@@ -398,7 +400,7 @@ export default function ExplorerSidebar({
               onClick={onNavigate ? () => pushParams(browseTabOverrides("problem")) : undefined}
               onNavigate={afterNav}
               active={browse === "problem" && !params.q}
-              icon="💡"
+              icon={<IconLightbulb size={16} />}
               label="Use case"
             />
           </div>

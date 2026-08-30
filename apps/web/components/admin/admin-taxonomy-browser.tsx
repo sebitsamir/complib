@@ -71,13 +71,6 @@ function Tile({
   );
 }
 
-const LAYER_ICONS: Record<string, string> = {
-  primitives: "🧱",
-  patterns: "🧩",
-  sections: "🚀",
-  templates: "📄",
-};
-
 export default function AdminTaxonomyBrowser({
   catalog,
   layer,
