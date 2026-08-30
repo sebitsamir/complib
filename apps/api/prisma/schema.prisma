@@ -25,12 +25,30 @@ enum ComponentLayer {
   templates
 }
 
+enum UserRole {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum SubscriptionStatus {
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  UNPAID
+  PAUSED
+}
+
 model User {
   id               String           @id @default(cuid())
   email            String           @unique
   clerkId          String?          @unique
   stripeCustomerId String?          @unique
   plan             Plan             @default(FREE)
+  role             UserRole         @default(USER)
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
   auditLogs        AuditLog[]
@@ -38,6 +56,7 @@ model User {
   recents          UserRecent[]
   collections      UserCollection[]
   downloads        DownloadEvent[]
+  subscriptions    Subscription[]
 }
 
 model AuditLog {
@@ -256,4 +275,43 @@ model ComponentDocumentation {
   accessibility  String           @default("")
   installation   String           @default("")
   component      CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  userId               String
+  stripeSubscriptionId String             @unique
+  stripeCustomerId     String
+  stripePriceId        String
+  plan                 Plan
+  status               SubscriptionStatus
+  currentPeriodStart   DateTime?
+  currentPeriodEnd     DateTime?
+  cancelAtPeriodEnd    Boolean            @default(false)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  user                 User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events               SubscriptionEvent[]
+
+  @@index([userId, status])
+  @@index([stripeCustomerId])
+}
+
+model SubscriptionEvent {
+  id             String       @id @default(cuid())
+  subscriptionId String
+  type           String
+  stripeEventId  String       @unique
+  payload        Json
+  createdAt      DateTime     @default(now())
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+}
+
+model WebhookEvent {
+  id          String   @id @default(cuid())
+  provider    String
+  externalId  String
+  processedAt DateTime @default(now())
+
+  @@unique([provider, externalId])
 }

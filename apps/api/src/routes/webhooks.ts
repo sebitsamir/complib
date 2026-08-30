@@ -2,11 +2,29 @@ import express, { Router } from "express";
 import { Webhook } from "svix";
 import Stripe from "stripe";
 import prisma from "../prisma";
+import {
+  mapStripeSubscriptionStatus,
+  planFromPriceId,
+  planFromStripeMetadata,
+} from "../lib/billing-stripe";
+import { syncUserPlanFromSubscription } from "../lib/billing-service";
 
 type StripeWebhookEvent = {
+  id?: string;
   type: string;
   data: { object: Record<string, unknown> };
 };
+
+async function markWebhookProcessed(provider: string, externalId: string): Promise<boolean> {
+  try {
+    await prisma.webhookEvent.create({
+      data: { provider, externalId },
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 const router = Router();
 
@@ -108,6 +126,15 @@ router.post(
       return;
     }
 
+    const eventId = typeof event.id === "string" ? event.id : null;
+    if (eventId) {
+      const isNew = await markWebhookProcessed("stripe", eventId);
+      if (!isNew) {
+        res.status(200).json({ received: true, duplicate: true });
+        return;
+      }
+    }
+
     if (event.type === "checkout.session.completed") {
       const session = event.data.object;
       const metadata =
@@ -115,7 +142,7 @@ router.post(
           ? (session.metadata as Record<string, string>)
           : {};
       const clerkId = metadata.clerkId ?? metadata.userId;
-      const plan = metadata.plan;
+      const plan = metadata.plan === "ENTERPRISE" ? "ENTERPRISE" : planFromStripeMetadata(metadata);
       const customer = session.customer;
       if (
         clerkId &&
@@ -144,14 +171,65 @@ router.post(
           : customer && typeof customer === "object" && "id" in customer
             ? String((customer as { id: string }).id)
             : null;
-      const status = subscription.status;
-      const active = status === "active" || status === "trialing";
+      const statusRaw = typeof subscription.status === "string" ? subscription.status : "canceled";
+      const status = mapStripeSubscriptionStatus(statusRaw);
+      const stripeSubscriptionId =
+        typeof subscription.id === "string" ? subscription.id : null;
+      const priceId =
+        typeof subscription.items === "object" &&
+        subscription.items &&
+        "data" in (subscription.items as object) &&
+        Array.isArray((subscription.items as { data: unknown[] }).data)
+          ? String(
+              (
+                (subscription.items as { data: Array<{ price?: { id?: string } }> }).data[0]
+                  ?.price?.id
+              ) ?? "",
+            )
+          : "";
+      const metadata =
+        subscription.metadata && typeof subscription.metadata === "object"
+          ? (subscription.metadata as Record<string, string>)
+          : undefined;
+      const plan = planFromPriceId(priceId, metadata);
 
-      if (customerId) {
-        await prisma.user.updateMany({
+      if (customerId && stripeSubscriptionId) {
+        const user = await prisma.user.findFirst({
           where: { stripeCustomerId: customerId },
-          data: { plan: active ? "PRO" : "FREE" },
+          select: { id: true },
         });
+        if (user) {
+          const purchasedPlan = plan;
+          await syncUserPlanFromSubscription({
+            userId: user.id,
+            subscription: {
+              stripeSubscriptionId,
+              stripeCustomerId: customerId,
+              stripePriceId: priceId || "unknown",
+              plan: purchasedPlan,
+              status: event.type === "customer.subscription.deleted" ? "CANCELED" : status,
+              currentPeriodStart:
+                typeof subscription.current_period_start === "number"
+                  ? new Date(subscription.current_period_start * 1000)
+                  : null,
+              currentPeriodEnd:
+                typeof subscription.current_period_end === "number"
+                  ? new Date(subscription.current_period_end * 1000)
+                  : null,
+              cancelAtPeriodEnd: subscription.cancel_at_period_end === true,
+            },
+          });
+        } else {
+          await prisma.user.updateMany({
+            where: { stripeCustomerId: customerId },
+            data: {
+              plan:
+                status === "ACTIVE" || status === "TRIALING" || status === "PAST_DUE"
+                  ? plan
+                  : "FREE",
+            },
+          });
+        }
       }
     }
 

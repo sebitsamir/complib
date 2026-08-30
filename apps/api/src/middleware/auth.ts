@@ -77,10 +77,13 @@ async function resolveRequestUser(req: Request): Promise<{
 
   const dbUser = await prisma.user.findUnique({
     where: { clerkId },
-    select: { plan: true },
+    select: { plan: true, role: true },
   });
   if (dbUser?.plan) {
     plan = dbUser.plan as Plan;
+  }
+  if (dbUser?.role) {
+    role = dbUser.role as import("@complib/contracts").UserRole;
   }
 
   const entitlements = getEntitlements({ plan, role });
