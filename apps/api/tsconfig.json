@@ -42,15 +42,5 @@
     "skipLibCheck": true,
   },
   "include": ["src/**/*"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/lib/admin-draft.ts",
-    "src/lib/admin-form.ts",
-    "src/lib/admin-validation.ts",
-    "src/lib/catalog-to-component.ts",
-    "src/lib/library-persistence.ts",
-    "src/lib/palette-drag.ts",
-    "src/lib/playground-catalog-nav.ts"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

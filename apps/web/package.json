@@ -18,6 +18,12 @@
     "seed:taxonomy": "npx tsx scripts/seed-taxonomy-components.ts"
   },
   "dependencies": {
+    "@complib/component-schema": "*",
+    "@complib/contracts": "*",
+    "@complib/entitlements": "*",
+    "@complib/export-engine": "*",
+    "@complib/taxonomy": "*",
+    "@complib/variant-engine": "*",
     "@clerk/nextjs": "^7.2.3",
     "jszip": "^3.10.1",
     "motion": "^12.42.2",

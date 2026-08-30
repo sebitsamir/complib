@@ -5,7 +5,7 @@
   "description": "CompLib Express API — catalog, entitlements, billing, exports",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "nodemon --watch src --ext ts,json --exec node -r ts-node/register src/server.ts",
+    "dev": "nodemon --watch src --watch ../../packages --ext ts,json --exec node -r ts-node/register src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "typecheck": "tsc --noEmit",
@@ -21,6 +21,12 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@complib/component-schema": "*",
+    "@complib/contracts": "*",
+    "@complib/entitlements": "*",
+    "@complib/export-engine": "*",
+    "@complib/taxonomy": "*",
+    "@complib/variant-engine": "*",
     "@clerk/clerk-sdk-node": "^4.13.23",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.7.0",

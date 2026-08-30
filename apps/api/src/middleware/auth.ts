@@ -1,7 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import { createClerkClient } from "@clerk/clerk-sdk-node";
 import prisma from "../prisma";
-import type { Plan } from "../lib/access";
+import type { Plan } from "@complib/contracts";
+import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
 
 declare global {
   namespace Express {
@@ -16,16 +17,6 @@ declare global {
 const clerk = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
 });
-
-const ADMIN_ROLE_MARKERS = new Set(["admin", "ADMIN", "Admin"]);
-
-function metadataGrantsAdmin(
-  pub: Record<string, unknown> | undefined,
-): boolean {
-  if (!pub) return false;
-  const role = pub.complibRole ?? pub.role;
-  return typeof role === "string" && ADMIN_ROLE_MARKERS.has(role);
-}
 
 function adminApiKeyMatches(req: Request): boolean {
   const configured = process.env.COMPLIB_ADMIN_API_KEY?.trim();
@@ -73,11 +64,11 @@ async function resolveRequestUser(req: Request): Promise<{
   if (!clerkId) return null;
 
   let plan: Plan = "FREE";
-  let isAdmin = false;
+  let role = roleFromClerkMetadata(undefined);
 
   try {
     const user = await clerk.users.getUser(clerkId);
-    isAdmin = metadataGrantsAdmin(
+    role = roleFromClerkMetadata(
       user.publicMetadata as Record<string, unknown> | undefined,
     );
   } catch {
@@ -90,10 +81,10 @@ async function resolveRequestUser(req: Request): Promise<{
   });
   if (dbUser?.plan) {
     plan = dbUser.plan as Plan;
-    if (plan === "ENTERPRISE") isAdmin = true;
   }
 
-  return { clerkId, plan, isAdmin };
+  const entitlements = getEntitlements({ plan, role });
+  return { clerkId, plan, isAdmin: entitlements.isAdmin };
 }
 
 export async function requireAuth(

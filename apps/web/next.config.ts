@@ -10,6 +10,14 @@ const distDir = "node_modules/.cache/complib-next";
 const nextConfig: NextConfig = {
   distDir,
   outputFileTracingRoot: monorepoRoot,
+  transpilePackages: [
+    "@complib/contracts",
+    "@complib/taxonomy",
+    "@complib/entitlements",
+    "@complib/component-schema",
+    "@complib/variant-engine",
+    "@complib/export-engine",
+  ],
   turbopack: {
     root: monorepoRoot,
   },
