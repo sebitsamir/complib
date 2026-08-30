@@ -13,6 +13,7 @@ import {
   ExplorerVariantTiles,
 } from "@/components/explorer/ExplorerBrowsePanels";
 import ExplorerBreadcrumbs from "@/components/explorer/ExplorerBreadcrumbs";
+import ExplorerDiscoveryHero from "@/components/explorer/ExplorerDiscoveryHero";
 import ComponentsMainGrid from "@/components/library/ComponentsMainGrid";
 import {
   buildExplorerPickUrl,
@@ -157,11 +158,14 @@ export default function ExplorerMainBrowser({
     switch (level) {
       case "all":
         return (
-          <ExplorerLayerTiles
-            navLayers={navLayers}
-            searchParams={searchParams}
-            onNavigate={onNavigate}
-          />
+          <>
+            <ExplorerDiscoveryHero />
+            <ExplorerLayerTiles
+              navLayers={navLayers}
+              searchParams={searchParams}
+              onNavigate={onNavigate}
+            />
+          </>
         );
       case "layer-home":
         return selectedLayer ? (
