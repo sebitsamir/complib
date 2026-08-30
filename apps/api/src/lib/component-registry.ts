@@ -474,3 +474,121 @@ function extractVariantsFromManifests(
 
   return [...seen.values()].sort((a, b) => a.id.localeCompare(b.id));
 }
+
+export type RegistryListItem = {
+  slug: string;
+  name: string;
+  description: string;
+  tier: ComponentRegistryRecord["identity"]["tier"];
+  layer: ComponentRegistryRecord["identity"]["layer"];
+  category: string;
+  problemTags: string[];
+  tags: string[];
+  defaultStyleId: string;
+  frameworks: RegistryFramework[];
+  latestRevision: RegistryRevision | null;
+};
+
+/** Authoritative catalog listing from the PostgreSQL registry mirror. */
+export async function listRegistrySummaries(filters?: {
+  search?: string;
+  tier?: string;
+  layer?: string;
+  category?: string;
+  problem?: string;
+}): Promise<RegistryListItem[]> {
+  type ListRow = {
+    slug: string;
+    name: string;
+    description: string;
+    tier: ComponentRegistryRecord["identity"]["tier"];
+    layer: ComponentRegistryRecord["identity"]["layer"];
+    category: string;
+    problemTags: string[];
+    searchText: string;
+    defaultStyleId: string;
+    tags: Array<{ tag: { slug: string } }>;
+    frameworks: Array<{ framework: string }>;
+    revisions: Array<{
+      version: number;
+      sourceHash: string;
+      manifestHash: string;
+      publishedAt: Date;
+      publishedBy: string | null;
+      notes: string | null;
+    }>;
+  };
+
+  const rows = (await prisma.catalogComponent.findMany({
+    orderBy: [{ layer: "asc" }, { category: "asc" }, { name: "asc" }],
+    include: {
+      tags: { include: { tag: { select: { slug: true } } } },
+      frameworks: { orderBy: { framework: "asc" } },
+      revisions: {
+        orderBy: { version: "desc" },
+        take: 1,
+        select: {
+          version: true,
+          sourceHash: true,
+          manifestHash: true,
+          publishedAt: true,
+          publishedBy: true,
+          notes: true,
+        },
+      },
+    },
+  })) as ListRow[];
+
+  let filtered: ListRow[] = rows;
+
+  const term = filters?.search?.trim().toLowerCase();
+  if (term) {
+    filtered = filtered.filter(
+      (row) =>
+        row.name.toLowerCase().includes(term) ||
+        row.description.toLowerCase().includes(term) ||
+        row.searchText.toLowerCase().includes(term),
+    );
+  }
+
+  if (filters?.tier) {
+    filtered = filtered.filter((row) => row.tier === filters.tier);
+  }
+  if (filters?.layer) {
+    filtered = filtered.filter((row) => row.layer === filters.layer);
+  }
+  if (filters?.category) {
+    filtered = filtered.filter((row) => row.category === filters.category);
+  }
+  if (filters?.problem) {
+    filtered = filtered.filter((row) => row.problemTags.includes(filters.problem!));
+  }
+
+  return filtered.map((row) => {
+    const latest = row.revisions[0];
+    return {
+      slug: row.slug,
+      name: row.name,
+      description: row.description,
+      tier: row.tier,
+      layer: row.layer,
+      category: row.category,
+      problemTags: row.problemTags,
+      tags: row.tags.map((entry) => entry.tag.slug),
+      defaultStyleId: row.defaultStyleId,
+      frameworks: row.frameworks.map(
+        (entry) => entry.framework as RegistryFramework,
+      ),
+      latestRevision: latest
+        ? {
+            version: latest.version,
+            sourceHash: latest.sourceHash,
+            manifestHash: latest.manifestHash,
+            publishedAt: latest.publishedAt.toISOString(),
+            publishedBy: latest.publishedBy ?? undefined,
+            notes: latest.notes ?? undefined,
+          }
+        : null,
+    };
+  });
+}
