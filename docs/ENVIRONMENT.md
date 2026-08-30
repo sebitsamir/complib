@@ -36,6 +36,14 @@ npm run sync:catalog
 
 This drops CompLib application tables, clears `_prisma_migrations`, and applies the squashed `20260830120000_init` migration.
 
+### Neon `P1001: Can't reach database server`
+
+Usually one of:
+
+1. **Cold start** — Neon free tier sleeps after inactivity. Run `npm run db:migrate` again after 5–10 seconds.
+2. **Missing SSL** — ensure the URL includes `?sslmode=require` (the API client adds this automatically for `*.neon.tech`).
+3. **Wrong URL for migrations** — set `DIRECT_DATABASE_URL` to Neon's **direct** (non-pooler) connection string; keep the pooled URL in `DATABASE_URL` for runtime.
+
 ## `apps/api/.env`
 
 | Variable | Required | Purpose |
