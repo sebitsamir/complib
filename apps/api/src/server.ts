@@ -11,6 +11,8 @@ import stripeRouter from "./routes/stripe";
 import webhooksRouter from "./routes/webhooks";
 import registryRouter from "./routes/registry";
 import artifactsRouter from "./routes/artifacts";
+import aiRouter from "./routes/ai";
+import entitlementsRouter from "./routes/entitlements";
 import {
   globalRateLimit,
   rejectUnknownContentType,
@@ -19,6 +21,7 @@ import {
 } from "./middleware/security";
 import { attachUserIfPresent } from "./middleware/auth";
 import { getPrisma } from "./prisma";
+import { attachRequestId, logRequest } from "./middleware/observability";
 import { getAllowedFrontendOrigins, isAllowedFrontendOrigin } from "./lib/frontend-origins";
 import { ensureStorageLayout } from "./lib/artifact-storage";
 
@@ -30,6 +33,8 @@ app.set("trust proxy", 1);
 app.disable("x-powered-by");
 
 app.use(securityHeaders);
+app.use(attachRequestId);
+app.use(logRequest);
 app.use(globalRateLimit);
 
 const allowedFrontendOrigins = getAllowedFrontendOrigins();
@@ -81,6 +86,8 @@ app.use("/api/components", writeRateLimit, componentsRouter);
 app.use("/api/catalog", catalogRouter);
 app.use("/api/registry", registryRouter);
 app.use("/api/artifacts", artifactsRouter);
+app.use("/api/ai", aiRouter);
+app.use("/api/entitlements", entitlementsRouter);
 app.use("/api/library", libraryRouter);
 app.use("/api/playground", playgroundRouter);
 app.use("/api/preview", previewRouter);
