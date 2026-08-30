@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 const clerkDisabled = process.env.NEXT_PUBLIC_DISABLE_CLERK_DEV === "true";
 const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
@@ -21,7 +21,7 @@ function isAdminFromMetadata(
 }
 
 export default clerkDisabled
-  ? function passthroughProxy(req: Request) {
+  ? function passthroughProxy(req: NextRequest) {
       if (isAdminRoute(req) && !devAdminBypassEnabled()) {
         return NextResponse.redirect(new URL("/?admin=denied", req.url));
       }

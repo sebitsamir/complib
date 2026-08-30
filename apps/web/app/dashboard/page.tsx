@@ -1,78 +1,17 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
 import SiteHeader from "@/layouts/Header";
 import { getComponents } from "@/lib/component-store";
 import { currentUser } from "@clerk/nextjs/server";
-import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
-import type { Plan } from "@complib/contracts";
-
-const DEFAULT_BACKEND = "http://127.0.0.1:5000";
-
-async function fetchLibraryData(cookieHeader: string) {
-  const base = (process.env.COMPLIB_BACKEND_URL ?? DEFAULT_BACKEND).replace(/\/$/, "");
-  try {
-    const [persistence, collections] = await Promise.all([
-      fetch(`${base}/api/library/persistence`, {
-        headers: { cookie: cookieHeader },
-        cache: "no-store",
-      }),
-      fetch(`${base}/api/library/collections`, {
-        headers: { cookie: cookieHeader },
-        cache: "no-store",
-      }),
-    ]);
-
-    const persistenceJson = persistence.ok
-      ? ((await persistence.json()) as {
-          favoriteSlugs?: string[];
-          recentSlugs?: string[];
-        })
-      : { favoriteSlugs: [], recentSlugs: [] };
-
-    const collectionsJson = collections.ok
-      ? ((await collections.json()) as {
-          collections?: Array<{
-            name: string;
-            slug: string;
-            description?: string | null;
-            items: Array<{ slug: string; name: string }>;
-          }>;
-        })
-      : { collections: [] };
-
-    return {
-      favoriteSlugs: persistenceJson.favoriteSlugs ?? [],
-      recentSlugs: persistenceJson.recentSlugs ?? [],
-      collections: collectionsJson.collections ?? [],
-    };
-  } catch {
-    return { favoriteSlugs: [], recentSlugs: [], collections: [] };
-  }
-}
-
-function resolvePlan(user: Awaited<ReturnType<typeof currentUser>>): Plan {
-  const pub = user?.publicMetadata as Record<string, unknown> | undefined;
-  const raw = pub?.complibPlan ?? pub?.plan;
-  if (raw === "PRO" || raw === "ENTERPRISE" || raw === "FREE") return raw;
-  return "FREE";
-}
+import { fetchServerEntitlements } from "@/lib/entitlements-server";
+import { fetchLibraryDashboardData } from "@/lib/library-server";
+import { redactComponentsForClient } from "@/lib/source-access-utils";
 
 export default async function DashboardPage() {
   const user = await currentUser();
-  const plan = resolvePlan(user);
-  const role = roleFromClerkMetadata(
-    user?.publicMetadata as Record<string, unknown> | undefined,
-  );
-  const entitlements = getEntitlements({ plan, role });
-
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((entry) => `${entry.name}=${entry.value}`)
-    .join("; ");
+  const entitlements = await fetchServerEntitlements();
 
   const [library, allComponents] = await Promise.all([
-    user ? fetchLibraryData(cookieHeader) : Promise.resolve({
+    user ? fetchLibraryDashboardData() : Promise.resolve({
       favoriteSlugs: [],
       recentSlugs: [],
       collections: [],
@@ -80,7 +19,11 @@ export default async function DashboardPage() {
     getComponents(""),
   ]);
 
-  const bySlug = new Map(allComponents.map((c) => [c.slug, c]));
+  const publicComponents = redactComponentsForClient(
+    allComponents,
+    entitlements.canViewSource,
+  );
+  const bySlug = new Map(publicComponents.map((c) => [c.slug, c]));
   const favorites = library.favoriteSlugs
     .map((slug) => bySlug.get(slug))
     .filter(Boolean)
@@ -99,7 +42,7 @@ export default async function DashboardPage() {
             Welcome back{user?.firstName ? `, ${user.firstName}` : ""}.
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Plan: <span className="font-semibold text-foreground">{plan}</span>
+            Plan: <span className="font-semibold text-foreground">{entitlements.plan}</span>
             {entitlements.canViewSource ? " · Pro source access enabled" : ""}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -110,7 +53,7 @@ export default async function DashboardPage() {
               Open Playground
             </Link>
             <Link href="/pricing" className="rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted">
-              {plan === "FREE" ? "Upgrade to Pro" : "Manage billing"}
+              {entitlements.plan === "FREE" ? "Upgrade to Pro" : "Manage billing"}
             </Link>
           </div>
         </section>
@@ -163,7 +106,9 @@ export default async function DashboardPage() {
             {library.collections.length === 0 ? (
               <p className="text-sm text-muted-foreground">
                 {user
-                  ? "Create collections from the explorer to organize components."
+                  ? entitlements.canCreateCollections
+                    ? "Create collections from the explorer to organize components."
+                    : "Upgrade to Pro to create collections."
                   : "Sign in to create and manage collections."}
               </p>
             ) : (

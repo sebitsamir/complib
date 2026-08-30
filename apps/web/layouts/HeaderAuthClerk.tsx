@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
-import type { UserResource } from "@clerk/types";
 import { useAuth, useClerk, useUser } from "@clerk/nextjs";
+import { useEntitlements } from "@/lib/use-entitlements";
 
-const PRO_MARKERS = new Set(["pro", "PRO", "Pro", "plus", "PLUS", "enterprise", "ENTERPRISE"]);
+type ClerkUser = NonNullable<ReturnType<typeof useUser>["user"]>;
 
-function userInitials(user: UserResource | null | undefined) {
+function userInitials(user: ClerkUser | null | undefined) {
   const first = user?.firstName?.trim()?.[0] ?? "";
   const last = user?.lastName?.trim()?.[0] ?? "";
   if (first || last) return `${first}${last}`.toUpperCase();
@@ -19,14 +19,12 @@ function userInitials(user: UserResource | null | undefined) {
   return fallback.slice(0, 2).toUpperCase();
 }
 
-function resolvePlan(user: UserResource | null | undefined) {
-  const pub = user?.publicMetadata as Record<string, unknown> | undefined;
-  const keys = ["complibPlan", "plan", "subscriptionPlan", "tier"] as const;
-  for (const key of keys) {
-    const value = pub?.[key];
-    if (typeof value === "string" && PRO_MARKERS.has(value)) {
-      return { label: "Pro", isPro: true };
-    }
+function planBadge(entitlements: ReturnType<typeof useEntitlements>) {
+  if (entitlements.plan === "ENTERPRISE") {
+    return { label: "Enterprise", isPro: true };
+  }
+  if (entitlements.plan === "PRO" || entitlements.canViewSource) {
+    return { label: "Pro", isPro: true };
   }
   return { label: "Free", isPro: false };
 }
@@ -35,7 +33,7 @@ function UserAvatar({
   user,
   size = "sm",
 }: {
-  user: UserResource | null | undefined;
+  user: ClerkUser | null | undefined;
   size?: "sm" | "md";
 }) {
   const sizeClass = size === "md" ? "h-10 w-10 text-sm" : "h-8 w-8 text-[11px]";
@@ -126,6 +124,7 @@ function IconLogOut() {
 
 function UserAccountMenu() {
   const { user } = useUser();
+  const entitlements = useEntitlements();
   const { signOut, openUserProfile } = useClerk();
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
@@ -138,7 +137,7 @@ function UserAccountMenu() {
     user?.primaryEmailAddress?.emailAddress ||
     "Your account";
   const email = user?.primaryEmailAddress?.emailAddress ?? "";
-  const plan = resolvePlan(user);
+  const plan = planBadge(entitlements);
   const memberSince = user?.createdAt
     ? new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(user.createdAt)
     : null;

@@ -1,7 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
 import type { Plan } from "@complib/contracts";
+import { fetchServerEntitlements } from "@/lib/entitlements-server";
 
 export type AdminSession = {
   userId: string;
@@ -26,20 +26,10 @@ export async function getAdminSession(): Promise<AdminSession | null> {
     const user = await currentUser();
     if (!user) return null;
 
-    const role = roleFromClerkMetadata(
-      user.publicMetadata as Record<string, unknown> | undefined,
-    );
-    const pub = user.publicMetadata as Record<string, unknown> | undefined;
-    const rawPlan = pub?.complibPlan ?? pub?.plan;
-    const plan: Plan =
-      rawPlan === "PRO" || rawPlan === "ENTERPRISE" || rawPlan === "FREE"
-        ? rawPlan
-        : "FREE";
-
-    const entitlements = getEntitlements({ plan, role });
+    const entitlements = await fetchServerEntitlements();
     if (!entitlements.isAdmin) return null;
 
-    return { userId: user.id, plan, isAdmin: true };
+    return { userId: user.id, plan: entitlements.plan, isAdmin: true };
   } catch {
     return null;
   }

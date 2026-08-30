@@ -4,6 +4,7 @@ import ComponentDetailTabs from "@/components/component-detail-tabs";
 import { getComponentBySlug, getComponents } from "@/lib/component-store";
 import {
   redactComponentSources,
+  redactComponentsForClient,
   tierRequiresProSourceLock,
   userHasProSourceAccess,
 } from "@/lib/source-access";
@@ -67,11 +68,9 @@ export default async function ComponentDetail({ params }: { params: Params }) {
 
   const codeLocked = tierRequiresProSourceLock(component.tier) && !canAccessSource;
   const safeComponent = redactComponentSources(component, canAccessSource);
-  const related = pickRelated(
-    allComponents,
-    component.slug,
-    component.category,
-    component.problemTags,
+  const related = redactComponentsForClient(
+    pickRelated(allComponents, component.slug, component.category, component.problemTags),
+    canAccessSource,
   );
 
   return (
@@ -82,7 +81,7 @@ export default async function ComponentDetail({ params }: { params: Params }) {
       />
       <div className="container mx-auto max-w-5xl flex-1 px-6 py-10">
         <ComponentDetailTabs
-          component={component}
+          component={safeComponent}
           safeRuntime={safeComponent.runtime}
           codeLocked={codeLocked}
           registry={registry}

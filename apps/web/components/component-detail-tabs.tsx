@@ -217,9 +217,15 @@ export default function ComponentDetailTabs({
             <div>
               <h2 className="text-lg font-semibold">Example</h2>
               <p className="mt-1 text-sm font-medium">{registry.examples[0].title}</p>
-              <pre className="mt-2 overflow-auto rounded-lg border border-border bg-background p-3 text-xs">
-                <code>{registry.examples[0].html}</code>
-              </pre>
+              {codeLocked ? (
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Example source is available with Pro.
+                </p>
+              ) : (
+                <pre className="mt-2 overflow-auto rounded-lg border border-border bg-background p-3 text-xs">
+                  <code>{registry.examples[0].html}</code>
+                </pre>
+              )}
             </div>
           ) : null}
         </section>

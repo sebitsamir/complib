@@ -11,3 +11,11 @@ export function redactComponentSources(
   if (!tierRequiresProSourceLock(c.tier) || hasSourceAccess) return c;
   return { ...c, html: "", css: "", runtime: "", js: "" };
 }
+
+/** Strip source payloads before passing components to client components. */
+export function redactComponentsForClient(
+  components: ComponentBundle[],
+  hasSourceAccess: boolean,
+): ComponentBundle[] {
+  return components.map((c) => redactComponentSources(c, hasSourceAccess));
+}

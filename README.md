@@ -2,7 +2,7 @@
 
 A component platform for building real interfaces: **Discover → Preview → Customize → Assemble → Copy/Export → Save → Reuse**.
 
-This is a **single-repository monolith** (monorepo): one Git history, one install, shared packages, independent artifact storage.
+This is a **monorepo**: one Git history, one install, multiple apps (`web`, `api`), shared packages, and independent artifact storage.
 
 ## Layout
 
@@ -34,7 +34,7 @@ npm run dev:web
 - App: http://localhost:3000
 - API: http://127.0.0.1:5000
 
-See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+See [docs/ENVIRONMENT.md](docs/ENVIRONMENT.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), and [docs/PRODUCT.md](docs/PRODUCT.md).
 
 ## Baseline
 

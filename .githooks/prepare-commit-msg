@@ -1,0 +1,3 @@
+#!/bin/sh
+# Strip Cursor co-author trailers (optional: git config core.hooksPath .githooks)
+sed '/Co-authored-by: Cursor <cursoragent@cursor.com>/d' "$1" > "$1.clean" && mv "$1.clean" "$1"

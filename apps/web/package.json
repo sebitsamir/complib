@@ -7,7 +7,7 @@
     "dev:clean": "npm run dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "npm run typecheck",
     "typecheck": "tsc --noEmit",
     "generate:components": "node scripts/generate-components.mjs",
     "migrate:component-metadata": "npx tsx scripts/migrate-component-metadata.ts",

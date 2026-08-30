@@ -3,6 +3,7 @@ import { createClerkClient } from "@clerk/clerk-sdk-node";
 import prisma from "../prisma";
 import type { Plan } from "@complib/contracts";
 import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
+import { ensureDbUser } from "../lib/user-resolve";
 
 declare global {
   namespace Express {
@@ -65,15 +66,19 @@ async function resolveRequestUser(req: Request): Promise<{
 
   let plan: Plan = "FREE";
   let role = roleFromClerkMetadata(undefined);
+  let email: string | undefined;
 
   try {
     const user = await clerk.users.getUser(clerkId);
     role = roleFromClerkMetadata(
       user.publicMetadata as Record<string, unknown> | undefined,
     );
+    email = user.emailAddresses?.[0]?.emailAddress;
   } catch {
     // Clerk metadata is optional; DB plan still applies.
   }
+
+  await ensureDbUser(clerkId, email);
 
   const dbUser = await prisma.user.findUnique({
     where: { clerkId },

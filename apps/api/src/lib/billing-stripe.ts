@@ -25,7 +25,17 @@ export function planFromStripeMetadata(metadata: Record<string, string> | undefi
 export function planFromPriceId(priceId: string | undefined, metadata?: Record<string, string>): Plan {
   if (metadata?.plan === "ENTERPRISE") return "ENTERPRISE";
   if (metadata?.plan === "PRO") return "PRO";
-  const enterprisePrice = process.env.STRIPE_ENTERPRISE_PRICE_ID?.trim();
-  if (enterprisePrice && priceId === enterprisePrice) return "ENTERPRISE";
+
+  const enterprisePrices = new Set(
+    [
+      process.env.STRIPE_PRICE_ENTERPRISE,
+      process.env.STRIPE_PRICE_ENTERPRISE_MONTHLY,
+      process.env.STRIPE_PRICE_ENTERPRISE_ANNUAL,
+      process.env.STRIPE_ENTERPRISE_PRICE_ID,
+    ]
+      .map((value) => value?.trim())
+      .filter((value): value is string => Boolean(value)),
+  );
+  if (priceId && enterprisePrices.has(priceId)) return "ENTERPRISE";
   return "PRO";
 }

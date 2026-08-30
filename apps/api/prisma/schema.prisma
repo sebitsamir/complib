@@ -87,6 +87,8 @@ model CatalogComponent {
   defaultStyleId String           @default("default")
   filesystemPath String
   searchText     String           @default("")
+  /// PostgreSQL full-text search vector (maintained by catalog-sync).
+  searchVector   Unsupported("tsvector")?
   publishedAt    DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   variants       CatalogVariant[]

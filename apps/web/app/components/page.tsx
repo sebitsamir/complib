@@ -7,7 +7,7 @@ import {
   getLibraryNavigationByLayer,
   getProblemNavigation,
 } from "@/lib/component-store";
-import { userHasProSourceAccess } from "@/lib/source-access";
+import { userHasProSourceAccess, redactComponentsForClient } from "@/lib/source-access";
 import type { ExplorerSearchParams } from "@/lib/explorer-url";
 
 type SearchParams = Promise<{
@@ -62,6 +62,8 @@ export default async function ComponentsPage({
     getProblemNavigation(),
   ]);
   const canAccessSource = await userHasProSourceAccess();
+  const clientComponents = redactComponentsForClient(components, canAccessSource);
+  const clientAllComponents = redactComponentsForClient(allComponents, canAccessSource);
 
   const subtitleParts = [
     `${allComponents.length} in catalog`,
@@ -77,8 +79,8 @@ export default async function ComponentsPage({
           <ExplorerClientShell
             navLayers={navLayers}
             problemGroups={problemGroups}
-            components={components}
-            allComponents={allComponents}
+            components={clientComponents}
+            allComponents={clientAllComponents}
             searchParams={explorerParams}
             framework={selectedFramework}
             canAccessSource={canAccessSource}
