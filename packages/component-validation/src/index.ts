@@ -71,6 +71,11 @@ function stepStatus(issues: ValidationIssue[], fields: string[]): "pass" | "fail
 export function validateComponentForPublish(
   input: PublishValidationInput,
 ): PublishValidationResult {
+  return validateComponent(input);
+}
+
+/** Primary validation entry point (alias used by publish pipeline and tests). */
+export function validateComponent(input: PublishValidationInput): PublishValidationResult {
   const issues: ValidationIssue[] = [];
 
   if (!input.name.trim()) {
@@ -176,6 +181,44 @@ export function validateComponentForPublish(
         message: rule.message,
       });
     }
+  }
+
+  if (input.js.trim() && !input.js.includes("function") && !input.js.includes("=>")) {
+    issues.push({
+      code: "RUNTIME_SCRIPT_EMPTY",
+      severity: "warn",
+      field: "js",
+      message: "Runtime script looks empty — preview may not mount interactivity.",
+    });
+  }
+
+  if (input.css.includes("!important") && (input.css.match(/!important/g) ?? []).length > 12) {
+    issues.push({
+      code: "CSS_IMPORTANT_OVERUSE",
+      severity: "warn",
+      field: "css",
+      message: "Excessive !important usage can break variant theming.",
+    });
+  }
+
+  if (/<script[\s>]/i.test(input.html)) {
+    issues.push({
+      code: "HTML_INLINE_SCRIPT",
+      severity: "error",
+      field: "html",
+      message: "Inline <script> tags belong in the JS field, not HTML.",
+    });
+  }
+
+  const openTags = input.html.match(/<([a-z][a-z0-9-]*)\b[^>]*>/gi) ?? [];
+  const closeTags = input.html.match(/<\/([a-z][a-z0-9-]*)\s*>/gi) ?? [];
+  if (openTags.length > 0 && closeTags.length === 0 && !input.html.trim().endsWith("/>")) {
+    issues.push({
+      code: "HTML_UNCLOSED_TAGS",
+      severity: "warn",
+      field: "html",
+      message: "HTML may contain unclosed tags — verify structure before publish.",
+    });
   }
 
   const variants = input.variants ?? [];
