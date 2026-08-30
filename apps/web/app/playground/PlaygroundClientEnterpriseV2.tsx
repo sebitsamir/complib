@@ -119,7 +119,12 @@ function normalizeCatalogRow(input: unknown): CatalogRow | null {
 }
 
 type Framework = "vanilla" | "react" | "vue";
-type WorkbenchView = "canvas" | "code";
+import {
+  loadStoredPlaygroundSession,
+  saveStoredPlaygroundSession,
+  type StoredPlaygroundSession,
+  type WorkbenchView,
+} from "@/lib/playground/persistence-store";
 
 const EMPTY_PAGE_CODE: PlaygroundPageSource = {
   html: "",
@@ -129,8 +134,6 @@ const EMPTY_PAGE_CODE: PlaygroundPageSource = {
   editorHeight: PLAYGROUND_ARTBOARD_MIN_HEIGHT,
 };
 
-const STORAGE_KEY = "complib-playground-v4";
-const STORAGE_KEY_LEGACY = "complib-playground-v3";
 const CODE_PREVIEW_DEBOUNCE_MS = 200;
 const PREVIEW_DEBOUNCE_MS = 140;
 
@@ -204,115 +207,6 @@ function autoGridPlacement(
   return autoGridPlacementForComponent(index, "box", layer ?? "layout");
 }
 
-type StoredPlaygroundSession = {
-  instances: PlaygroundInstance[];
-  pageCode?: PlaygroundPageSource;
-  codeDetached?: boolean;
-  workbenchView?: WorkbenchView;
-  artboardZoom?: ArtboardZoom;
-};
-
-function parseInstances(raw: unknown): PlaygroundInstance[] {
-  if (!Array.isArray(raw)) return [];
-  const out: PlaygroundInstance[] = [];
-  for (const row of raw) {
-    if (!row || typeof row !== "object") continue;
-    const r = row as Record<string, unknown>;
-    const id = typeof r.id === "string" ? r.id : "";
-    const slug = typeof r.slug === "string" ? r.slug : "";
-    const x = typeof r.x === "number" ? r.x : undefined;
-    const y = typeof r.y === "number" ? r.y : undefined;
-    const width = typeof r.width === "number" ? r.width : undefined;
-    const height = typeof r.height === "number" ? r.height : undefined;
-    const heightAuto = r.heightAuto === true;
-    const zIndex = typeof r.zIndex === "number" ? r.zIndex : 1;
-    const variantId = typeof r.variantId === "string" ? r.variantId.trim() : undefined;
-    const variantPropsRaw = r.variantProps;
-    let variantProps: Record<string, string> | undefined;
-    if (
-      variantPropsRaw &&
-      typeof variantPropsRaw === "object" &&
-      !Array.isArray(variantPropsRaw)
-    ) {
-      const entries = Object.entries(variantPropsRaw).filter(
-        ([, value]) => typeof value === "string" && value.trim(),
-      ) as [string, string][];
-      if (entries.length > 0) {
-        variantProps = Object.fromEntries(entries.map(([key, value]) => [key, value.trim()]));
-      }
-    }
-    if (!id || !slug) continue;
-    if (x === undefined || y === undefined || width === undefined || height === undefined) {
-      continue;
-    }
-    out.push({
-      id,
-      slug,
-      x,
-      y,
-      width,
-      height,
-      zIndex: Number.isFinite(zIndex) ? zIndex : 1,
-      ...(heightAuto ? { heightAuto: true } : {}),
-      ...(variantId ? { variantId } : {}),
-      ...(variantProps ? { variantProps } : {}),
-    });
-  }
-  return out;
-}
-
-function parsePageCode(raw: unknown): PlaygroundPageSource | null {
-  if (!raw || typeof raw !== "object") return null;
-  const r = raw as Record<string, unknown>;
-  const legacyCss = typeof r.css === "string" ? r.css : "";
-  const layoutCss =
-    typeof r.layoutCss === "string" ? r.layoutCss : legacyCss;
-  const componentsCss =
-    typeof r.componentsCss === "string" ? r.componentsCss : "";
-  const html = typeof r.html === "string" ? r.html : "";
-  const js = typeof r.js === "string" ? r.js : "";
-  const editorHeight =
-    typeof r.editorHeight === "number" && Number.isFinite(r.editorHeight)
-      ? r.editorHeight
-      : PLAYGROUND_ARTBOARD_MIN_HEIGHT;
-  if (!html && !layoutCss && !componentsCss && !js) return null;
-  return { html, layoutCss, componentsCss, js, editorHeight };
-}
-
-function parseArtboardZoom(raw: unknown): ArtboardZoom {
-  if (raw === "fit" || raw === "50" || raw === "75" || raw === "100") return raw;
-  if (raw === 0.5) return "50";
-  if (raw === 0.75) return "75";
-  if (raw === 1) return "100";
-  return "fit";
-}
-
-function loadStoredSession(): StoredPlaygroundSession {
-  if (typeof window === "undefined") {
-    return { instances: [] };
-  }
-  try {
-    const raw =
-      localStorage.getItem(STORAGE_KEY) ??
-      localStorage.getItem(STORAGE_KEY_LEGACY);
-    if (!raw) return { instances: [] };
-    const data = JSON.parse(raw) as Record<string, unknown>;
-    const workbenchView =
-      data.workbenchView === "code" || data.workbenchView === "canvas"
-        ? data.workbenchView
-        : undefined;
-    return {
-      instances: parseInstances(data.instances),
-      pageCode: parsePageCode(data.pageCode) ?? undefined,
-      codeDetached: data.codeDetached === true,
-      workbenchView,
-      artboardZoom: parseArtboardZoom(data.artboardZoom),
-    };
-  } catch {
-    return { instances: [] };
-  }
-}
-
 function pageCodeHasEdits(source: PlaygroundPageSource | undefined): boolean {
   if (!source) return false;
   return Boolean(
@@ -321,25 +215,6 @@ function pageCodeHasEdits(source: PlaygroundPageSource | undefined): boolean {
       source.componentsCss.trim() ||
       source.js.trim(),
   );
-}
-
-function saveStoredSession(session: StoredPlaygroundSession) {
-  try {
-    const persistPageCode =
-      session.codeDetached === true || pageCodeHasEdits(session.pageCode);
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({
-        instances: session.instances,
-        pageCode: persistPageCode ? session.pageCode : undefined,
-        codeDetached: session.codeDetached ?? false,
-        workbenchView: session.workbenchView,
-        artboardZoom: session.artboardZoom,
-      }),
-    );
-  } catch {
-    // ignore
-  }
 }
 
 type PatchMove = { id: string; x: number; y: number; zIndex: number };
@@ -476,7 +351,7 @@ export default function PlaygroundClientEnterprise() {
   const [pageCodeLoading, setPageCodeLoading] = useState(false);
 
   useEffect(() => {
-    const session = loadStoredSession();
+    const session = loadStoredPlaygroundSession();
     if (session.instances.length > 0) {
       setInstances(session.instances);
       setSelectedIds(session.instances[0]?.id ? [session.instances[0].id] : []);
@@ -551,7 +426,7 @@ export default function PlaygroundClientEnterprise() {
 
   useEffect(() => {
     if (!sessionHydrated) return;
-    saveStoredSession({
+    saveStoredPlaygroundSession({
       instances,
       pageCode,
       codeDetached,
