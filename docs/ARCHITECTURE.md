@@ -32,6 +32,16 @@ PostgreSQL holds the **registry mirror** of each component:
 
 Catalog sync (`npm run sync:catalog`) indexes disk → registry. Public read API: `GET /api/registry/:slug`.
 
+## Artifact storage (Phase 3)
+
+Component **bytes** live under `storage/` (or `COMPLIB_STORAGE_ROOT`):
+
+- `components/` — editable source
+- `generated/` — framework bundles
+- `revisions/` — immutable snapshots per registry version
+
+The API owns writes; both apps resolve paths via `@complib/artifact-store`. Storage health: `GET /api/artifacts/health`.
+
 ## What we will not do
 
 - Copy `lib/` from web into API (`sync-libs` is retired)

@@ -18,6 +18,7 @@
     "seed:taxonomy": "npx tsx scripts/seed-taxonomy-components.ts"
   },
   "dependencies": {
+    "@complib/artifact-store": "*",
     "@complib/component-schema": "*",
     "@complib/contracts": "*",
     "@complib/entitlements": "*",

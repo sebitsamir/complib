@@ -7,5 +7,6 @@
 | `@complib/entitlements` | Plan + role capabilities |
 | `@complib/component-schema` | Zod schemas for components and requests |
 | `@complib/component-registry` | Registry contracts, hashing, defaults |
+| `@complib/artifact-store` | Artifact layout and path contracts |
 | `@complib/variant-engine` | Variant dimension resolution |
 | `@complib/export-engine` | Export contracts |

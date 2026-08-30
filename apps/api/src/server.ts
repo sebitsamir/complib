@@ -10,6 +10,7 @@ import previewRouter from "./routes/preview";
 import stripeRouter from "./routes/stripe";
 import webhooksRouter from "./routes/webhooks";
 import registryRouter from "./routes/registry";
+import artifactsRouter from "./routes/artifacts";
 import {
   globalRateLimit,
   rejectUnknownContentType,
@@ -19,6 +20,7 @@ import {
 import { attachUserIfPresent } from "./middleware/auth";
 import { getPrisma } from "./prisma";
 import { getAllowedFrontendOrigins, isAllowedFrontendOrigin } from "./lib/frontend-origins";
+import { ensureStorageLayout } from "./lib/artifact-storage";
 
 dotenv.config();
 
@@ -68,15 +70,17 @@ app.get("/api/health", async (_req, res) => {
   res.status(db === "ok" ? 200 : 503).json({
     status: db === "ok" ? "ok" : "degraded",
     db,
-    componentsStorage: "hybrid",
+    componentsStorage: "artifact-store",
     catalogStorage: db === "ok" ? "postgresql" : "unavailable",
     sourceStorage: "filesystem",
+    registryStorage: db === "ok" ? "postgresql" : "unavailable",
   });
 });
 
 app.use("/api/components", writeRateLimit, componentsRouter);
 app.use("/api/catalog", catalogRouter);
 app.use("/api/registry", registryRouter);
+app.use("/api/artifacts", artifactsRouter);
 app.use("/api/library", libraryRouter);
 app.use("/api/playground", playgroundRouter);
 app.use("/api/preview", previewRouter);
@@ -109,6 +113,10 @@ app.use(
 );
 
 const PORT = Number(process.env.PORT) || 5000;
+
+void ensureStorageLayout().catch((err) => {
+  console.warn("[storage] Failed to initialize artifact layout:", err);
+});
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);

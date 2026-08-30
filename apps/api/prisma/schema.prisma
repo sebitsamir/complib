@@ -207,6 +207,7 @@ model ComponentRevision {
   version      Int
   sourceHash   String
   manifestHash String
+  artifactPath String?
   publishedAt  DateTime         @default(now())
   publishedBy  String?
   notes        String?

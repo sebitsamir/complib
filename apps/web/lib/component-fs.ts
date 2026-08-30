@@ -2,18 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { ComponentTier } from "@/lib/component-store";
 import { buildVariantManifest } from "@/lib/variant-manifest";
+import {
+  COMPONENTS_ROOT,
+  GENERATED_ROOT,
+  LEGACY_COMPONENTS_ROOT,
+  STORAGE_ROOT,
+} from "@/lib/artifact-paths";
 
-/** Repo-level artifact store — not the Next.js `components/` UI folder. */
-function resolveStorageRoot(): string {
-  const fromEnv = process.env.COMPLIB_STORAGE_ROOT?.trim();
-  if (fromEnv) return path.resolve(fromEnv);
-  return path.resolve(process.cwd(), "..", "..", "storage");
-}
-
-export const STORAGE_ROOT = resolveStorageRoot();
-export const COMPONENTS_ROOT = path.join(STORAGE_ROOT, "components");
-export const GENERATED_ROOT = path.join(STORAGE_ROOT, "generated");
-export const LEGACY_COMPONENTS_ROOT = path.join(GENERATED_ROOT, "components");
+export { COMPONENTS_ROOT, GENERATED_ROOT, LEGACY_COMPONENTS_ROOT, STORAGE_ROOT };
 
 export type ComponentLayer =
   | "primitives"

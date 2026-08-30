@@ -21,6 +21,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@complib/artifact-store": "*",
     "@complib/component-registry": "*",
     "@complib/component-schema": "*",
     "@complib/contracts": "*",

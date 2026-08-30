@@ -1,4 +1,8 @@
 import path from "node:path";
+import {
+  resolveStorageRoot,
+  STORAGE_DIRS,
+} from "@complib/artifact-store";
 
 /**
  * Canonical artifact locations for the CompLib monorepo.
@@ -13,10 +17,12 @@ function repoRootFromApi(): string {
 
 export const REPO_ROOT = repoRootFromApi();
 
-export const STORAGE_ROOT = path.resolve(
-  process.env.COMPLIB_STORAGE_ROOT?.trim() || path.join(REPO_ROOT, "storage"),
-);
+export const STORAGE_ROOT = resolveStorageRoot({
+  envRoot: process.env.COMPLIB_STORAGE_ROOT,
+  defaultRoot: path.join(REPO_ROOT, "storage"),
+});
 
-export const COMPONENTS_ROOT = path.join(STORAGE_ROOT, "components");
-export const GENERATED_ROOT = path.join(STORAGE_ROOT, "generated");
+export const COMPONENTS_ROOT = path.join(STORAGE_ROOT, STORAGE_DIRS.components);
+export const GENERATED_ROOT = path.join(STORAGE_ROOT, STORAGE_DIRS.generated);
+export const REVISIONS_ROOT = path.join(STORAGE_ROOT, STORAGE_DIRS.revisions);
 export const LEGACY_COMPONENTS_ROOT = path.join(GENERATED_ROOT, "components");

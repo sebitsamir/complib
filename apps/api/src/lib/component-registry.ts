@@ -16,6 +16,7 @@ import {
   GENERATED_ROOT,
   type ComponentDiskBundle,
 } from "./component-fs";
+import { ensureStorageLayout, snapshotRevisionArtifacts } from "./artifact-storage";
 
 type RegistryQueryRow = {
   slug: string;
@@ -46,6 +47,7 @@ type RegistryQueryRow = {
     version: number;
     sourceHash: string;
     manifestHash: string;
+    artifactPath: string | null;
     publishedAt: Date;
     publishedBy: string | null;
     notes: string | null;
@@ -158,12 +160,19 @@ async function syncRevision(
   }
 
   const version = (latest?.version ?? 0) + 1;
+  await ensureStorageLayout();
+  const artifactPath = await snapshotRevisionArtifacts({
+    bundle,
+    version,
+  });
+
   const created = await prisma.componentRevision.create({
     data: {
       componentId,
       version,
       sourceHash,
       manifestHash,
+      artifactPath,
       publishedBy: publishedBy ?? null,
       notes: "Catalog sync",
     },
