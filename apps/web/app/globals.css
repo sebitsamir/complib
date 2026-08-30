@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  /* Cool paper — not cream */
+  --background: 210 20% 97%;
+  --foreground: 222 40% 8%;
+  --muted: 210 18% 92%;
+  --muted-foreground: 215 14% 40%;
+  --border: 214 18% 86%;
+  --ring: 168 90% 32%;
+  /* Signal teal — ship-ready, not SaaS purple */
+  --accent: 168 90% 32%;
+  --accent-foreground: 0 0% 100%;
+  --accent-soft: 168 55% 94%;
+  --ink: 222 40% 8%;
+  --surface: 0 0% 100%;
+  --grid-line: 214 18% 88%;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 222 35% 5%;
+  --foreground: 210 25% 96%;
+  --muted: 217 24% 12%;
+  --muted-foreground: 215 14% 62%;
+  --border: 217 20% 16%;
+  --ring: 168 80% 45%;
+  --accent: 168 78% 42%;
+  --accent-foreground: 222 40% 6%;
+  --accent-soft: 168 40% 12%;
+  --ink: 210 25% 96%;
+  --surface: 222 30% 7%;
+  --grid-line: 217 20% 14%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body), "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), Syne, ui-sans-serif, system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer utilities {
+  .bg-surface {
+    background-color: hsl(var(--surface));
+  }
+  .text-accent {
+    color: hsl(var(--accent));
+  }
+  .bg-accent {
+    background-color: hsl(var(--accent));
+  }
+  .bg-accent-soft {
+    background-color: hsl(var(--accent-soft));
+  }
+  .border-accent {
+    border-color: hsl(var(--accent));
+  }
+  .ring-accent {
+    --tw-ring-color: hsl(var(--accent));
+  }
+  .shadow-accent {
+    --tw-shadow-color: hsl(var(--accent) / 0.22);
+  }
+  .bg-blueprint {
+    background-color: hsl(var(--background));
+    background-image:
+      linear-gradient(hsl(var(--grid-line)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-line)) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

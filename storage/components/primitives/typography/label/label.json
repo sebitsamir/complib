@@ -1,0 +1,30 @@
+{
+  "id": "label",
+  "name": "Label",
+  "slug": "label",
+  "description": "Form and UI labels with optional required marker.",
+  "tags": [
+    "typography",
+    "label",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

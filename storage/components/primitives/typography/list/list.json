@@ -1,0 +1,31 @@
+{
+  "id": "list",
+  "name": "List",
+  "slug": "list",
+  "description": "Ordered and unordered lists with comfortable spacing.",
+  "tags": [
+    "typography",
+    "list",
+    "ul",
+    "ol",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

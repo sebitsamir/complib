@@ -1,0 +1,32 @@
+{
+  "id": "chip",
+  "name": "Chip",
+  "slug": "chip",
+  "description": "Selectable filter chip for tags and facets.",
+  "tags": [
+    "data-display",
+    "chip",
+    "tag",
+    "filter",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "data-display",
+  "problemTags": [
+    "build-form",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "box",
+  "name": "Box",
+  "slug": "box",
+  "description": "Generic layout box with padding, border, and surface tokens — the atomic unit for composition.",
+  "tags": [
+    "layout",
+    "box",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

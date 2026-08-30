@@ -1,0 +1,30 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "slug": "radio",
+  "description": "Radio group for mutually exclusive choices.",
+  "tags": [
+    "inputs",
+    "radio",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

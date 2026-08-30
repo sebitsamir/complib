@@ -1,0 +1,31 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "slug": "skeleton",
+  "description": "Loading placeholder shimmer for content that has not arrived yet.",
+  "tags": [
+    "data-display",
+    "skeleton",
+    "loading",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "data-display",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

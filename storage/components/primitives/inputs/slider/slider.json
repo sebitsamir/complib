@@ -1,0 +1,32 @@
+{
+  "id": "slider",
+  "name": "Slider",
+  "slug": "slider",
+  "description": "Range slider with live value readout.",
+  "tags": [
+    "inputs",
+    "slider",
+    "range",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

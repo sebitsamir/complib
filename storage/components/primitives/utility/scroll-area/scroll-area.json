@@ -1,0 +1,31 @@
+{
+  "id": "scroll-area",
+  "name": "Scroll Area",
+  "slug": "scroll-area",
+  "description": "Constrained scroll region with subtle custom scrollbar styling.",
+  "tags": [
+    "utility",
+    "scroll",
+    "overflow",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "utility",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

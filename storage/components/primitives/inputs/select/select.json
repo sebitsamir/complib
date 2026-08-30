@@ -1,0 +1,31 @@
+{
+  "id": "select",
+  "name": "Select",
+  "slug": "select",
+  "description": "Native select styled to match CompLib form controls.",
+  "tags": [
+    "inputs",
+    "select",
+    "dropdown",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

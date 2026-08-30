@@ -1,0 +1,30 @@
+{
+  "id": "focus-ring",
+  "name": "Focus Ring",
+  "slug": "focus-ring",
+  "description": "Consistent focus-visible ring utility for keyboard accessibility.",
+  "tags": [
+    "utility",
+    "a11y",
+    "focus",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "utility",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

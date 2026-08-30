@@ -1,0 +1,32 @@
+{
+  "id": "switch",
+  "name": "Switch",
+  "slug": "switch",
+  "description": "Toggle switch for binary settings with keyboard support.",
+  "tags": [
+    "inputs",
+    "switch",
+    "toggle",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "vstack",
+  "name": "VStack",
+  "slug": "vstack",
+  "description": "Vertical stack shortcut — column direction with gap tokens.",
+  "tags": [
+    "layout",
+    "vstack",
+    "flex",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

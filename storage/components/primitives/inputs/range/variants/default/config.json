@@ -1,0 +1,27 @@
+{
+  "id": "default",
+  "label": "Default",
+  "component": "range",
+  "variant": "default",
+  "description": "Dual-thumb style range demo for min/max filtering (visual pattern).",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": true,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "default",
+  "label": "Default",
+  "component": "paragraph",
+  "variant": "default",
+  "description": "Readable paragraph block with comfortable measure and line-height.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": true,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

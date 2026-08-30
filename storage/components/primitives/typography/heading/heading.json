@@ -1,0 +1,30 @@
+{
+  "id": "heading",
+  "name": "Heading",
+  "slug": "heading",
+  "description": "Semantic heading scale (h1–h6) with tight tracking and size tokens.",
+  "tags": [
+    "typography",
+    "heading",
+    "title",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

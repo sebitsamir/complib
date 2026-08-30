@@ -1,0 +1,31 @@
+{
+  "id": "sticky",
+  "name": "Sticky",
+  "slug": "sticky",
+  "description": "Sticky positioning wrapper for headers and sidebars that remain in view while scrolling.",
+  "tags": [
+    "layout",
+    "sticky",
+    "header",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-navigation",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

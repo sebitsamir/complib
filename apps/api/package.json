@@ -1,0 +1,50 @@
+{
+  "name": "@complib/api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CompLib Express API — catalog, entitlements, billing, exports",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts,json --exec node -r ts-node/register src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:migrate:dev": "prisma migrate dev",
+    "db:seed": "node -r dotenv/config -r ts-node/register prisma/seed.ts",
+    "sync:catalog": "node -r dotenv/config -r ts-node/register prisma/seed.ts",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
+    "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client": "^7.7.0",
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
+    "jsonwebtoken": "^9.0.3",
+    "jszip": "^3.10.1",
+    "pg": "^8.21.0",
+    "prisma": "^7.7.0",
+    "stripe": "^22.0.0",
+    "svix": "^1.84.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.5.2",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}

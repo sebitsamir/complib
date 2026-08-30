@@ -1,0 +1,31 @@
+{
+  "id": "combobox",
+  "name": "Combobox",
+  "slug": "combobox",
+  "description": "Searchable select pattern — input plus suggestion list (vanilla demo).",
+  "tags": [
+    "inputs",
+    "combobox",
+    "autocomplete",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

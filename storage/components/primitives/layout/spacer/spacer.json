@@ -1,0 +1,29 @@
+{
+  "id": "spacer",
+  "name": "Spacer",
+  "slug": "spacer",
+  "description": "Invisible spacing primitive. Push layout apart with size tokens instead of magic margins.",
+  "tags": [
+    "layout",
+    "spacer",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

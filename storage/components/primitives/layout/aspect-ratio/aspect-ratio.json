@@ -1,0 +1,30 @@
+{
+  "id": "aspect-ratio",
+  "name": "Aspect Ratio",
+  "slug": "aspect-ratio",
+  "description": "Locks a child to a fixed aspect ratio (16:9, 4:3, 1:1) for media and placeholders.",
+  "tags": [
+    "layout",
+    "aspect-ratio",
+    "media",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

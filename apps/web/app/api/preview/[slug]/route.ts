@@ -1,0 +1,9 @@
+import { proxyToBackend } from "@/lib/backend-proxy";
+
+export async function GET(
+  request: Request,
+  context: { params: Promise<{ slug: string }> },
+) {
+  const { slug } = await context.params;
+  return proxyToBackend(request, `/api/preview/${encodeURIComponent(slug)}`);
+}

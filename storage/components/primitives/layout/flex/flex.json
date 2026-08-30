@@ -1,0 +1,29 @@
+{
+  "id": "flex",
+  "name": "Flex",
+  "slug": "flex",
+  "description": "Flexbox row/column helper with gap tokens. Align and distribute children without custom CSS.",
+  "tags": [
+    "layout",
+    "flex",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

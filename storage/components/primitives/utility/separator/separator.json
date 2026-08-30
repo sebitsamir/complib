@@ -1,0 +1,30 @@
+{
+  "id": "separator",
+  "name": "Separator",
+  "slug": "separator",
+  "description": "Semantic separator with optional label for toolbar and menu groups.",
+  "tags": [
+    "utility",
+    "separator",
+    "divider",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "utility",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,197 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Plan {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum ComponentTier {
+  FREE
+  PRO
+  ENTERPRISE
+}
+
+enum ComponentLayer {
+  primitives
+  patterns
+  sections
+  templates
+}
+
+model User {
+  id               String           @id @default(cuid())
+  email            String           @unique
+  clerkId          String?          @unique
+  stripeCustomerId String?          @unique
+  plan             Plan             @default(FREE)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  auditLogs        AuditLog[]
+  favorites        UserFavorite[]
+  recents          UserRecent[]
+  collections      UserCollection[]
+  downloads        DownloadEvent[]
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  resource  String?
+  ip        String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([action, createdAt])
+  @@index([userId, createdAt])
+}
+
+/// Registry mirror of on-disk components — source code stays in the filesystem.
+model CatalogComponent {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  name           String
+  description    String
+  tier           ComponentTier    @default(FREE)
+  layer          ComponentLayer
+  category       String
+  problemTags    String[]
+  viewCount      Int              @default(0)
+  defaultStyleId String           @default("default")
+  filesystemPath String
+  searchText     String           @default("")
+  publishedAt    DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  variants       CatalogVariant[]
+  tags           CatalogComponentTag[]
+  favorites      UserFavorite[]
+  recents        UserRecent[]
+  collectionItems CollectionItem[]
+  downloads      DownloadEvent[]
+  views          ComponentView[]
+
+  @@index([layer, category])
+  @@index([tier])
+  @@index([searchText])
+}
+
+/// Style-family folders under variants/{styleId}/ on disk.
+model CatalogVariant {
+  id             String           @id @default(cuid())
+  componentId    String
+  styleId        String
+  label          String
+  filesystemPath String
+  manifest       Json
+  searchText     String           @default("")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  component      CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([componentId, styleId])
+  @@index([styleId])
+  @@index([searchText])
+}
+
+model Tag {
+  id         String              @id @default(cuid())
+  slug       String              @unique
+  name       String
+  components CatalogComponentTag[]
+}
+
+model CatalogComponentTag {
+  componentId String
+  tagId       String
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  tag         Tag              @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([componentId, tagId])
+  @@index([tagId])
+}
+
+model UserFavorite {
+  id          String           @id @default(cuid())
+  userId      String
+  componentId String
+  createdAt   DateTime         @default(now())
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, componentId])
+  @@index([userId, createdAt])
+}
+
+model UserRecent {
+  id          String           @id @default(cuid())
+  userId      String
+  componentId String
+  lastUsedAt  DateTime         @default(now())
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, componentId])
+  @@index([userId, lastUsedAt])
+}
+
+model UserCollection {
+  id          String           @id @default(cuid())
+  userId      String
+  name        String
+  slug        String
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       CollectionItem[]
+
+  @@unique([userId, slug])
+  @@index([userId])
+}
+
+model CollectionItem {
+  id           String           @id @default(cuid())
+  collectionId String
+  componentId  String
+  position     Int              @default(0)
+  addedAt      DateTime         @default(now())
+  collection   UserCollection   @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  component    CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([collectionId, componentId])
+  @@index([collectionId, position])
+}
+
+model DownloadEvent {
+  id          String           @id @default(cuid())
+  userId      String?
+  componentId String
+  styleId     String?
+  framework   String           @default("vanilla")
+  ip          String?
+  createdAt   DateTime         @default(now())
+  user        User?            @relation(fields: [userId], references: [id], onDelete: SetNull)
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@index([componentId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model ComponentView {
+  id          String           @id @default(cuid())
+  componentId String
+  userId      String?
+  styleId     String?
+  createdAt   DateTime         @default(now())
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@index([componentId, createdAt])
+}

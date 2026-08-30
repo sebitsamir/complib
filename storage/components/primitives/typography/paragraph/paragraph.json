@@ -1,0 +1,30 @@
+{
+  "id": "paragraph",
+  "name": "Paragraph",
+  "slug": "paragraph",
+  "description": "Readable paragraph block with comfortable measure and line-height.",
+  "tags": [
+    "typography",
+    "paragraph",
+    "body",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

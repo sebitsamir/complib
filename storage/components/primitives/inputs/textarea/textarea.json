@@ -1,0 +1,30 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "slug": "textarea",
+  "description": "Multi-line text area with resize control and comfortable padding.",
+  "tags": [
+    "inputs",
+    "textarea",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

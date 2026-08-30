@@ -1,0 +1,29 @@
+{
+  "id": "grid",
+  "name": "Grid",
+  "slug": "grid",
+  "description": "Responsive CSS grid with auto-fit columns and tokenized gaps.",
+  "tags": [
+    "layout",
+    "grid",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

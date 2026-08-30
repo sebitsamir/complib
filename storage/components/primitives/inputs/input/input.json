@@ -1,0 +1,31 @@
+{
+  "id": "input",
+  "name": "Input",
+  "slug": "input",
+  "description": "Single-line text field with label, focus ring, and placeholder.",
+  "tags": [
+    "inputs",
+    "input",
+    "textfield",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

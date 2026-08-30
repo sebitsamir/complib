@@ -1,0 +1,110 @@
+.cl-ui{
+  --cl-size-mult:1;
+  --cl-density-mult:1;
+  --cl-radius-mult:1;
+  --cl-primary:#0d9488;
+  --cl-primary-hover:#0f766e;
+  --cl-accent:#14b8a6;
+  --cl-surface:#ffffff;
+  --cl-surface-muted:#f8fafc;
+  --cl-border:#e2e8f0;
+  --cl-text:#0f172a;
+  --cl-text-muted:#64748b;
+  --cl-success:#10b981;
+  --cl-warning:#f59e0b;
+  --cl-danger:#ef4444;
+  --cl-pad-base:16px;
+  --cl-gap-base:16px;
+  --cl-pad:calc(var(--cl-pad-base) * var(--cl-size-mult) * var(--cl-density-mult));
+  --cl-gap:calc(var(--cl-gap-base) * var(--cl-size-mult) * var(--cl-density-mult));
+  --cl-font-sm:calc(0.875rem * var(--cl-size-mult));
+  --cl-font-md:calc(1rem * var(--cl-size-mult));
+  --cl-font-lg:calc(1.25rem * var(--cl-size-mult));
+  --cl-font-xl:calc(1.75rem * var(--cl-size-mult));
+  --cl-radius-base:10px;
+  --cl-radius:calc(var(--cl-radius-base) * var(--cl-radius-mult) * max(0.55, var(--cl-size-mult)));
+  --cl-shadow:0 10px 30px rgba(15,23,42,.08);
+  --cl-shadow-strength:1;
+  --cl-max-w-xs:calc(280px * var(--cl-size-mult));
+  --cl-max-w-sm:calc(320px * var(--cl-size-mult));
+  --cl-max-w-md:calc(360px * var(--cl-size-mult));
+  --cl-max-w-form:calc(400px * var(--cl-size-mult));
+  --cl-max-w-lg:calc(480px * var(--cl-size-mult));
+  --cl-max-w-xl:calc(520px * var(--cl-size-mult));
+  --cl-max-w-2xl:calc(640px * var(--cl-size-mult));
+  --cl-max-w-narrow:calc(720px * var(--cl-size-mult));
+  --cl-max-w-section:calc(960px * var(--cl-size-mult));
+  --cl-icon-md:calc(40px * var(--cl-size-mult));
+  --cl-shell-min-h:calc(280px * var(--cl-size-mult));
+  --cl-sidebar-w:calc(200px * var(--cl-size-mult));
+  --cl-grid-min:calc(180px * var(--cl-size-mult));
+  --cl-grid-min-sm:calc(140px * var(--cl-size-mult));
+  font-family:Inter,system-ui,sans-serif;
+  color:var(--cl-text);
+  box-sizing:border-box;
+}
+.cl-ui *,.cl-ui *::before,.cl-ui *::after{box-sizing:border-box}
+
+/* ── Size scale (6 steps) ── */
+.cl-ui[data-size="xs"]{--cl-size-mult:0.5}
+.cl-ui[data-size="sm"]{--cl-size-mult:0.625}
+.cl-ui[data-size="md"]{--cl-size-mult:1}
+.cl-ui[data-size="lg"]{--cl-size-mult:1.5}
+.cl-ui[data-size="xl"]{--cl-size-mult:2}
+.cl-ui[data-size="2xl"]{--cl-size-mult:2.5}
+
+/* ── Density (spacing rhythm) ── */
+.cl-ui[data-density="compact"]{--cl-density-mult:0.72}
+.cl-ui[data-density="normal"]{--cl-density-mult:1}
+.cl-ui[data-density="spacious"]{--cl-density-mult:1.38}
+
+/* ── Corner radius ── */
+.cl-ui[data-radius="sharp"]{--cl-radius-mult:0.35}
+.cl-ui[data-radius="rounded"]{--cl-radius-mult:1}
+.cl-ui[data-radius="soft"]{--cl-radius-mult:1.65}
+.cl-ui[data-radius="pill"]{--cl-radius:9999px}
+
+/* ── Visual emphasis ── */
+.cl-ui[data-emphasis="subtle"]{--cl-shadow:0 2px 8px rgba(15,23,42,.04);--cl-shadow-strength:0.6}
+.cl-ui[data-emphasis="balanced"]{--cl-shadow:0 10px 30px rgba(15,23,42,.08);--cl-shadow-strength:1}
+.cl-ui[data-emphasis="bold"]{--cl-shadow:0 22px 55px rgba(15,23,42,.16);--cl-shadow-strength:1.4}
+
+/* ── Color tones (10 palettes) ── */
+.cl-ui[data-tone="default"]{--cl-primary:#0d9488;--cl-primary-hover:#0f766e;--cl-accent:#14b8a6}
+.cl-ui[data-tone="brand"]{--cl-primary:#0f766e;--cl-primary-hover:#115e59;--cl-accent:#2dd4bf}
+.cl-ui[data-tone="dark"]{
+  --cl-surface:#0f172a;--cl-surface-muted:#1e293b;--cl-border:#334155;
+  --cl-text:#f8fafc;--cl-text-muted:#94a3b8;
+  --cl-primary:#60a5fa;--cl-primary-hover:#3b82f6;--cl-accent:#a78bfa;
+  --cl-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+.cl-ui[data-tone="emerald"]{--cl-primary:#10b981;--cl-primary-hover:#059669;--cl-accent:#14b8a6}
+.cl-ui[data-tone="rose"]{--cl-primary:#f43f5e;--cl-primary-hover:#e11d48;--cl-accent:#fb7185}
+.cl-ui[data-tone="amber"]{--cl-primary:#f59e0b;--cl-primary-hover:#d97706;--cl-accent:#fbbf24}
+.cl-ui[data-tone="violet"]{--cl-primary:#8b5cf6;--cl-primary-hover:#7c3aed;--cl-accent:#a78bfa}
+.cl-ui[data-tone="cyan"]{--cl-primary:#06b6d4;--cl-primary-hover:#0891b2;--cl-accent:#22d3ee}
+.cl-ui[data-tone="slate"]{--cl-primary:#64748b;--cl-primary-hover:#475569;--cl-accent:#94a3b8}
+.cl-ui[data-tone="crimson"]{--cl-primary:#dc2626;--cl-primary-hover:#b91c1c;--cl-accent:#f87171}
+.cl-surface{
+  background:var(--cl-surface);
+  border:1px solid var(--cl-border);
+  border-radius:var(--cl-radius);
+  padding:var(--cl-pad);
+  box-shadow:var(--cl-shadow);
+  color:var(--cl-text);
+  font-size:var(--cl-font-sm);
+}
+.cl-label{display:block;font-size:var(--cl-font-sm);font-weight:600;color:var(--cl-text-muted);margin:0 0 8px;letter-spacing:.02em}
+.cl-hint{margin:8px 0 0;font-size:var(--cl-font-sm);color:var(--cl-text-muted)}
+.cl-spacer{display:block;width:100%;flex-shrink:0;height:calc(24px * var(--cl-size-mult) * var(--cl-density-mult))}
+.cl-spacer[data-size="xs"]{height:calc(8px * var(--cl-size-mult))}
+.cl-spacer[data-size="sm"]{height:calc(12px * var(--cl-size-mult))}
+.cl-spacer[data-size="md"]{height:calc(24px * var(--cl-size-mult))}
+.cl-spacer[data-size="lg"]{height:calc(40px * var(--cl-size-mult))}
+.cl-spacer[data-size="xl"]{height:calc(64px * var(--cl-size-mult))}
+.cl-ui{--cl-shadow:none}
+.cl-surface,.cl-btn,.cl-input,.cl-field,.cl-chip,.cl-badge{
+  box-shadow:none !important;
+  background:var(--cl-surface-muted) !important;
+}
+.cl-btn{font-weight:500}

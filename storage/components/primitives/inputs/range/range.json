@@ -1,0 +1,31 @@
+{
+  "id": "range",
+  "name": "Range",
+  "slug": "range",
+  "description": "Dual-thumb style range demo for min/max filtering (visual pattern).",
+  "tags": [
+    "inputs",
+    "range",
+    "filter",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

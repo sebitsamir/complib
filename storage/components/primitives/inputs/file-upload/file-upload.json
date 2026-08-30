@@ -1,0 +1,31 @@
+{
+  "id": "file-upload",
+  "name": "File Upload",
+  "slug": "file-upload",
+  "description": "Drag-and-drop styled file input with browse affordance.",
+  "tags": [
+    "inputs",
+    "file",
+    "upload",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

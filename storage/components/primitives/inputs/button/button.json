@@ -1,0 +1,32 @@
+{
+  "id": "button",
+  "name": "Button",
+  "slug": "button",
+  "description": "Primary action button with size, tone, and style variants (filled, outline, ghost, soft).",
+  "tags": [
+    "inputs",
+    "button",
+    "action",
+    "cta",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

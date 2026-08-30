@@ -1,0 +1,30 @@
+{
+  "id": "hstack",
+  "name": "HStack",
+  "slug": "hstack",
+  "description": "Horizontal stack shortcut — row direction with wrap and gap tokens.",
+  "tags": [
+    "layout",
+    "hstack",
+    "flex",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

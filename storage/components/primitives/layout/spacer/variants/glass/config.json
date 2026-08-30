@@ -1,0 +1,27 @@
+{
+  "id": "glass",
+  "label": "Glass",
+  "component": "spacer",
+  "variant": "glass",
+  "description": "Invisible spacing primitive. Push layout apart with size tokens instead of magic margins.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": true,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

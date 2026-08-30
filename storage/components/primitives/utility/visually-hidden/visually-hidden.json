@@ -1,0 +1,30 @@
+{
+  "id": "visually-hidden",
+  "name": "Visually Hidden",
+  "slug": "visually-hidden",
+  "description": "Screen-reader-only text — visually hidden but announced by assistive tech.",
+  "tags": [
+    "utility",
+    "a11y",
+    "sr-only",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "utility",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

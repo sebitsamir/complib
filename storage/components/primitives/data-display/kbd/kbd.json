@@ -1,0 +1,31 @@
+{
+  "id": "kbd",
+  "name": "KBD",
+  "slug": "kbd",
+  "description": "Keyboard key indicator for shortcuts and docs.",
+  "tags": [
+    "data-display",
+    "kbd",
+    "keyboard",
+    "shortcut",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "data-display",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

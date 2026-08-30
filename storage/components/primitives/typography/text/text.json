@@ -1,0 +1,30 @@
+{
+  "id": "text",
+  "name": "Text",
+  "slug": "text",
+  "description": "Inline text primitive with muted/strong emphasis and size tokens.",
+  "tags": [
+    "typography",
+    "text",
+    "span",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

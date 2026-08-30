@@ -1,0 +1,30 @@
+{
+  "id": "blockquote",
+  "name": "Blockquote",
+  "slug": "blockquote",
+  "description": "Pull quote with accent border for testimonials and citations.",
+  "tags": [
+    "typography",
+    "blockquote",
+    "quote",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

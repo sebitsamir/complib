@@ -1,0 +1,31 @@
+{
+  "id": "truncated-text",
+  "name": "Truncated Text",
+  "slug": "truncated-text",
+  "description": "Single or multi-line truncation with ellipsis for dense UIs.",
+  "tags": [
+    "typography",
+    "truncate",
+    "ellipsis",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "typography",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

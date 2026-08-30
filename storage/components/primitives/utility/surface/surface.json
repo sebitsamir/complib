@@ -1,0 +1,30 @@
+{
+  "id": "surface",
+  "name": "Surface",
+  "slug": "surface",
+  "description": "Elevated surface token demo — the shared panel used across CompLib.",
+  "tags": [
+    "utility",
+    "surface",
+    "panel",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "utility",
+  "problemTags": [
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "search-input",
+  "name": "Search Input",
+  "slug": "search-input",
+  "description": "Search field with leading icon and clear affordance.",
+  "tags": [
+    "inputs",
+    "search",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-navigation",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

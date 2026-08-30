@@ -1,0 +1,30 @@
+{
+  "id": "time-input",
+  "name": "Time Input",
+  "slug": "time-input",
+  "description": "Native time picker styled as a CompLib field.",
+  "tags": [
+    "inputs",
+    "time",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

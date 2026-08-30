@@ -1,0 +1,26 @@
+{
+  "name": "complib",
+  "private": true,
+  "description": "CompLib monorepo — Discover, preview, customize, assemble, export, and reuse UI components.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev:api & npm run dev:web",
+    "dev:web": "npm run dev -w @complib/web",
+    "dev:api": "npm run dev -w @complib/api",
+    "build": "npm run build -w @complib/api && npm run build -w @complib/web",
+    "build:web": "npm run build -w @complib/web",
+    "build:api": "npm run build -w @complib/api",
+    "lint": "npm run lint -w @complib/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:migrate": "npm run db:migrate -w @complib/api",
+    "db:generate": "npm run db:generate -w @complib/api",
+    "sync:catalog": "npm run sync:catalog -w @complib/api",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

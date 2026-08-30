@@ -1,0 +1,31 @@
+{
+  "id": "date-input",
+  "name": "Date Input",
+  "slug": "date-input",
+  "description": "Native date picker styled as a CompLib field.",
+  "tags": [
+    "inputs",
+    "date",
+    "calendar",
+    "form",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "inputs",
+  "problemTags": [
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

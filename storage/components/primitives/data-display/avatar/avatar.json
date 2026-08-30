@@ -1,0 +1,31 @@
+{
+  "id": "avatar",
+  "name": "Avatar",
+  "slug": "avatar",
+  "description": "User avatar with initials fallback and size tokens.",
+  "tags": [
+    "data-display",
+    "avatar",
+    "user",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "data-display",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

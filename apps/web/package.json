@@ -1,0 +1,39 @@
+{
+  "name": "@complib/web",
+  "private": true,
+  "scripts": {
+    "predev": "node scripts/prepare-dev.mjs",
+    "dev": "next dev --webpack -H 0.0.0.0 -p 3000",
+    "dev:clean": "npm run dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "generate:components": "node scripts/generate-components.mjs",
+    "migrate:component-metadata": "npx tsx scripts/migrate-component-metadata.ts",
+    "migrate:hierarchical-structure": "npx tsx scripts/migrate-hierarchical-structure.ts",
+    "validate:component-metadata": "npx tsx scripts/validate-component-metadata.ts",
+    "validate:component-metadata:strict": "npx tsx scripts/validate-component-metadata.ts --strict",
+    "smoke:admin-taxonomy": "npx tsx scripts/smoke-admin-taxonomy.ts",
+    "seed:taxonomy": "npx tsx scripts/seed-taxonomy-components.ts"
+  },
+  "dependencies": {
+    "@clerk/nextjs": "^7.2.3",
+    "jszip": "^3.10.1",
+    "motion": "^12.42.2",
+    "next": "^16.2.4",
+    "next-themes": "^0.4.6",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.20.3",
+    "typescript": "^6.0.3"
+  }
+}

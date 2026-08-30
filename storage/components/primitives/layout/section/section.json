@@ -1,0 +1,30 @@
+{
+  "id": "section",
+  "name": "Section",
+  "slug": "section",
+  "description": "Page section band with vertical rhythm — heroes, features, and CTAs.",
+  "tags": [
+    "layout",
+    "section",
+    "primitives",
+    "standard"
+  ],
+  "tier": "FREE",
+  "layer": "primitives",
+  "category": "layout",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

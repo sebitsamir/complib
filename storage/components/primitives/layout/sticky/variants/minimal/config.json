@@ -1,0 +1,27 @@
+{
+  "id": "minimal",
+  "label": "Minimal",
+  "component": "sticky",
+  "variant": "minimal",
+  "description": "Sticky positioning wrapper for headers and sidebars that remain in view while scrolling.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": true,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}
