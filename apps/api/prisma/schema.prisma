@@ -57,6 +57,9 @@ model User {
   collections      UserCollection[]
   downloads        DownloadEvent[]
   subscriptions    Subscription[]
+  playgroundProjects PlaygroundProject[]
+  teamMemberships  TeamMember[]
+  ownedTeams       Team[]           @relation("TeamOwner")
 }
 
 model AuditLog {
@@ -316,4 +319,61 @@ model WebhookEvent {
   processedAt DateTime @default(now())
 
   @@unique([provider, externalId])
+}
+
+/// Saved playground compositions — cloud persistence for entitled users.
+model PlaygroundProject {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  slug      String
+  document  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, slug])
+  @@index([userId, updatedAt])
+}
+
+/// Cloud foundation — teams for collaboration (Phase 10).
+model Team {
+  id        String       @id @default(cuid())
+  name      String
+  slug      String       @unique
+  ownerId   String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  owner     User         @relation("TeamOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  members   TeamMember[]
+
+  @@index([ownerId])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  userId    String
+  role      String   @default("MEMBER")
+  joinedAt  DateTime @default(now())
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([teamId, userId])
+  @@index([userId])
+}
+
+/// Community component submissions — ecosystem foundation (Phase 11).
+model CommunitySubmission {
+  id          String   @id @default(cuid())
+  submitterId String?
+  name        String
+  slug        String
+  description String
+  status      String   @default("PENDING")
+  payload     Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, createdAt])
 }

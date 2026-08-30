@@ -265,4 +265,47 @@ router.post("/collections/:slug/items", requireAuth, async (req, res) => {
   res.status(200).json({ ok: true, collectionSlug, componentSlug });
 });
 
+router.delete("/collections/:slug", requireAuth, async (req, res) => {
+  const userId = await resolveDbUserId(req.userId);
+  const collectionSlug = Array.isArray(req.params.slug) ? req.params.slug[0] : req.params.slug;
+  if (!userId || !collectionSlug) {
+    res.status(400).json({ error: "Invalid request." });
+    return;
+  }
+
+  await prisma.userCollection.deleteMany({
+    where: { userId, slug: collectionSlug },
+  });
+
+  res.status(200).json({ ok: true, slug: collectionSlug });
+});
+
+router.delete("/collections/:slug/items/:componentSlug", requireAuth, async (req, res) => {
+  const userId = await resolveDbUserId(req.userId);
+  const collectionSlug = Array.isArray(req.params.slug) ? req.params.slug[0] : req.params.slug;
+  const componentSlug = Array.isArray(req.params.componentSlug)
+    ? req.params.componentSlug[0]
+    : req.params.componentSlug;
+  if (!userId || !collectionSlug || !componentSlug) {
+    res.status(400).json({ error: "Invalid request." });
+    return;
+  }
+
+  const collection = await prisma.userCollection.findFirst({
+    where: { userId, slug: collectionSlug },
+    select: { id: true },
+  });
+  const componentId = await getComponentIdBySlug(componentSlug);
+  if (!collection || !componentId) {
+    res.status(404).json({ error: "Collection or component not found." });
+    return;
+  }
+
+  await prisma.collectionItem.deleteMany({
+    where: { collectionId: collection.id, componentId },
+  });
+
+  res.status(200).json({ ok: true, collectionSlug, componentSlug });
+});
+
 export default router;

@@ -122,9 +122,12 @@ type Framework = "vanilla" | "react" | "vue";
 import {
   loadStoredPlaygroundSession,
   saveStoredPlaygroundSession,
+  toPlaygroundDocument,
   type StoredPlaygroundSession,
   type WorkbenchView,
 } from "@/lib/playground/persistence-store";
+import { useEntitlements } from "@/lib/use-entitlements";
+import { savePlaygroundToCloud } from "@/lib/playground/cloud-persistence";
 
 const EMPTY_PAGE_CODE: PlaygroundPageSource = {
   html: "",
@@ -307,6 +310,9 @@ function applyPatch(
 export default function PlaygroundClientEnterprise() {
   const router = useRouter();
   const pathname = usePathname();
+  const entitlements = useEntitlements();
+  const canScaffoldExport = entitlements.canUseScaffoldExport;
+  const canSaveCloud = entitlements.canSavePlaygrounds;
   const searchParams = useSearchParams();
 
   const canvasIframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -434,6 +440,32 @@ export default function PlaygroundClientEnterprise() {
       artboardZoom,
     });
   }, [sessionHydrated, instances, pageCode, codeDetached, workbenchView, artboardZoom]);
+
+  useEffect(() => {
+    if (!sessionHydrated || !canSaveCloud || instances.length === 0) return;
+    const timer = window.setTimeout(() => {
+      void savePlaygroundToCloud(
+        "default",
+        "My playground",
+        toPlaygroundDocument({
+          instances,
+          pageCode,
+          codeDetached,
+          workbenchView,
+          artboardZoom,
+        }),
+      );
+    }, 2000);
+    return () => window.clearTimeout(timer);
+  }, [
+    sessionHydrated,
+    canSaveCloud,
+    instances,
+    pageCode,
+    codeDetached,
+    workbenchView,
+    artboardZoom,
+  ]);
 
   const postToCanvas = useCallback((payload: Record<string, unknown>) => {
     canvasIframeRef.current?.contentWindow?.postMessage(payload, "*");
@@ -1357,12 +1389,17 @@ export default function PlaygroundClientEnterprise() {
                 size="sm"
                 options={[
                   { value: "library", label: "Source" },
-                  { value: "scaffold", label: "Runnable" },
+                  ...(canScaffoldExport
+                    ? [{ value: "scaffold" as const, label: "Runnable" }]
+                    : []),
                 ]}
-                value={exportKind}
-                onChange={setExportKind}
+                value={canScaffoldExport ? exportKind : "library"}
+                onChange={(value) => {
+                  if (value === "scaffold" && !canScaffoldExport) return;
+                  setExportKind(value);
+                }}
               />
-              {exportKind === "scaffold" ? (
+              {exportKind === "scaffold" && canScaffoldExport ? (
                 <select
                   value={stack}
                   onChange={(e) =>
