@@ -1,0 +1,29 @@
+{
+  "id": "section-features-timeline",
+  "name": "Features Timeline",
+  "slug": "section-features-timeline",
+  "description": "Vertical timeline showcasing product milestones or workflow steps with connected nodes.",
+  "tags": [
+    "sections",
+    "features",
+    "section-features-timeline",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "features",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

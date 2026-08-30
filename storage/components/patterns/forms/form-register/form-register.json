@@ -1,0 +1,30 @@
+{
+  "id": "form-register",
+  "name": "Register Form",
+  "slug": "form-register",
+  "description": "Account creation form with name, email, password, and terms acceptance.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-register",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-authentication",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

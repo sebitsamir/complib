@@ -1,0 +1,30 @@
+{
+  "id": "template-agency",
+  "name": "Creative Agency",
+  "slug": "template-agency",
+  "description": "Creative agency site with bold hero, service cards, selected work grid, and contact CTA.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-agency",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

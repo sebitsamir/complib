@@ -1,0 +1,30 @@
+{
+  "id": "template-saas",
+  "name": "SaaS Landing",
+  "slug": "template-saas",
+  "description": "Full SaaS product landing with nav, hero, feature grid, pricing teaser, and footer CTA.",
+  "tags": [
+    "templates",
+    "saas",
+    "template-saas",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "saas",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

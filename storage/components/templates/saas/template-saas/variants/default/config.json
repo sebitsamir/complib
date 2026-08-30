@@ -1,0 +1,27 @@
+{
+  "id": "default",
+  "label": "Default",
+  "component": "template-saas",
+  "variant": "default",
+  "description": "Full SaaS product landing with nav, hero, feature grid, pricing teaser, and footer CTA.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "section-statistics",
+  "name": "Statistics",
+  "slug": "section-statistics",
+  "description": "Bold statistics row with large numbers and labels for quantified social proof and impact metrics.",
+  "tags": [
+    "sections",
+    "social-proof",
+    "section-statistics",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "social-proof",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

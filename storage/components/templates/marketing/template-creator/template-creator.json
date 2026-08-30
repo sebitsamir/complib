@@ -1,0 +1,30 @@
+{
+  "id": "template-creator",
+  "name": "Creator",
+  "slug": "template-creator",
+  "description": "Creator hub with profile hero, content links, membership tiers, and newsletter signup.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-creator",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

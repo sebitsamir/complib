@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-ai",
+  "name": "AI Product Hero",
+  "slug": "section-hero-ai",
+  "description": "AI-focused hero with capability badges, prompt-style preview, and dual CTAs for intelligent product positioning.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-ai",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

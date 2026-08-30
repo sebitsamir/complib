@@ -1,0 +1,30 @@
+{
+  "id": "form-filter",
+  "name": "Filter Form",
+  "slug": "form-filter",
+  "description": "Compact filter bar with date range, status, and assignee selectors.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-filter",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-dashboard",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

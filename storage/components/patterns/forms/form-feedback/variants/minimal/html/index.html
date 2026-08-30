@@ -1,0 +1,27 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+<form class="c-feedback" action="#" method="post">
+  <h3 class="c-form__title">How was your experience?</h3>
+  <fieldset class="c-feedback__rating">
+    <legend class="visually-hidden">Rating</legend>
+    <label><input type="radio" name="rating" value="1" /> 1</label>
+    <label><input type="radio" name="rating" value="2" /> 2</label>
+    <label><input type="radio" name="rating" value="3" /> 3</label>
+    <label><input type="radio" name="rating" value="4" checked /> 4</label>
+    <label><input type="radio" name="rating" value="5" /> 5</label>
+  </fieldset>
+  <div class="cl-field">
+    <label for="feedback-type">Category</label>
+    <select class="cl-select" id="feedback-type" name="category">
+      <option>Bug report</option>
+      <option>Feature request</option>
+      <option>General feedback</option>
+    </select>
+  </div>
+  <div class="cl-field">
+    <label for="feedback-comment">Details</label>
+    <textarea class="cl-textarea" id="feedback-comment" name="comment" placeholder="Tell us what worked or what could improve..."></textarea>
+  </div>
+  <button type="submit" class="cl-btn cl-btn--primary">Submit feedback</button>
+</form>
+</div>

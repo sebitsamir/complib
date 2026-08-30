@@ -1,0 +1,30 @@
+{
+  "id": "card-team",
+  "name": "Team Card",
+  "slug": "card-team",
+  "description": "Team member spotlight with photo placeholder, title, and social links.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-team",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

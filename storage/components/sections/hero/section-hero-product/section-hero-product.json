@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-product",
+  "name": "Product Hero",
+  "slug": "section-hero-product",
+  "description": "Product-centric hero with feature callouts, screenshot frame, and conversion-focused messaging.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-product",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

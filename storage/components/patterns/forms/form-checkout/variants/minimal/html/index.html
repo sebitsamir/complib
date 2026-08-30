@@ -1,0 +1,40 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+<form class="c-checkout" action="#" method="post">
+  <div class="c-checkout__main">
+    <h2 class="c-form__title">Billing details</h2>
+    <div class="c-form__grid">
+      <div class="cl-field">
+        <label for="checkout-fname">First name</label>
+        <input class="cl-input" id="checkout-fname" type="text" name="firstName" required />
+      </div>
+      <div class="cl-field">
+        <label for="checkout-lname">Last name</label>
+        <input class="cl-input" id="checkout-lname" type="text" name="lastName" required />
+      </div>
+    </div>
+    <div class="cl-field">
+      <label for="checkout-card">Card number</label>
+      <input class="cl-input" id="checkout-card" type="text" name="card" placeholder="4242 4242 4242 4242" inputmode="numeric" required />
+    </div>
+    <div class="c-form__grid">
+      <div class="cl-field">
+        <label for="checkout-exp">Expiry</label>
+        <input class="cl-input" id="checkout-exp" type="text" name="expiry" placeholder="MM / YY" required />
+      </div>
+      <div class="cl-field">
+        <label for="checkout-cvc">CVC</label>
+        <input class="cl-input" id="checkout-cvc" type="text" name="cvc" placeholder="123" inputmode="numeric" required />
+      </div>
+    </div>
+  </div>
+  <aside class="c-checkout__summary">
+    <h3 class="c-checkout__summary-title">Order summary</h3>
+    <div class="c-checkout__line"><span>CompLib Pro (annual)</span><span>$948</span></div>
+    <div class="c-checkout__line cl-muted"><span>Discount (LAUNCH20)</span><span>-$189.60</span></div>
+    <div class="cl-divider"></div>
+    <div class="c-checkout__line c-checkout__total"><span>Total due today</span><span>$758.40</span></div>
+    <button type="submit" class="cl-btn cl-btn--primary c-form__submit">Complete purchase</button>
+  </aside>
+</form>
+</div>

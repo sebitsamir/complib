@@ -1,0 +1,27 @@
+{
+  "id": "default",
+  "label": "Default",
+  "component": "section-statistics",
+  "variant": "default",
+  "description": "Bold statistics row with large numbers and labels for quantified social proof and impact metrics.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

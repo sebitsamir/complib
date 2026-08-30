@@ -1,0 +1,38 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+<form class="c-filter" action="#" method="get">
+  <div class="cl-field c-filter__field">
+    <label for="filter-q">Search</label>
+    <input class="cl-input" id="filter-q" type="search" name="q" placeholder="Filter by name..." />
+  </div>
+  <div class="cl-field c-filter__field">
+    <label for="filter-status">Status</label>
+    <select class="cl-select" id="filter-status" name="status">
+      <option value="">All statuses</option>
+      <option>Active</option>
+      <option>Paused</option>
+      <option>Archived</option>
+    </select>
+  </div>
+  <div class="cl-field c-filter__field">
+    <label for="filter-date">Date range</label>
+    <select class="cl-select" id="filter-date" name="range">
+      <option>Last 7 days</option>
+      <option>Last 30 days</option>
+      <option>This quarter</option>
+    </select>
+  </div>
+  <div class="cl-field c-filter__field">
+    <label for="filter-owner">Owner</label>
+    <select class="cl-select" id="filter-owner" name="owner">
+      <option>Anyone</option>
+      <option>Me</option>
+      <option>My team</option>
+    </select>
+  </div>
+  <div class="c-filter__actions">
+    <button type="submit" class="cl-btn cl-btn--primary">Apply</button>
+    <button type="reset" class="cl-btn cl-btn--ghost">Reset</button>
+  </div>
+</form>
+</div>

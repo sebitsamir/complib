@@ -75,6 +75,16 @@ export const ALLOWED_PROBLEM_TAGS = [
   "build-ui-sections",
 ] as const;
 
+/** Intent-based discovery: what the user is building. */
+export const BUILDING_INTENTS = [
+  { id: "saas", label: "SaaS", problemTags: ["build-landing-page", "build-dashboard"] },
+  { id: "dashboard", label: "Dashboard", problemTags: ["build-dashboard"] },
+  { id: "ecommerce", label: "E-commerce", problemTags: ["build-landing-page", "build-ui-sections"] },
+  { id: "portfolio", label: "Portfolio", problemTags: ["build-landing-page", "build-ui-sections"] },
+  { id: "admin", label: "Admin", problemTags: ["build-dashboard", "build-navigation"] },
+  { id: "landing", label: "Landing page", problemTags: ["build-landing-page"] },
+] as const;
+
 export type ProblemTag = (typeof ALLOWED_PROBLEM_TAGS)[number];
 
 export const ALLOWED_LAYERS = new Set<ComponentLayer>([

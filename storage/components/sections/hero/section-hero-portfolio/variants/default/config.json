@@ -1,0 +1,27 @@
+{
+  "id": "default",
+  "label": "Default",
+  "component": "section-hero-portfolio",
+  "variant": "default",
+  "description": "Personal portfolio hero with name, role, project highlights, and contact CTAs for creative professionals.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

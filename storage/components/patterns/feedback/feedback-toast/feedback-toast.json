@@ -1,0 +1,30 @@
+{
+  "id": "feedback-toast",
+  "name": "Toast",
+  "slug": "feedback-toast",
+  "description": "Dismissible toast notification for transient success or info messages.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-toast",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

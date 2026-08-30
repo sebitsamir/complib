@@ -1,0 +1,27 @@
+{
+  "id": "minimal",
+  "label": "Minimal",
+  "component": "section-reviews",
+  "variant": "minimal",
+  "description": "Star-rated review cards with aggregate score header for app store or G2-style social proof.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

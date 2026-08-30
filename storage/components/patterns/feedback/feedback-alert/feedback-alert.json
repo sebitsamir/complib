@@ -1,0 +1,30 @@
+{
+  "id": "feedback-alert",
+  "name": "Alert",
+  "slug": "feedback-alert",
+  "description": "Inline alert banner for important notices with optional action.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-alert",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

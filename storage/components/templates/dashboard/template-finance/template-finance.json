@@ -1,0 +1,30 @@
+{
+  "id": "template-finance",
+  "name": "Finance Dashboard",
+  "slug": "template-finance",
+  "description": "Finance overview with cash flow KPIs, revenue chart, and recent transactions table.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-finance",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

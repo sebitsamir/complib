@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-saas",
+  "name": "SaaS Hero",
+  "slug": "section-hero-saas",
+  "description": "Classic SaaS hero with headline, dual CTAs, product preview panel, and trust strip for conversion-focused landing pages.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-saas",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

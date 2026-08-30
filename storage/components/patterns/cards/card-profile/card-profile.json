@@ -1,0 +1,30 @@
+{
+  "id": "card-profile",
+  "name": "Profile Card",
+  "slug": "card-profile",
+  "description": "User identity card with avatar, role, and quick actions for team directories.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-profile",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

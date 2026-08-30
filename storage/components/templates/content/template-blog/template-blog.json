@@ -1,0 +1,30 @@
+{
+  "id": "template-blog",
+  "name": "Blog",
+  "slug": "template-blog",
+  "description": "Blog homepage with featured post hero, recent article grid, categories, and subscribe CTA.",
+  "tags": [
+    "templates",
+    "content",
+    "template-blog",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "content",
+  "problemTags": [
+    "build-ui-sections",
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

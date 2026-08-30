@@ -1,0 +1,30 @@
+{
+  "id": "feedback-loading",
+  "name": "Loading State",
+  "slug": "feedback-loading",
+  "description": "Loading indicator with message for async data fetches.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-loading",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

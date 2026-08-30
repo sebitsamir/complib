@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-startup",
+  "name": "Startup Hero",
+  "slug": "section-hero-startup",
+  "description": "Bold startup hero with kicker, stat strip, and energetic copy for early-stage product launches.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-startup",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

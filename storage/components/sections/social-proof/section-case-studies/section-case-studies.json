@@ -1,0 +1,29 @@
+{
+  "id": "section-case-studies",
+  "name": "Case Studies",
+  "slug": "section-case-studies",
+  "description": "Case study cards with company context, results metrics, and read-more links for deep social proof.",
+  "tags": [
+    "sections",
+    "social-proof",
+    "section-case-studies",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "social-proof",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

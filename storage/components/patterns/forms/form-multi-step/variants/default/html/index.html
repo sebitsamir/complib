@@ -1,0 +1,29 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+<form class="c-wizard" data-wizard action="#" method="post">
+  <div class="c-wizard__steps" role="tablist">
+    <span class="c-wizard__step is-active" data-step="0">1. Account</span>
+    <span class="c-wizard__step" data-step="1">2. Workspace</span>
+    <span class="c-wizard__step" data-step="2">3. Review</span>
+  </div>
+  <div class="c-wizard__panel is-active" data-panel="0">
+    <h3 class="c-wizard__title">Create your account</h3>
+    <div class="cl-field"><label for="wiz-email">Email</label><input class="cl-input" id="wiz-email" type="email" required /></div>
+    <div class="cl-field"><label for="wiz-pass">Password</label><input class="cl-input" id="wiz-pass" type="password" required /></div>
+  </div>
+  <div class="c-wizard__panel" data-panel="1" hidden>
+    <h3 class="c-wizard__title">Set up workspace</h3>
+    <div class="cl-field"><label for="wiz-workspace">Workspace name</label><input class="cl-input" id="wiz-workspace" type="text" placeholder="Acme Design" /></div>
+    <div class="cl-field"><label for="wiz-team">Team size</label><select class="cl-select" id="wiz-team"><option>1-5</option><option>6-20</option><option>21+</option></select></div>
+  </div>
+  <div class="c-wizard__panel" data-panel="2" hidden>
+    <h3 class="c-wizard__title">Review and confirm</h3>
+    <p class="cl-muted">You are creating a CompLib workspace with the Growth plan trial. You can change settings anytime.</p>
+  </div>
+  <div class="c-wizard__nav">
+    <button type="button" class="cl-btn cl-btn--secondary" data-wizard-back hidden>Back</button>
+    <button type="button" class="cl-btn cl-btn--primary" data-wizard-next>Continue</button>
+    <button type="submit" class="cl-btn cl-btn--primary" data-wizard-submit hidden>Finish setup</button>
+  </div>
+</form>
+</div>

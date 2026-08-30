@@ -1,0 +1,30 @@
+{
+  "id": "feedback-progress",
+  "name": "Progress Indicator",
+  "slug": "feedback-progress",
+  "description": "Linear progress bar with step label for multi-step or upload flows.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-progress",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-form",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "minimal",
+  "label": "Minimal",
+  "component": "template-blog",
+  "variant": "minimal",
+  "description": "Blog homepage with featured post hero, recent article grid, categories, and subscribe CTA.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

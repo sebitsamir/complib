@@ -1,0 +1,30 @@
+{
+  "id": "data-accordion",
+  "name": "Accordion",
+  "slug": "data-accordion",
+  "description": "Collapsible FAQ accordion with expand/collapse interaction.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-accordion",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-ui-sections",
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

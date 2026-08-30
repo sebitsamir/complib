@@ -1,0 +1,27 @@
+{
+  "id": "minimal",
+  "label": "Minimal",
+  "component": "card-profile",
+  "variant": "minimal",
+  "description": "User identity card with avatar, role, and quick actions for team directories.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": true,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

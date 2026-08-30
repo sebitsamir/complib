@@ -1,0 +1,30 @@
+{
+  "id": "data-grid",
+  "name": "Data Grid",
+  "slug": "data-grid",
+  "description": "Responsive card grid for browsing catalog items or assets.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-grid",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

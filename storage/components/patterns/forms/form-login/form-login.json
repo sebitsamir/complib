@@ -1,0 +1,30 @@
+{
+  "id": "form-login",
+  "name": "Login Form",
+  "slug": "form-login",
+  "description": "Email and password sign-in form with remember-me and forgot-password links.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-login",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-authentication",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

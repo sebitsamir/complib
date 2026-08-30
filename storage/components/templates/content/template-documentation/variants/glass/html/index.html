@@ -1,0 +1,44 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+  <div class="cl-page t-docs">
+    <header class="cl-page__bar">
+      <span class="cl-page__brand">FlowStack Docs</span>
+      <input type="search" class="cl-input t-docs__search" placeholder="Search documentation…" aria-label="Search docs" />
+      <nav class="cl-page__nav" aria-label="Docs">
+        <a href="#">API</a>
+        <a href="#">Guides</a>
+        <a href="#">Changelog</a>
+      </nav>
+    </header>
+    <div class="t-docs__layout">
+      <aside class="t-docs__sidebar">
+        <nav aria-label="Documentation sections">
+          <a href="#" class="is-active">Getting started</a>
+          <a href="#">Installation</a>
+          <a href="#">Quick start</a>
+          <a href="#">Authentication</a>
+          <a href="#">Webhooks</a>
+          <a href="#">Rate limits</a>
+        </nav>
+      </aside>
+      <main class="t-docs__main">
+        <span class="cl-kicker">Getting started</span>
+        <h1 class="t-docs__title">Introduction to FlowStack</h1>
+        <p class="cl-muted">FlowStack helps teams automate workflows across CRM, billing, and support tools. This guide walks you through setup in under 10 minutes.</p>
+        <h2 class="t-docs__h2">Prerequisites</h2>
+        <ul class="t-docs__list cl-muted">
+          <li>A FlowStack account (free tier works)</li>
+          <li>Admin access to your CRM or data source</li>
+          <li>Node.js 18+ for the CLI (optional)</li>
+        </ul>
+        <h2 class="t-docs__h2">Install the CLI</h2>
+        <pre class="t-docs__code"><code>npm install -g @flowstack/cli
+flowstack login
+flowstack init my-workspace</code></pre>
+        <div class="t-docs__next cl-card">
+          <strong>Next:</strong> <a href="#" class="cl-link">Connect your first integration &rarr;</a>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

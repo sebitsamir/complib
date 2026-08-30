@@ -1,0 +1,30 @@
+{
+  "id": "form-newsletter",
+  "name": "Newsletter Form",
+  "slug": "form-newsletter",
+  "description": "Inline email signup with value proposition and privacy note.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-newsletter",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-landing-page",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

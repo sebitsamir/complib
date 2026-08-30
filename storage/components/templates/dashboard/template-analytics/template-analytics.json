@@ -1,0 +1,30 @@
+{
+  "id": "template-analytics",
+  "name": "Analytics Dashboard",
+  "slug": "template-analytics",
+  "description": "Analytics workspace with traffic KPIs, trend chart, and top pages breakdown table.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-analytics",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

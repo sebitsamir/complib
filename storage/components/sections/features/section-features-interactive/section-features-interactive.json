@@ -1,0 +1,29 @@
+{
+  "id": "section-features-interactive",
+  "name": "Interactive Features",
+  "slug": "section-features-interactive",
+  "description": "Tabbed feature section with toggleable content panels for deep-dive product capabilities.",
+  "tags": [
+    "sections",
+    "features",
+    "section-features-interactive",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "features",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

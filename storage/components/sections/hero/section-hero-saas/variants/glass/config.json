@@ -1,0 +1,27 @@
+{
+  "id": "glass",
+  "label": "Glass",
+  "component": "section-hero-saas",
+  "variant": "glass",
+  "description": "Classic SaaS hero with headline, dual CTAs, product preview panel, and trust strip for conversion-focused landing pages.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

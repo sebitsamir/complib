@@ -1,0 +1,27 @@
+{
+  "id": "glass",
+  "label": "Glass",
+  "component": "template-startup",
+  "variant": "glass",
+  "description": "Early-stage startup page with bold hero, social proof logos, and founder story section.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "variants": [
+    {
+      "id": "xs",
+      "label": "Extra Small",
+      "props": {
+        "size": "xs"
+      }
+    },
+    {
+      "id": "sm",
+      "label": "Small",
+      "props": {
+        "size": "sm"
+      }
+    },
+    {
+      "id": "md",
+      "label": "Medium",
+      "props": {
+        "size": "md"
+      }
+    },
+    {
+      "id": "lg",
+      "label": "Large",
+      "props": {
+        "size": "lg"
+      }
+    },
+    {
+      "id": "xl",
+      "label": "Extra Large",
+      "props": {
+        "size": "xl"
+      }
+    },
+    {
+      "id": "2xl",
+      "label": "2X Large",
+      "props": {
+        "size": "2xl"
+      }
+    },
+    {
+      "id": "default",
+      "label": "Teal",
+      "props": {
+        "tone": "default"
+      }
+    },
+    {
+      "id": "brand",
+      "label": "Deep Teal",
+      "props": {
+        "tone": "brand"
+      }
+    },
+    {
+      "id": "dark",
+      "label": "Dark",
+      "props": {
+        "tone": "dark"
+      }
+    },
+    {
+      "id": "emerald",
+      "label": "Emerald",
+      "props": {
+        "tone": "emerald"
+      }
+    },
+    {
+      "id": "rose",
+      "label": "Rose",
+      "props": {
+        "tone": "rose"
+      }
+    },
+    {
+      "id": "amber",
+      "label": "Amber",
+      "props": {
+        "tone": "amber"
+      }
+    },
+    {
+      "id": "violet",
+      "label": "Violet",
+      "props": {
+        "tone": "violet"
+      }
+    },
+    {
+      "id": "cyan",
+      "label": "Cyan",
+      "props": {
+        "tone": "cyan"
+      }
+    },
+    {
+      "id": "slate",
+      "label": "Slate",
+      "props": {
+        "tone": "slate"
+      }
+    },
+    {
+      "id": "crimson",
+      "label": "Crimson",
+      "props": {
+        "tone": "crimson"
+      }
+    },
+    {
+      "id": "compact",
+      "label": "Compact",
+      "props": {
+        "density": "compact"
+      }
+    },
+    {
+      "id": "normal",
+      "label": "Normal",
+      "props": {
+        "density": "normal"
+      }
+    },
+    {
+      "id": "spacious",
+      "label": "Spacious",
+      "props": {
+        "density": "spacious"
+      }
+    },
+    {
+      "id": "sharp",
+      "label": "Sharp",
+      "props": {
+        "radius": "sharp"
+      }
+    },
+    {
+      "id": "rounded",
+      "label": "Rounded",
+      "props": {
+        "radius": "rounded"
+      }
+    },
+    {
+      "id": "soft",
+      "label": "Soft",
+      "props": {
+        "radius": "soft"
+      }
+    },
+    {
+      "id": "pill",
+      "label": "Pill",
+      "props": {
+        "radius": "pill"
+      }
+    },
+    {
+      "id": "subtle",
+      "label": "Subtle",
+      "props": {
+        "emphasis": "subtle"
+      }
+    },
+    {
+      "id": "balanced",
+      "label": "Balanced",
+      "props": {
+        "emphasis": "balanced"
+      }
+    },
+    {
+      "id": "bold",
+      "label": "Bold",
+      "props": {
+        "emphasis": "bold"
+      }
+    }
+  ]
+}

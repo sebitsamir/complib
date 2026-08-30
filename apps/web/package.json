@@ -15,7 +15,8 @@
     "validate:component-metadata": "npx tsx scripts/validate-component-metadata.ts",
     "validate:component-metadata:strict": "npx tsx scripts/validate-component-metadata.ts --strict",
     "smoke:admin-taxonomy": "npx tsx scripts/smoke-admin-taxonomy.ts",
-    "seed:taxonomy": "npx tsx scripts/seed-taxonomy-components.ts"
+    "seed:taxonomy": "npx tsx scripts/seed-taxonomy-components.ts",
+    "seed:catalog": "npx tsx scripts/seed-catalog-expansion.ts"
   },
   "dependencies": {
     "@complib/artifact-store": "*",

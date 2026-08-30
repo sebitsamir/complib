@@ -1,0 +1,42 @@
+<div class="cl-ui" data-size="md" data-tone="default" data-density="normal" data-radius="rounded" data-emphasis="balanced">
+
+<section class="s-interactive" data-hero-tabs>
+  <div class="cl-section s-interactive__inner">
+    <div class="cl-section__head">
+      <h1 class="cl-section__title">Built for every role on your team</h1>
+      <p class="cl-section__lead">Switch perspectives to see how CompLib fits designers, developers, and marketers.</p>
+    </div>
+    <div class="s-interactive__tabs" role="tablist">
+      <button type="button" class="s-interactive__tab is-active" role="tab" data-tab="designers" aria-selected="true">Designers</button>
+      <button type="button" class="s-interactive__tab" role="tab" data-tab="developers" aria-selected="false">Developers</button>
+      <button type="button" class="s-interactive__tab" role="tab" data-tab="marketers" aria-selected="false">Marketers</button>
+    </div>
+    <div class="s-interactive__panels">
+      <div class="s-interactive__panel is-active" data-panel="designers">
+        <div class="s-interactive__copy">
+          <h2>Design with live tokens</h2>
+          <p class="cl-muted">Adjust color, radius, and density — every section updates instantly in the preview canvas.</p>
+          <button type="button" class="cl-btn cl-btn--primary">Open design mode</button>
+        </div>
+        <div class="s-interactive__preview s-interactive__preview--design"></div>
+      </div>
+      <div class="s-interactive__panel" data-panel="developers" hidden>
+        <div class="s-interactive__copy">
+          <h2>Export clean code</h2>
+          <p class="cl-muted">Copy HTML/CSS or pull components into your repo with token variables intact.</p>
+          <button type="button" class="cl-btn cl-btn--primary">View export docs</button>
+        </div>
+        <div class="s-interactive__preview s-interactive__preview--code"><code>&lt;section class="cl-section"&gt;...&lt;/section&gt;</code></div>
+      </div>
+      <div class="s-interactive__panel" data-panel="marketers" hidden>
+        <div class="s-interactive__copy">
+          <h2>Ship pages fast</h2>
+          <p class="cl-muted">Pick sections, swap copy, publish — no engineering ticket required.</p>
+          <button type="button" class="cl-btn cl-btn--primary">Launch page builder</button>
+        </div>
+        <div class="s-interactive__preview s-interactive__preview--market"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>

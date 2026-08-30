@@ -1,0 +1,30 @@
+{
+  "id": "form-feedback",
+  "name": "Feedback Form",
+  "slug": "form-feedback",
+  "description": "In-app feedback collector with rating, category, and open comment field.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-feedback",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-form",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

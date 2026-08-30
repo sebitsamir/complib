@@ -1,0 +1,30 @@
+{
+  "id": "nav-command-palette",
+  "name": "Command Palette",
+  "slug": "nav-command-palette",
+  "description": "Keyboard-driven command palette for quick actions and navigation.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-command-palette",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

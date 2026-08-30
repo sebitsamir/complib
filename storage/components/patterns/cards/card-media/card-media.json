@@ -1,0 +1,30 @@
+{
+  "id": "card-media",
+  "name": "Media Card",
+  "slug": "card-media",
+  "description": "Rich media card with thumbnail, duration badge, and play action for video or audio content.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-media",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

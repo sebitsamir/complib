@@ -1,0 +1,30 @@
+{
+  "id": "template-startup",
+  "name": "Startup Launch",
+  "slug": "template-startup",
+  "description": "Early-stage startup page with bold hero, social proof logos, and founder story section.",
+  "tags": [
+    "templates",
+    "saas",
+    "template-startup",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "saas",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

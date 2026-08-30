@@ -1,0 +1,30 @@
+{
+  "id": "form-multi-step",
+  "name": "Multi-Step Form",
+  "slug": "form-multi-step",
+  "description": "Wizard-style form with step indicator and next/back navigation.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-multi-step",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-form",
+    "build-authentication"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

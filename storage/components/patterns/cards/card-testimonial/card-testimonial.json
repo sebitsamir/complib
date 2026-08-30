@@ -1,0 +1,30 @@
+{
+  "id": "card-testimonial",
+  "name": "Testimonial Card",
+  "slug": "card-testimonial",
+  "description": "Customer quote card with attribution for social proof sections.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-testimonial",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

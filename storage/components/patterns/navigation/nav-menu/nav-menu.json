@@ -1,0 +1,30 @@
+{
+  "id": "nav-menu",
+  "name": "Dropdown Menu",
+  "slug": "nav-menu",
+  "description": "Contextual dropdown menu with grouped actions and keyboard-friendly structure.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-menu",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

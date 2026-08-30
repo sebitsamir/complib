@@ -1,0 +1,30 @@
+{
+  "id": "data-filter-bar",
+  "name": "Filter Bar",
+  "slug": "data-filter-bar",
+  "description": "Inline chip-based filter bar with active selections and clear action.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-filter-bar",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

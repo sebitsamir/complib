@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-agency",
+  "name": "Agency Hero",
+  "slug": "section-hero-agency",
+  "description": "Agency hero emphasizing client delivery speed, portfolio credibility, and partnership CTAs.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-agency",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

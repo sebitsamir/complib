@@ -1,0 +1,30 @@
+{
+  "id": "card-stats",
+  "name": "Stats Card",
+  "slug": "card-stats",
+  "description": "Metric summary card with trend indicator for analytics dashboards.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-stats",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

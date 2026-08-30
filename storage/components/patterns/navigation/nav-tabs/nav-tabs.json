@@ -1,0 +1,30 @@
+{
+  "id": "nav-tabs",
+  "name": "Tabs",
+  "slug": "nav-tabs",
+  "description": "Horizontal tab bar with panel switching for settings and detail views.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-tabs",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

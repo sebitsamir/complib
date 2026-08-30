@@ -1,0 +1,30 @@
+{
+  "id": "nav-sidebar",
+  "name": "Sidebar",
+  "slug": "nav-sidebar",
+  "description": "Vertical sidebar with grouped nav items and active state highlighting.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-sidebar",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "section-logo-cloud",
+  "name": "Logo Cloud",
+  "slug": "section-logo-cloud",
+  "description": "Grayscale company name pill strip for displaying trusted-by logos without image assets.",
+  "tags": [
+    "sections",
+    "social-proof",
+    "section-logo-cloud",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "social-proof",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

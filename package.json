@@ -19,6 +19,7 @@
     "db:repair": "npm run db:repair -w @complib/api",
     "db:generate": "npm run db:generate -w @complib/api",
     "sync:catalog": "npm run sync:catalog -w @complib/api",
+    "seed:catalog": "npm run seed:catalog -w @complib/web",
     "test": "npm run test --workspaces --if-present",
     "build:packages": "npm run build -w @complib/contracts && npm run build -w @complib/taxonomy && npm run build -w @complib/entitlements && npm run build -w @complib/component-schema && npm run build -w @complib/component-registry && npm run build -w @complib/component-validation && npm run build -w @complib/artifact-store && npm run build -w @complib/style-engine && npm run build -w @complib/variant-engine && npm run build -w @complib/export-engine",
     "postinstall": "npm run build:packages"

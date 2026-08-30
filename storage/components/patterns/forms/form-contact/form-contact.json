@@ -1,0 +1,30 @@
+{
+  "id": "form-contact",
+  "name": "Contact Form",
+  "slug": "form-contact",
+  "description": "Lead capture contact form with subject, message, and company fields.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-contact",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-form",
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

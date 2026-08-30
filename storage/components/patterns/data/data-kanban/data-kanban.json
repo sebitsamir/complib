@@ -1,0 +1,30 @@
+{
+  "id": "data-kanban",
+  "name": "Kanban Board",
+  "slug": "data-kanban",
+  "description": "Three-column kanban board with draggable-style task cards.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-kanban",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

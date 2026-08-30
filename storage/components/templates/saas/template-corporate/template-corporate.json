@@ -1,0 +1,30 @@
+{
+  "id": "template-corporate",
+  "name": "Corporate Enterprise",
+  "slug": "template-corporate",
+  "description": "Enterprise corporate site with solutions grid, case study highlight, and contact CTA.",
+  "tags": [
+    "templates",
+    "saas",
+    "template-corporate",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "saas",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { buildExplorerUrl } from "@/lib/explorer-url";
-import { ALLOWED_PROBLEM_TAGS } from "@/lib/taxonomy-defaults";
+import { BUILDING_INTENTS } from "@complib/taxonomy";
 import { problemLabel } from "@/lib/library-nav-shared";
 
 const FEATURED_PROBLEMS = [
@@ -26,18 +26,21 @@ export default function ExplorerDiscoveryHero() {
         navigation, and more — then browse components that fit.
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
-        {FEATURED_PROBLEMS.map((problem) => (
+        {BUILDING_INTENTS.map((intent) => (
           <Link
-            key={problem}
-            href={buildExplorerUrl({ browse: "problem", problem })}
+            key={intent.id}
+            href={buildExplorerUrl({
+              browse: "problem",
+              problem: intent.problemTags[0],
+            })}
             className="rounded-full border border-border bg-background px-4 py-2 text-sm font-medium hover:border-accent/40 hover:bg-accent/5"
           >
-            {problemLabel(problem)}
+            {intent.label}
           </Link>
         ))}
-        {ALLOWED_PROBLEM_TAGS.filter(
-          (tag) => !FEATURED_PROBLEMS.includes(tag as (typeof FEATURED_PROBLEMS)[number]),
-        ).map((problem) => (
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {FEATURED_PROBLEMS.map((problem) => (
           <Link
             key={problem}
             href={buildExplorerUrl({ browse: "problem", problem })}

@@ -1,0 +1,30 @@
+{
+  "id": "card-product",
+  "name": "Product Card",
+  "slug": "card-product",
+  "description": "Commerce-ready product tile with image, pricing, and add-to-cart action.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-product",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

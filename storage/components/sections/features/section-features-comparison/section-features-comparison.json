@@ -1,0 +1,29 @@
+{
+  "id": "section-features-comparison",
+  "name": "Features Comparison",
+  "slug": "section-features-comparison",
+  "description": "Side-by-side feature comparison table highlighting CompLib advantages over alternatives.",
+  "tags": [
+    "sections",
+    "features",
+    "section-features-comparison",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "features",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

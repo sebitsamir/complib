@@ -1,0 +1,27 @@
+{
+  "id": "glass",
+  "label": "Glass",
+  "component": "template-project-management",
+  "variant": "glass",
+  "description": "Project tracker with sprint stats, burndown-style chart, and task assignment table.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

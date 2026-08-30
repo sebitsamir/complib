@@ -1,0 +1,30 @@
+{
+  "id": "nav-breadcrumb",
+  "name": "Breadcrumb",
+  "slug": "nav-breadcrumb",
+  "description": "Hierarchical breadcrumb trail for nested page navigation.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-breadcrumb",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

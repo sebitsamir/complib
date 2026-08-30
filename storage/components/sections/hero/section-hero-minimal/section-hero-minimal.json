@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-minimal",
+  "name": "Minimal Hero",
+  "slug": "section-hero-minimal",
+  "description": "Clean minimal hero with restrained typography, single focus message, and understated CTAs.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-minimal",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

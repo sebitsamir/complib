@@ -17,6 +17,7 @@ import {
   validateComponentForPublish,
   type PublishValidationResult,
 } from "@complib/component-validation";
+import { componentSpecSchema } from "@complib/component-schema";
 
 const MAX_SOURCE_BYTES = 512 * 1024;
 
@@ -98,22 +99,57 @@ export function validatePublishPayload(body: PublishComponentPayload): PublishVa
     category: body.category,
     problemTags: body.problemTags,
   });
+  const tier = body.tier === "PRO" || body.tier === "ENTERPRISE" ? body.tier : "FREE";
+  const layer = taxonomy.ok ? taxonomy.layer : String(body.layer ?? "");
+  const category = taxonomy.ok ? taxonomy.category : String(body.category ?? "");
+  const problemTags = taxonomy.ok ? taxonomy.problemTags : [];
 
-  return validateComponentForPublish({
+  const specResult = componentSpecSchema.safeParse({
+    id: slug,
     name,
     slug,
     description: String(body.description ?? "").trim(),
-    tier: body.tier === "PRO" || body.tier === "ENTERPRISE" ? body.tier : "FREE",
-    layer: taxonomy.ok ? taxonomy.layer : String(body.layer ?? ""),
-    category: taxonomy.ok ? taxonomy.category : String(body.category ?? ""),
-    problemTags: taxonomy.ok ? taxonomy.problemTags : [],
+    taxonomy: { layer, category, problemTags },
+    access: { tier },
+    frameworks: ["vanilla", "react", "vue"],
+    themes: body.themes ?? ["light", "dark", "auto"],
+    variants: normalizeVariants(body.variants),
+    tags: body.tags ?? [],
+    dependencies: [],
+  });
+
+  const pipelineResult = validateComponentForPublish({
+    name,
+    slug,
+    description: String(body.description ?? "").trim(),
+    tier,
+    layer,
+    category,
+    problemTags,
     html: String(body.html ?? ""),
     css: String(body.css ?? ""),
     js: String(body.js ?? ""),
     variants: normalizeVariants(body.variants),
     styleFamilies: body.styleFamilies,
     themes: body.themes,
+    frameworks: ["vanilla", "react", "vue"],
   });
+
+  if (!specResult.success) {
+    const schemaIssues = specResult.error.issues.map((issue) => ({
+      code: "SPEC_SCHEMA",
+      severity: "error" as const,
+      field: issue.path.join("."),
+      message: issue.message,
+    }));
+    return {
+      ok: false,
+      issues: [...schemaIssues, ...pipelineResult.issues],
+      steps: { ...pipelineResult.steps, metadata: "fail" },
+    };
+  }
+
+  return pipelineResult;
 }
 
 export async function publishComponent(input: {

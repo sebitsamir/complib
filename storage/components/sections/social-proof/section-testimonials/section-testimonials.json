@@ -1,0 +1,29 @@
+{
+  "id": "section-testimonials",
+  "name": "Testimonials",
+  "slug": "section-testimonials",
+  "description": "Customer testimonial grid with avatars, quotes, and attribution for trust-building on landing pages.",
+  "tags": [
+    "sections",
+    "social-proof",
+    "section-testimonials",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "social-proof",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

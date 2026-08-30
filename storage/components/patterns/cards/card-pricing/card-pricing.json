@@ -1,0 +1,30 @@
+{
+  "id": "card-pricing",
+  "name": "Pricing Card",
+  "slug": "card-pricing",
+  "description": "SaaS pricing tier with feature checklist and conversion-focused CTA.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-pricing",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

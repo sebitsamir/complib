@@ -1,0 +1,30 @@
+{
+  "id": "card-basic",
+  "name": "Basic Card",
+  "slug": "card-basic",
+  "description": "Versatile content card with title, summary, and primary action for dashboards and detail panels.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-basic",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-ui-sections",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

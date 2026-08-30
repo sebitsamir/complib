@@ -33,6 +33,7 @@ export type PublishValidationInput = {
   variants?: Array<{ id: string; label: string }>;
   styleFamilies?: string[];
   themes?: string[];
+  frameworks?: string[];
 };
 
 export type PublishValidationResult = {
@@ -64,6 +65,26 @@ function stepStatus(issues: ValidationIssue[], fields: string[]): "pass" | "fail
   );
   if (relevant.some((issue) => issue.severity === "error")) return "fail";
   if (relevant.some((issue) => issue.severity === "warn")) return "warn";
+  return "pass";
+}
+
+const ALLOWED_FRAMEWORKS = new Set(["vanilla", "react", "vue"]);
+
+function validateFrameworks(
+  frameworks: string[] | undefined,
+  issues: ValidationIssue[],
+): "pass" | "fail" | "warn" | "skip" {
+  if (!frameworks || frameworks.length === 0) return "skip";
+  const invalid = frameworks.filter((fw) => !ALLOWED_FRAMEWORKS.has(fw));
+  if (invalid.length > 0) {
+    issues.push({
+      code: "FRAMEWORK_INVALID",
+      severity: "error",
+      field: "frameworks",
+      message: `Unsupported frameworks: ${invalid.join(", ")}. Allowed: vanilla, react, vue.`,
+    });
+    return "fail";
+  }
   return "pass";
 }
 
@@ -268,7 +289,7 @@ export function validateComponent(input: PublishValidationInput): PublishValidat
     source: stepStatus(issues, ["html", "css", "js", "source"]),
     variants: stepStatus(issues, ["variants"]),
     styles: styles.length > 0 ? stepStatus(issues, ["styles"]) : "skip",
-    frameworks: "pass",
+    frameworks: validateFrameworks(input.frameworks, issues),
     accessibility: stepStatus(issues, ["accessibility"]),
   };
 

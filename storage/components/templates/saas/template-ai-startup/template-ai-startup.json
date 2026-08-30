@@ -1,0 +1,30 @@
+{
+  "id": "template-ai-startup",
+  "name": "AI Startup",
+  "slug": "template-ai-startup",
+  "description": "AI-native startup landing with model showcase, use-case cards, and waitlist CTA.",
+  "tags": [
+    "templates",
+    "saas",
+    "template-ai-startup",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "saas",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

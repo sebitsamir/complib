@@ -1,0 +1,30 @@
+{
+  "id": "template-portfolio",
+  "name": "Portfolio",
+  "slug": "template-portfolio",
+  "description": "Personal portfolio with intro hero, project showcase grid, skills section, and hire CTA.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-portfolio",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

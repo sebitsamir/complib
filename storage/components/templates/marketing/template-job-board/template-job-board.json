@@ -1,0 +1,30 @@
+{
+  "id": "template-job-board",
+  "name": "Job Board",
+  "slug": "template-job-board",
+  "description": "Job board with search filters, featured listings table, and employer post-job CTA.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-job-board",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

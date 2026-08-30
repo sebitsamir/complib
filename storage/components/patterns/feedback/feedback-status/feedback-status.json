@@ -1,0 +1,30 @@
+{
+  "id": "feedback-status",
+  "name": "Status Badge",
+  "slug": "feedback-status",
+  "description": "Status indicator group showing system health and service states.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-status",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

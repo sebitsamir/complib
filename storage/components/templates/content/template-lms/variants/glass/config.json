@@ -1,0 +1,27 @@
+{
+  "id": "glass",
+  "label": "Glass",
+  "component": "template-lms",
+  "variant": "glass",
+  "description": "LMS dashboard with course progress, lesson list, instructor sidebar, and continue-learning CTA.",
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "files": {
+    "html": "html/index.html",
+    "css": "html/style.css",
+    "js": "html/script.js"
+  },
+  "supports": {
+    "darkMode": true,
+    "resizable": false,
+    "draggable": true,
+    "frameworks": [
+      "vanilla",
+      "react",
+      "vue"
+    ]
+  }
+}

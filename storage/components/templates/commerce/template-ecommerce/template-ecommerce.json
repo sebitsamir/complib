@@ -1,0 +1,30 @@
+{
+  "id": "template-ecommerce",
+  "name": "E-commerce Store",
+  "slug": "template-ecommerce",
+  "description": "Online store layout with category nav, hero promo, product grid, and newsletter CTA.",
+  "tags": [
+    "templates",
+    "commerce",
+    "template-ecommerce",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "commerce",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

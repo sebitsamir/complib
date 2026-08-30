@@ -1,0 +1,30 @@
+{
+  "id": "feedback-error",
+  "name": "Error State",
+  "slug": "feedback-error",
+  "description": "Error message block with retry action for failed operations.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-error",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-form"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

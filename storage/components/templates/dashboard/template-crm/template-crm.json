@@ -1,0 +1,30 @@
+{
+  "id": "template-crm",
+  "name": "CRM Dashboard",
+  "slug": "template-crm",
+  "description": "CRM pipeline view with deal stats, funnel chart bars, and recent opportunities table.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-crm",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

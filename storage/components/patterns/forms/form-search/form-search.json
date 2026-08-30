@@ -1,0 +1,30 @@
+{
+  "id": "form-search",
+  "name": "Search Form",
+  "slug": "form-search",
+  "description": "Global search input with scope selector and keyboard shortcut hint.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-search",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

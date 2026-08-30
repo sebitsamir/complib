@@ -1,0 +1,30 @@
+{
+  "id": "template-documentation",
+  "name": "Documentation",
+  "slug": "template-documentation",
+  "description": "Docs site with sidebar navigation, article content area, and search bar in header.",
+  "tags": [
+    "templates",
+    "content",
+    "template-documentation",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "content",
+  "problemTags": [
+    "build-ui-sections",
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

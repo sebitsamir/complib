@@ -1,0 +1,30 @@
+{
+  "id": "feedback-confirmation",
+  "name": "Confirmation Dialog",
+  "slug": "feedback-confirmation",
+  "description": "Destructive action confirmation dialog with cancel and confirm buttons.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-confirmation",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

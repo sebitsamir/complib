@@ -1,0 +1,30 @@
+{
+  "id": "card-blog",
+  "name": "Blog Card",
+  "slug": "card-blog",
+  "description": "Editorial preview card with category, headline, excerpt, and read link.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-blog",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

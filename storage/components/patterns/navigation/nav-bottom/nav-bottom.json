@@ -1,0 +1,30 @@
+{
+  "id": "nav-bottom",
+  "name": "Bottom Navigation",
+  "slug": "nav-bottom",
+  "description": "Mobile-first bottom tab bar for app-level primary navigation.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-bottom",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

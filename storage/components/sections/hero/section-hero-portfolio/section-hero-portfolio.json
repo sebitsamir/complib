@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-portfolio",
+  "name": "Portfolio Hero",
+  "slug": "section-hero-portfolio",
+  "description": "Personal portfolio hero with name, role, project highlights, and contact CTAs for creative professionals.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-portfolio",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

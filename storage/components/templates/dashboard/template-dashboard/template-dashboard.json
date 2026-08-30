@@ -1,0 +1,30 @@
+{
+  "id": "template-dashboard",
+  "name": "General Dashboard",
+  "slug": "template-dashboard",
+  "description": "Versatile app dashboard with sidebar nav, KPI stats, bar chart, and activity table.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-dashboard",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

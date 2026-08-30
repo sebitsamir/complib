@@ -1,0 +1,30 @@
+{
+  "id": "template-marketplace",
+  "name": "Marketplace",
+  "slug": "template-marketplace",
+  "description": "Multi-vendor marketplace with search bar, category filters, listing cards, and seller CTA.",
+  "tags": [
+    "templates",
+    "commerce",
+    "template-marketplace",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "commerce",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

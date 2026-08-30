@@ -1,0 +1,30 @@
+{
+  "id": "data-list",
+  "name": "Data List",
+  "slug": "data-list",
+  "description": "Structured list with avatars, metadata, and row actions.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-list",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "section-reviews",
+  "name": "Reviews",
+  "slug": "section-reviews",
+  "description": "Star-rated review cards with aggregate score header for app store or G2-style social proof.",
+  "tags": [
+    "sections",
+    "social-proof",
+    "section-reviews",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "social-proof",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

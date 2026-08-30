@@ -1,0 +1,30 @@
+{
+  "id": "data-tree",
+  "name": "Tree View",
+  "slug": "data-tree",
+  "description": "Hierarchical tree for file explorers and nested category navigation.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-tree",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-navigation"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

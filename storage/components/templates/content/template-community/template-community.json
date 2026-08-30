@@ -1,0 +1,30 @@
+{
+  "id": "template-community",
+  "name": "Community Forum",
+  "slug": "template-community",
+  "description": "Community hub with category nav, trending discussions list, and new post CTA.",
+  "tags": [
+    "templates",
+    "content",
+    "template-community",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "content",
+  "problemTags": [
+    "build-ui-sections",
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

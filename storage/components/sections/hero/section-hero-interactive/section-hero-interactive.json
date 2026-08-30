@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-interactive",
+  "name": "Interactive Hero",
+  "slug": "section-hero-interactive",
+  "description": "Tabbed interactive hero switching between audience personas with dynamic preview panels.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-interactive",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

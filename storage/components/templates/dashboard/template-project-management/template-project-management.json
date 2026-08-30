@@ -1,0 +1,30 @@
+{
+  "id": "template-project-management",
+  "name": "Project Management",
+  "slug": "template-project-management",
+  "description": "Project tracker with sprint stats, burndown-style chart, and task assignment table.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-project-management",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

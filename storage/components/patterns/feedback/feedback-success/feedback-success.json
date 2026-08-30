@@ -1,0 +1,30 @@
+{
+  "id": "feedback-success",
+  "name": "Success State",
+  "slug": "feedback-success",
+  "description": "Confirmation success screen after completing an action or signup.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-success",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-form",
+    "build-authentication"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

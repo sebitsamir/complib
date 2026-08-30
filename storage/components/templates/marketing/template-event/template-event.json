@@ -1,0 +1,30 @@
+{
+  "id": "template-event",
+  "name": "Event / Conference",
+  "slug": "template-event",
+  "description": "Conference landing with date/location hero, speaker lineup, schedule preview, and ticket CTA.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-event",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

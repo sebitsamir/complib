@@ -1,0 +1,30 @@
+{
+  "id": "template-freelancer",
+  "name": "Freelancer",
+  "slug": "template-freelancer",
+  "description": "Freelancer landing with services, pricing packages, testimonials, and booking CTA.",
+  "tags": [
+    "templates",
+    "marketing",
+    "template-freelancer",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "marketing",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

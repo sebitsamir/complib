@@ -1,0 +1,30 @@
+{
+  "id": "card-feature",
+  "name": "Feature Card",
+  "slug": "card-feature",
+  "description": "Icon-led feature highlight for marketing pages and product overview grids.",
+  "tags": [
+    "patterns",
+    "cards",
+    "card-feature",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "cards",
+  "problemTags": [
+    "build-landing-page",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

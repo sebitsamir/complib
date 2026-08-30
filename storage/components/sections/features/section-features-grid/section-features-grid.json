@@ -1,0 +1,29 @@
+{
+  "id": "section-features-grid",
+  "name": "Features Grid",
+  "slug": "section-features-grid",
+  "description": "Three-column feature grid with icons, titles, and supporting copy for product capability overviews.",
+  "tags": [
+    "sections",
+    "features",
+    "section-features-grid",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "features",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

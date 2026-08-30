@@ -1,0 +1,29 @@
+{
+  "id": "section-features-bento",
+  "name": "Features Bento",
+  "slug": "section-features-bento",
+  "description": "Bento-style asymmetric feature layout with varied card sizes for visual hierarchy and depth.",
+  "tags": [
+    "sections",
+    "features",
+    "section-features-bento",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "features",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

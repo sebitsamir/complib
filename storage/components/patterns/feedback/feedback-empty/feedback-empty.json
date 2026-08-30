@@ -1,0 +1,30 @@
+{
+  "id": "feedback-empty",
+  "name": "Empty State",
+  "slug": "feedback-empty",
+  "description": "Empty state placeholder when no data exists with guided next step.",
+  "tags": [
+    "patterns",
+    "feedback",
+    "feedback-empty",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "feedback",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-video",
+  "name": "Video Hero",
+  "slug": "section-hero-video",
+  "description": "Video-forward hero with play button overlay, supporting copy, and secondary CTA for demo-driven products.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-video",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

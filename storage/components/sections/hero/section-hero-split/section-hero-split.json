@@ -1,0 +1,29 @@
+{
+  "id": "section-hero-split",
+  "name": "Split Hero",
+  "slug": "section-hero-split",
+  "description": "Two-column split hero balancing copy and visual panel for balanced above-the-fold layouts.",
+  "tags": [
+    "sections",
+    "hero",
+    "section-hero-split",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "sections",
+  "category": "hero",
+  "problemTags": [
+    "build-landing-page"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

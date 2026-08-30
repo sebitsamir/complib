@@ -1,0 +1,30 @@
+{
+  "id": "data-sort-bar",
+  "name": "Sort Bar",
+  "slug": "data-sort-bar",
+  "description": "Sort and view controls for list and grid data displays.",
+  "tags": [
+    "patterns",
+    "data",
+    "data-sort-bar",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "data",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

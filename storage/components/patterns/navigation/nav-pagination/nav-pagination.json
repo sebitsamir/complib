@@ -1,0 +1,30 @@
+{
+  "id": "nav-pagination",
+  "name": "Pagination",
+  "slug": "nav-pagination",
+  "description": "Page number pagination with previous/next controls and result count.",
+  "tags": [
+    "patterns",
+    "navigation",
+    "nav-pagination",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "navigation",
+  "problemTags": [
+    "build-navigation",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

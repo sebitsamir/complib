@@ -1,0 +1,30 @@
+{
+  "id": "template-admin-dashboard",
+  "name": "Admin Dashboard",
+  "slug": "template-admin-dashboard",
+  "description": "Admin control panel with user management table, system health stats, and quick actions.",
+  "tags": [
+    "templates",
+    "dashboard",
+    "template-admin-dashboard",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "templates",
+  "category": "dashboard",
+  "problemTags": [
+    "build-dashboard",
+    "build-ui-sections"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}

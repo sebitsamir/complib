@@ -1,0 +1,30 @@
+{
+  "id": "form-settings",
+  "name": "Settings Form",
+  "slug": "form-settings",
+  "description": "Account settings panel with profile fields and notification toggles.",
+  "tags": [
+    "patterns",
+    "forms",
+    "form-settings",
+    "production"
+  ],
+  "tier": "FREE",
+  "layer": "patterns",
+  "category": "forms",
+  "problemTags": [
+    "build-form",
+    "build-dashboard"
+  ],
+  "viewCount": 0,
+  "themes": [
+    "light",
+    "dark",
+    "auto"
+  ],
+  "styleVariants": {
+    "vanilla": true,
+    "tailwind": false
+  },
+  "defaultStyleId": "default"
+}
