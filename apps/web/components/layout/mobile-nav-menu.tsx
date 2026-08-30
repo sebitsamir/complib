@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@clerk/nextjs";
 import { MotionNavLink } from "@/components/motion/motion-link";
+import OverlayPortal from "@/components/layout/overlay-portal";
 
 const NAV_LINKS = [
   { href: "/components", label: "Explorer" },
@@ -39,7 +40,7 @@ export default function MobileNavMenu({ className = "" }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border/70 bg-background text-foreground transition-colors hover:bg-muted"
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-background text-foreground transition-colors hover:bg-muted"
         aria-label="Open menu"
         aria-expanded={open}
       >
@@ -49,15 +50,15 @@ export default function MobileNavMenu({ className = "" }: Props) {
       </button>
 
       {open ? (
-        <>
+        <OverlayPortal>
           <button
             type="button"
-            className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]"
+            className="fixed inset-0 z-[200] bg-black/40 backdrop-blur-[2px]"
             aria-label="Close menu"
             onClick={() => setOpen(false)}
           />
           <nav
-            className="fixed inset-y-0 right-0 z-50 flex w-[min(100%,18rem)] flex-col border-l border-border bg-background shadow-2xl"
+            className="fixed inset-y-0 right-0 z-[201] flex w-[min(100%,18rem)] flex-col border-l border-border bg-background pt-[env(safe-area-inset-top,0px)] shadow-2xl safe-bottom"
             aria-label="Mobile navigation"
           >
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
@@ -75,29 +76,37 @@ export default function MobileNavMenu({ className = "" }: Props) {
             </div>
             <div className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
               {NAV_LINKS.map((link) => (
-                <MotionNavLink
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-                >
-                  {link.label}
-                </MotionNavLink>
+                <div key={link.href} className="w-full">
+                  <MotionNavLink
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block w-full rounded-lg px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    {link.label}
+                  </MotionNavLink>
+                </div>
               ))}
             </div>
             {isLoaded && !userId ? (
-              <div className="border-t border-border p-4 text-xs text-muted-foreground">
-                <Link href="/sign-in" onClick={() => setOpen(false)} className="font-semibold text-foreground hover:text-accent">
+              <div className="flex gap-2 border-t border-border p-4">
+                <Link
+                  href="/sign-in"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex h-10 flex-1 items-center justify-center rounded-lg border border-border bg-background text-sm font-semibold text-foreground hover:bg-muted"
+                >
                   Sign in
                 </Link>
-                {" · "}
-                <Link href="/sign-up" onClick={() => setOpen(false)} className="font-semibold text-foreground hover:text-accent">
+                <Link
+                  href="/sign-up"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex h-10 flex-1 items-center justify-center rounded-lg bg-accent text-sm font-semibold text-accent-foreground hover:opacity-90"
+                >
                   Sign up
                 </Link>
               </div>
             ) : null}
           </nav>
-        </>
+        </OverlayPortal>
       ) : null}
     </div>
   );

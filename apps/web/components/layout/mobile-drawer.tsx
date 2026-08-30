@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import OverlayPortal from "@/components/layout/overlay-portal";
 
 type Props = {
   open: boolean;
@@ -34,14 +35,14 @@ export default function MobileDrawer({
 
   const panelClass =
     side === "bottom"
-      ? "fixed inset-x-0 bottom-0 z-50 flex max-h-[min(85dvh,640px)] flex-col overflow-hidden rounded-t-2xl border border-border bg-background shadow-[0_-12px_40px_rgba(0,0,0,0.15)]"
-      : "fixed inset-y-0 left-0 z-50 flex w-[min(100%,18rem)] flex-col border-r border-border bg-background shadow-2xl lg:w-60";
+      ? "fixed inset-x-0 bottom-0 z-[201] flex max-h-[min(85dvh,640px)] flex-col overflow-hidden rounded-t-2xl border border-border bg-background shadow-[0_-12px_40px_rgba(0,0,0,0.15)] safe-bottom"
+      : "fixed inset-y-0 left-0 z-[201] flex w-[min(100%,18rem)] flex-col border-r border-border bg-background pt-[env(safe-area-inset-top,0px)] shadow-2xl lg:w-60 safe-bottom";
 
   return (
-    <>
+    <OverlayPortal>
       <button
         type="button"
-        className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] lg:hidden"
+        className="fixed inset-0 z-[200] bg-black/40 backdrop-blur-[2px] lg:hidden"
         aria-label="Close panel"
         onClick={onClose}
       />
@@ -64,6 +65,6 @@ export default function MobileDrawer({
         </div>
         <div className="min-h-0 flex-1 overflow-hidden">{children}</div>
       </aside>
-    </>
+    </OverlayPortal>
   );
 }
