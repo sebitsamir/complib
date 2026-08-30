@@ -23,8 +23,6 @@ export const STYLE_FAMILIES = [
   "brutalist",
   "enterprise",
   "playful",
-  "dense",
-  "elegant",
 ] as const;
 
 export type StyleFamilyId = (typeof STYLE_FAMILIES)[number];
