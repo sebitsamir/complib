@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build shared packages
+        run: npm run build:packages
+
+      - name: Typecheck API
+        run: npm run typecheck -w @complib/api
+
+      - name: Build API
+        run: npm run build -w @complib/api
+
+      - name: Test component validation
+        run: npm run test -w @complib/component-validation
+
+      - name: Lint web
+        run: npm run lint -w @complib/web
+
+      - name: Build web
+        run: npm run build -w @complib/web
+        env:
+          NEXT_PUBLIC_DISABLE_CLERK_DEV: "true"
