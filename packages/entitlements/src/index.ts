@@ -52,3 +52,14 @@ export function roleFromClerkMetadata(
   if (raw === "ADMIN" || raw === "admin" || raw === "Admin") return "ADMIN";
   return "USER";
 }
+
+const ROLE_RANK: Record<UserRole, number> = {
+  USER: 0,
+  ADMIN: 1,
+  SUPER_ADMIN: 2,
+};
+
+/** Prefer the highest-privilege role between Clerk metadata and the database. */
+export function resolveEffectiveRole(clerkRole: UserRole, dbRole: UserRole): UserRole {
+  return ROLE_RANK[clerkRole] >= ROLE_RANK[dbRole] ? clerkRole : dbRole;
+}

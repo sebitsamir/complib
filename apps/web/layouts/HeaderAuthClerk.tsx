@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useAuth, useClerk, useUser } from "@clerk/nextjs";
 import { useEntitlements } from "@/lib/use-entitlements";
+import ManageBillingButton from "@/components/manage-billing-button";
 
 type ClerkUser = NonNullable<ReturnType<typeof useUser>["user"]>;
 
@@ -255,10 +256,10 @@ function UserAccountMenu() {
               Workspace
             </p>
             <MenuLink
-              href="/playground"
-              icon={<IconPlayground />}
-              label="Playground"
-              hint="Build and export pages"
+              href="/dashboard"
+              icon={<IconLibrary />}
+              label="My CompLib"
+              hint="Favorites, recents, collections"
               onNavigate={close}
             />
             <MenuLink
@@ -268,19 +269,41 @@ function UserAccountMenu() {
               hint="Browse the component catalog"
               onNavigate={close}
             />
-            <MenuLink
-              href="/pricing"
-              icon={<IconPricing />}
-              label="Billing & plans"
-              hint={plan.isPro ? "Manage subscription" : "Upgrade to Pro"}
-              onNavigate={close}
-            />
+            {plan.isPro ? (
+              <ManageBillingButton
+                className="group flex w-full items-center gap-3 rounded-lg px-2.5 py-2 text-left transition-colors hover:bg-muted/70"
+                fallbackHref="/pricing"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-border/70 bg-background text-muted-foreground transition-colors group-hover:text-foreground">
+                  <IconPricing />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium text-foreground">Manage billing</span>
+                  <span className="block text-xs text-muted-foreground">Subscription and invoices</span>
+                </span>
+              </ManageBillingButton>
+            ) : (
+              <MenuLink
+                href="/pricing"
+                icon={<IconPricing />}
+                label="Upgrade to Pro"
+                hint="Unlock source, exports, and collections"
+                onNavigate={close}
+              />
+            )}
           </div>
 
           <div className="space-y-0.5 border-t border-border p-2">
             <p className="px-2.5 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Account
+              Build
             </p>
+            <MenuLink
+              href="/playground"
+              icon={<IconPlayground />}
+              label="Playground"
+              hint="Build and export pages"
+              onNavigate={close}
+            />
             <button
               type="button"
               role="menuitem"

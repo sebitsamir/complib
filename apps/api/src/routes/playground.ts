@@ -5,6 +5,7 @@ import { mergePlaygroundVanillaPageSource, pageSourceToVanillaFiles } from "../l
 import {
   getResolvedTiers,
   mergePlaygroundToFiles,
+  type PlaygroundInstance,
 } from "../lib/playground-merge";
 import { parsePlaygroundInstancesBody } from "../lib/playground-request";
 import { buildPlaygroundScaffoldFiles } from "../lib/export-scaffold/playground-scaffold";
@@ -12,7 +13,24 @@ import {
   tierRequiresProSourceLock,
   userHasProSourceAccess,
 } from "../lib/source-access";
+import { entitlementsForRequest } from "../lib/request-entitlements";
 import { downloadRateLimit, writeRateLimit } from "../middleware/security";
+
+async function assertPlaygroundSourceAccess(
+  req: Parameters<typeof userHasProSourceAccess>[0],
+  instances: PlaygroundInstance[],
+): Promise<{ ok: true } | { ok: false; status: number; error: string }> {
+  const tiers = await getResolvedTiers(instances);
+  const includesLocked = tiers.some((tier) => tierRequiresProSourceLock(tier));
+  if (!includesLocked) return { ok: true };
+  const canAccess = await userHasProSourceAccess(req);
+  if (canAccess) return { ok: true };
+  return {
+    ok: false,
+    status: 403,
+    error: "Pro subscription required to preview paid component source.",
+  };
+}
 
 const router = Router();
 
@@ -47,6 +65,12 @@ router.post("/preview", writeRateLimit, async (req, res) => {
     return;
   }
 
+  const access = await assertPlaygroundSourceAccess(req, parsed.instances);
+  if (!access.ok) {
+    res.status(access.status).json({ error: access.error });
+    return;
+  }
+
   try {
     const html = await buildPlaygroundPreviewHtml(parsed.instances);
     res
@@ -68,6 +92,12 @@ router.post("/page-source", writeRateLimit, async (req, res) => {
   const parsed = parsePlaygroundInstancesBody(data);
   if (!parsed.ok) {
     res.status(parsed.status).json({ error: parsed.error });
+    return;
+  }
+
+  const access = await assertPlaygroundSourceAccess(req, parsed.instances);
+  if (!access.ok) {
+    res.status(access.status).json({ error: access.error });
     return;
   }
 
@@ -99,6 +129,16 @@ router.post("/download", downloadRateLimit, async (req, res) => {
     if (!canAccess) {
       res.status(403).json({
         error: "Pro subscription required to download this playground.",
+      });
+      return;
+    }
+  }
+
+  if (parsed.exportKind === "scaffold") {
+    const entitlements = entitlementsForRequest(req);
+    if (!entitlements.canUseScaffoldExport) {
+      res.status(403).json({
+        error: "Scaffold exports require a Pro or Enterprise plan.",
       });
       return;
     }

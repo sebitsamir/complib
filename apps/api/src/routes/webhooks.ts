@@ -5,9 +5,9 @@ import prisma from "../prisma";
 import {
   mapStripeSubscriptionStatus,
   planFromPriceId,
-  planFromStripeMetadata,
 } from "../lib/billing-stripe";
 import { syncUserPlanFromSubscription } from "../lib/billing-service";
+import { roleFromClerkMetadata } from "@complib/entitlements";
 
 type StripeWebhookEvent = {
   id?: string;
@@ -44,6 +44,7 @@ router.post(
       data: {
         id: string;
         email_addresses?: { email_address: string }[];
+        public_metadata?: Record<string, unknown>;
       };
     };
     try {
@@ -59,14 +60,16 @@ router.post(
 
     if (event.type === "user.created") {
       const email = event.data.email_addresses?.[0]?.email_address;
+      const role = roleFromClerkMetadata(event.data.public_metadata);
       if (email) {
         await prisma.user.upsert({
           where: { clerkId: event.data.id },
-          update: { email },
+          update: { email, role },
           create: {
             clerkId: event.data.id,
             email,
             plan: "FREE",
+            role,
           },
         });
       }
@@ -74,10 +77,11 @@ router.post(
 
     if (event.type === "user.updated") {
       const email = event.data.email_addresses?.[0]?.email_address;
+      const role = roleFromClerkMetadata(event.data.public_metadata);
       if (email) {
         await prisma.user.updateMany({
           where: { clerkId: event.data.id },
-          data: { email },
+          data: { email, role },
         });
       }
     }
@@ -142,19 +146,11 @@ router.post(
           ? (session.metadata as Record<string, string>)
           : {};
       const clerkId = metadata.clerkId ?? metadata.userId;
-      const plan = metadata.plan === "ENTERPRISE" ? "ENTERPRISE" : planFromStripeMetadata(metadata);
       const customer = session.customer;
-      if (
-        clerkId &&
-        (plan === "PRO" || plan === "ENTERPRISE") &&
-        typeof customer === "string"
-      ) {
+      if (clerkId && typeof customer === "string") {
         await prisma.user.updateMany({
           where: { clerkId },
-          data: {
-            plan,
-            stripeCustomerId: customer,
-          },
+          data: { stripeCustomerId: customer },
         });
       }
     }

@@ -49,9 +49,11 @@ export default async function ComponentsPage({
         : null,
   };
 
+  const hasSearchQuery = Boolean(raw.q?.trim());
+
   const [components, allComponents, navLayers, problemGroups] = await Promise.all([
     getComponents(
-      raw.q || "",
+      hasSearchQuery ? "" : (raw.q || ""),
       raw.tier,
       raw.layer,
       raw.category,

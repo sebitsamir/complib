@@ -2,8 +2,7 @@ import { Router } from "express";
 import prisma from "../prisma";
 import { resolveDbUserId } from "../lib/user-resolve";
 import { requireAuth } from "../middleware/auth";
-import { getEntitlements } from "@complib/entitlements";
-import type { Plan } from "@complib/contracts";
+import { entitlementsForRequest } from "../lib/request-entitlements";
 
 const router = Router();
 const MAX_RECENT = 12;
@@ -182,12 +181,7 @@ router.post("/collections", requireAuth, async (req, res) => {
     return;
   }
 
-  const plan = (req.userPlan ?? "FREE") as Plan;
-  const entitlements = getEntitlements({
-    plan,
-    role: "USER",
-    unlockPro: process.env.COMPLIB_UNLOCK_PRO_SOURCE === "true",
-  });
+  const entitlements = entitlementsForRequest(req);
   if (!entitlements.canCreateCollections) {
     res.status(403).json({ error: "Collections require a Pro or Enterprise plan." });
     return;
@@ -221,6 +215,12 @@ router.post("/collections/:slug/items", requireAuth, async (req, res) => {
   const userId = await resolveDbUserId(req.userId);
   if (!userId) {
     res.status(404).json({ error: "User profile not found." });
+    return;
+  }
+
+  const entitlements = entitlementsForRequest(req);
+  if (!entitlements.canCreateCollections) {
+    res.status(403).json({ error: "Collections require a Pro or Enterprise plan." });
     return;
   }
 

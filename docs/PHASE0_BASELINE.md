@@ -13,13 +13,13 @@ Recorded 2026-08-30 from the previous split `frontend/` + `backend/` trees.
 
 ## Known critical issues at freeze (do not regress while fixing)
 
-1. Dual component trees (web content vs API expecting a sibling frontend)
-2. Duplicated domain logic + `sync-libs`
-3. Inconsistent Pro entitlements
-4. Enterprise plan implied admin
-5. Stripe subscription updates collapse Enterprise → PRO/FREE
-6. Admin UI not page-guarded
-7. Preview CSP disabled; iframe not fully isolated
+1. ~~Dual component trees (web content vs API expecting a sibling frontend)~~ — resolved in monorepo migration
+2. Duplicated domain logic between `apps/web/lib` and `apps/api/src/lib` — tracked; consolidate into packages incrementally
+3. ~~Inconsistent Pro entitlements~~ — fixed Phase 1: unified `@complib/entitlements` on web + API
+4. ~~Enterprise plan implied admin~~ — fixed Phase 1: admin is role-only via `resolveEffectiveRole`
+5. ~~Stripe subscription updates collapse Enterprise → PRO/FREE~~ — fixed Phase 1: `planFromPriceId` preserves ENTERPRISE
+6. ~~Admin UI not page-guarded~~ — fixed Phase 1: middleware checks `/api/entitlements/me` isAdmin
+7. Preview CSP disabled; iframe not fully isolated — Phase 12 (production hardening)
 
 ## Secrets
 

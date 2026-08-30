@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { createClerkClient } from "@clerk/clerk-sdk-node";
 import prisma from "../prisma";
 import type { Plan } from "@complib/contracts";
-import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
+import { getEntitlements, roleFromClerkMetadata, resolveEffectiveRole } from "@complib/entitlements";
 import { ensureDbUser } from "../lib/user-resolve";
 
 declare global {
@@ -10,6 +10,7 @@ declare global {
     interface Request {
       userId?: string;
       userPlan?: Plan;
+      userRole?: import("@complib/contracts").UserRole;
       isAdmin?: boolean;
     }
   }
@@ -56,6 +57,7 @@ function extractSessionToken(req: Request): string | null {
 async function resolveRequestUser(req: Request): Promise<{
   clerkId: string;
   plan: Plan;
+  role: import("@complib/contracts").UserRole;
   isAdmin: boolean;
 } | null> {
   const token = extractSessionToken(req);
@@ -87,12 +89,10 @@ async function resolveRequestUser(req: Request): Promise<{
   if (dbUser?.plan) {
     plan = dbUser.plan as Plan;
   }
-  if (dbUser?.role) {
-    role = dbUser.role as import("@complib/contracts").UserRole;
-  }
+  role = resolveEffectiveRole(role, (dbUser?.role as import("@complib/contracts").UserRole) ?? "USER");
 
   const entitlements = getEntitlements({ plan, role });
-  return { clerkId, plan, isAdmin: entitlements.isAdmin };
+  return { clerkId, plan, role, isAdmin: entitlements.isAdmin };
 }
 
 export async function requireAuth(
@@ -108,6 +108,7 @@ export async function requireAuth(
 
   req.userId = resolved.clerkId;
   req.userPlan = resolved.plan;
+  req.userRole = resolved.role;
   req.isAdmin = resolved.isAdmin;
   next();
 }
@@ -147,6 +148,7 @@ export async function attachUserIfPresent(
   if (resolved) {
     req.userId = resolved.clerkId;
     req.userPlan = resolved.plan;
+    req.userRole = resolved.role;
     req.isAdmin = resolved.isAdmin;
   }
   next();

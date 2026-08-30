@@ -11,13 +11,24 @@ function devAdminBypassEnabled(): boolean {
   );
 }
 
-function isAdminFromMetadata(
-  sessionClaims: Record<string, unknown> | undefined,
-): boolean {
-  const pub = sessionClaims?.publicMetadata as Record<string, unknown> | undefined;
-  const metadata = pub ?? sessionClaims;
-  const role = metadata?.complibRole ?? metadata?.role;
-  return role === "ADMIN" || role === "SUPER_ADMIN" || role === "admin" || role === "super_admin";
+async function isAdminFromBackend(req: NextRequest): Promise<boolean> {
+  const backend = process.env.COMPLIB_BACKEND_URL?.replace(/\/$/, "");
+  if (!backend) return false;
+
+  const session = req.cookies.get("__session")?.value;
+  if (!session) return false;
+
+  try {
+    const res = await fetch(`${backend}/api/entitlements/me`, {
+      headers: { Cookie: `__session=${session}` },
+      cache: "no-store",
+    });
+    if (!res.ok) return false;
+    const data = (await res.json()) as { isAdmin?: boolean };
+    return Boolean(data.isAdmin);
+  } catch {
+    return false;
+  }
 }
 
 export default clerkDisabled
@@ -32,13 +43,14 @@ export default clerkDisabled
 
       if (devAdminBypassEnabled()) return;
 
-      const { userId, sessionClaims } = await auth();
+      const { userId } = await auth();
       if (!userId) {
         await auth.protect();
         return;
       }
 
-      if (!isAdminFromMetadata(sessionClaims as Record<string, unknown> | undefined)) {
+      const isAdmin = await isAdminFromBackend(req);
+      if (!isAdmin) {
         return NextResponse.redirect(new URL("/?admin=denied", req.url));
       }
     });

@@ -4,6 +4,10 @@ import { assertSafeComponentSlug } from "../lib/path-safe";
 import { renderComponentHtml, resolveVariantProps } from "../lib/variant-props";
 import { recordComponentView } from "../lib/catalog-sync";
 import { resolveDbUserId } from "../lib/user-resolve";
+import {
+  tierRequiresProSourceLock,
+  userHasProSourceAccess,
+} from "../lib/source-access";
 
 const router = Router();
 
@@ -38,6 +42,8 @@ router.get("/:slug", async (req, res) => {
   const variantProps = resolveVariantProps(c.variants, queryOptions);
   const componentHtml = renderComponentHtml(c.html, c.variants, undefined, variantProps);
   const script = c.runtime || c.js || "";
+  const hasSourceAccess = await userHasProSourceAccess(req);
+  const includeSource = !tierRequiresProSourceLock(c.tier) || hasSourceAccess;
 
   try {
     const dbUserId = await resolveDbUserId(req.userId);
@@ -65,10 +71,10 @@ body{
   padding:16px;
   background:#06060b;
 }
-${c.css}
+${includeSource ? c.css : "/* Upgrade to Pro to view component source */"}
 </style>
 </head>
-<body><div id="complib-root">${componentHtml}</div><script>${script}<\/script></body>
+<body><div id="complib-root">${componentHtml}</div>${includeSource ? `<script>${script}<\/script>` : ""}</body>
 </html>`;
 
   res

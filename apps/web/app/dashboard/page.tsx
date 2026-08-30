@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteHeader from "@/layouts/Header";
+import ManageBillingButton from "@/components/manage-billing-button";
 import { getComponents } from "@/lib/component-store";
 import { currentUser } from "@clerk/nextjs/server";
 import { fetchServerEntitlements } from "@/lib/entitlements-server";
@@ -52,9 +53,15 @@ export default async function DashboardPage() {
             <Link href="/playground" className="rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-accent-foreground">
               Open Playground
             </Link>
-            <Link href="/pricing" className="rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted">
-              {entitlements.plan === "FREE" ? "Upgrade to Pro" : "Manage billing"}
-            </Link>
+            {entitlements.plan === "FREE" ? (
+              <Link href="/pricing" className="rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted">
+                Upgrade to Pro
+              </Link>
+            ) : (
+              <ManageBillingButton className="rounded-lg border border-border px-3 py-2 text-sm hover:bg-muted">
+                Manage billing
+              </ManageBillingButton>
+            )}
           </div>
         </section>
 

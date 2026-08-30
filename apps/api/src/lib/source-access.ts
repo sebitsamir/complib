@@ -4,7 +4,7 @@ import type { ComponentBundle, ComponentTier } from "./component-store";
 import { isClerkDisabledDev } from "./clerk-dev-mode";
 import prisma from "../prisma";
 import type { Plan } from "@complib/contracts";
-import { getEntitlements, roleFromClerkMetadata } from "@complib/entitlements";
+import { getEntitlements, roleFromClerkMetadata, resolveEffectiveRole } from "@complib/entitlements";
 
 const clerk = createClerkClient({
   secretKey: process.env.CLERK_SECRET_KEY,
@@ -15,14 +15,18 @@ async function entitlementsFromSessionToken(token: string) {
   try {
     const payload = await clerk.verifyToken(token);
     const user = await clerk.users.getUser(payload.sub);
-    const role = roleFromClerkMetadata(
+    const clerkRole = roleFromClerkMetadata(
       user.publicMetadata as Record<string, unknown> | undefined,
     );
     const dbUser = await prisma.user.findUnique({
       where: { clerkId: payload.sub },
-      select: { plan: true },
+      select: { plan: true, role: true },
     });
     const plan = (dbUser?.plan as Plan | undefined) ?? "FREE";
+    const role = resolveEffectiveRole(
+      clerkRole,
+      (dbUser?.role as import("@complib/contracts").UserRole | undefined) ?? "USER",
+    );
     return getEntitlements({
       plan,
       role,

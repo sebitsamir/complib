@@ -5,6 +5,7 @@ import {
   getComponentArtifactInventory,
 } from "../lib/artifact-storage";
 import { assertSafeComponentSlug } from "../lib/path-safe";
+import { requireAdmin } from "../middleware/auth";
 
 const router = Router();
 
@@ -18,22 +19,21 @@ router.get("/health", async (_req, res) => {
   }
 });
 
-router.get("/:slug", async (req, res) => {
+router.get("/:slug", requireAdmin, async (req, res) => {
   const slug = Array.isArray(req.params.slug) ? req.params.slug[0] : req.params.slug;
   if (!slug?.trim()) {
     res.status(400).json({ error: "Invalid slug." });
     return;
   }
 
-  try {
-    assertSafeComponentSlug(slug.trim());
-  } catch {
+  const decoded = assertSafeComponentSlug(slug.trim());
+  if (!decoded) {
     res.status(400).json({ error: "Invalid slug." });
     return;
   }
 
   try {
-    const bundle = await readComponentBundleFromDisk(slug.trim());
+    const bundle = await readComponentBundleFromDisk(decoded);
     if (!bundle) {
       res.status(404).json({ error: "Component not found in artifact store." });
       return;

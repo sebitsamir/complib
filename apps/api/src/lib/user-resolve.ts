@@ -16,11 +16,11 @@ export async function ensureDbUser(clerkId: string, email?: string): Promise<str
   });
   if (existing) return existing.id;
 
-  if (!email) return null;
+  const resolvedEmail = email?.trim() || `${clerkId}@users.complib.internal`;
   const created = await prisma.user.upsert({
     where: { clerkId },
-    create: { clerkId, email, plan: "FREE" },
-    update: { email },
+    create: { clerkId, email: resolvedEmail, plan: "FREE" },
+    update: { email: resolvedEmail },
     select: { id: true },
   });
   return created.id;

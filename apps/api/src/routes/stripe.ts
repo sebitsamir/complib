@@ -65,4 +65,30 @@ router.post("/create-checkout", requireAuth, async (req, res) => {
   res.json({ url: session.url });
 });
 
+router.post("/create-portal", requireAuth, async (req, res) => {
+  const stripe = getStripe();
+  if (!stripe) {
+    res.status(503).json({ error: "Stripe is not configured." });
+    return;
+  }
+
+  const dbUser = await prisma.user.findUnique({
+    where: { clerkId: req.userId },
+    select: { stripeCustomerId: true },
+  });
+
+  if (!dbUser?.stripeCustomerId) {
+    res.status(400).json({ error: "No billing account found. Subscribe to a plan first." });
+    return;
+  }
+
+  const frontendUrl = (process.env.FRONTEND_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  const session = await stripe.billingPortal.sessions.create({
+    customer: dbUser.stripeCustomerId,
+    return_url: `${frontendUrl}/dashboard`,
+  });
+
+  res.json({ url: session.url });
+});
+
 export default router;

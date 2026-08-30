@@ -19,7 +19,7 @@ export function planFromStripeMetadata(metadata: Record<string, string> | undefi
   const raw = metadata?.plan ?? metadata?.complibPlan;
   if (raw === "ENTERPRISE") return "ENTERPRISE";
   if (raw === "PRO") return "PRO";
-  return "PRO";
+  return "FREE";
 }
 
 export function planFromPriceId(priceId: string | undefined, metadata?: Record<string, string>): Plan {

@@ -16,6 +16,7 @@ import {
   GENERATED_ROOT,
   type ComponentDiskBundle,
 } from "./component-fs";
+import { ensureGeneratedBundle } from "./framework-output";
 import { ensureStorageLayout, snapshotRevisionArtifacts } from "./artifact-storage";
 
 type RegistryQueryRow = {
@@ -302,6 +303,7 @@ export async function syncComponentRegistry(input: {
   const { componentId, bundle, variantRows, componentPath, tagSlugs, publishedBy } = input;
 
   await Promise.all([
+    ensureGeneratedBundle(bundle.slug).catch(() => false),
     syncDependencies(componentId, bundle),
     syncExamples(componentId, bundle),
     syncDocumentation(componentId, bundle),
@@ -311,7 +313,10 @@ export async function syncComponentRegistry(input: {
   await syncRevision(componentId, bundle, variantRows, publishedBy);
 }
 
-export async function getRegistryBySlug(slug: string): Promise<ComponentRegistryRecord | null> {
+export async function getRegistryBySlug(
+  slug: string,
+  options: { redactSource?: boolean } = {},
+): Promise<ComponentRegistryRecord | null> {
   const row = (await prisma.catalogComponent.findUnique({
     where: { slug },
     include: {
@@ -342,51 +347,77 @@ export async function getRegistryBySlug(slug: string): Promise<ComponentRegistry
       }
     : null;
 
-  return {
-    schemaVersion: 1,
-    identity: {
-      slug: row.slug,
-      name: row.name,
-      description: row.description,
-      tier: row.tier,
-      layer: row.layer,
-      category: row.category,
-      problemTags: row.problemTags,
-      tags: row.tags.map((entry) => entry.tag.slug),
-      defaultStyleId: row.defaultStyleId,
-      filesystemPath: row.filesystemPath,
+  return redactRegistryRecord(
+    {
+      schemaVersion: 1,
+      identity: {
+        slug: row.slug,
+        name: row.name,
+        description: row.description,
+        tier: row.tier,
+        layer: row.layer,
+        category: row.category,
+        problemTags: row.problemTags,
+        tags: row.tags.map((entry) => entry.tag.slug),
+        defaultStyleId: row.defaultStyleId,
+        filesystemPath: row.filesystemPath,
+      },
+      styles: row.variants.map((variant) => ({
+        id: variant.styleId,
+        label: variant.label,
+        filesystemPath: variant.filesystemPath,
+        manifest: variant.manifest as Record<string, unknown>,
+      })),
+      variants: extractVariantsFromManifests(row.variants),
+      frameworks: row.frameworks.map(
+        (entry) => entry.framework as RegistryFramework,
+      ),
+      dependencies: row.dependencies.map((dep) => ({
+        name: dep.name,
+        version: dep.version ?? undefined,
+      })),
+      documentation: row.documentation
+        ? {
+            usage: row.documentation.usage,
+            accessibility: row.documentation.accessibility,
+            installation: row.documentation.installation,
+          }
+        : buildDefaultDocumentation({
+            name: row.name,
+            slug: row.slug,
+            description: row.description,
+          }),
+      examples: row.examples.map((example) => ({
+        title: example.title,
+        html: example.html,
+        description: example.description ?? undefined,
+      })),
+      latestRevision,
     },
-    styles: row.variants.map((variant) => ({
-      id: variant.styleId,
-      label: variant.label,
-      filesystemPath: variant.filesystemPath,
-      manifest: variant.manifest as Record<string, unknown>,
+    options.redactSource === true,
+  );
+}
+
+function redactRegistryRecord(
+  record: ComponentRegistryRecord,
+  redactSource: boolean,
+): ComponentRegistryRecord {
+  if (!redactSource || record.identity.tier === "FREE") return record;
+  return {
+    ...record,
+    styles: record.styles.map((style) => ({
+      ...style,
+      filesystemPath: "",
+      manifest: {},
     })),
-    variants: extractVariantsFromManifests(row.variants),
-    frameworks: row.frameworks.map(
-      (entry) => entry.framework as RegistryFramework,
-    ),
-    dependencies: row.dependencies.map((dep) => ({
-      name: dep.name,
-      version: dep.version ?? undefined,
+    examples: record.examples.map((example) => ({
+      ...example,
+      html: "",
     })),
-    documentation: row.documentation
-      ? {
-          usage: row.documentation.usage,
-          accessibility: row.documentation.accessibility,
-          installation: row.documentation.installation,
-        }
-      : buildDefaultDocumentation({
-          name: row.name,
-          slug: row.slug,
-          description: row.description,
-        }),
-    examples: row.examples.map((example) => ({
-      title: example.title,
-      html: example.html,
-      description: example.description ?? undefined,
-    })),
-    latestRevision,
+    identity: {
+      ...record.identity,
+      filesystemPath: "",
+    },
   };
 }
 
