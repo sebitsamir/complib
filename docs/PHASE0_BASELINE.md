@@ -19,7 +19,7 @@ Recorded 2026-08-30 from the previous split `frontend/` + `backend/` trees.
 4. ~~Enterprise plan implied admin~~ — fixed Phase 1: admin is role-only via `resolveEffectiveRole`
 5. ~~Stripe subscription updates collapse Enterprise → PRO/FREE~~ — fixed Phase 1: `planFromPriceId` preserves ENTERPRISE
 6. ~~Admin UI not page-guarded~~ — fixed Phase 1: middleware checks `/api/entitlements/me` isAdmin
-7. Preview CSP disabled; iframe not fully isolated — Phase 12 (production hardening)
+7. ~~Preview CSP disabled; iframe not fully isolated~~ — fixed Phase 12: API CSP headers enabled
 
 ## Secrets
 
