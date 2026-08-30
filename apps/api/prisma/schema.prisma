@@ -77,6 +77,11 @@ model CatalogComponent {
   collectionItems CollectionItem[]
   downloads      DownloadEvent[]
   views          ComponentView[]
+  revisions      ComponentRevision[]
+  dependencies   ComponentDependency[]
+  frameworks     ComponentFramework[]
+  examples       ComponentExample[]
+  documentation  ComponentDocumentation?
 
   @@index([layer, category])
   @@index([tier])
@@ -194,4 +199,60 @@ model ComponentView {
   component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
 
   @@index([componentId, createdAt])
+}
+
+model ComponentRevision {
+  id           String           @id @default(cuid())
+  componentId  String
+  version      Int
+  sourceHash   String
+  manifestHash String
+  publishedAt  DateTime         @default(now())
+  publishedBy  String?
+  notes        String?
+  component    CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([componentId, version])
+  @@index([componentId, publishedAt])
+}
+
+model ComponentDependency {
+  id          String           @id @default(cuid())
+  componentId String
+  name        String
+  version     String?
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@index([componentId])
+}
+
+model ComponentFramework {
+  id            String           @id @default(cuid())
+  componentId   String
+  framework     String
+  generatedPath String?
+  lastBuiltAt   DateTime?
+  component     CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@unique([componentId, framework])
+}
+
+model ComponentExample {
+  id          String           @id @default(cuid())
+  componentId String
+  title       String
+  html        String           @default("")
+  description String?
+  component   CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  @@index([componentId])
+}
+
+model ComponentDocumentation {
+  id             String           @id @default(cuid())
+  componentId    String           @unique
+  usage          String           @default("")
+  accessibility  String           @default("")
+  installation   String           @default("")
+  component      CatalogComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
 }

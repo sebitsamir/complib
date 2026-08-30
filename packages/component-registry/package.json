@@ -1,0 +1,19 @@
+{
+  "name": "@complib/component-registry",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CompLib component registry contracts — identity, revisions, styles, frameworks",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@complib/component-schema": "*",
+    "@complib/contracts": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2"
+  }
+}

@@ -37,6 +37,22 @@ export const componentSpecSchema = z.object({
   variants: z.array(componentVariantSchema).default([]),
   tags: z.array(z.string()).default([]),
   dependencies: z.array(z.string()).default([]),
+  documentation: z
+    .object({
+      usage: z.string().default(""),
+      accessibility: z.string().default(""),
+      installation: z.string().default(""),
+    })
+    .optional(),
+  examples: z
+    .array(
+      z.object({
+        title: z.string().min(1),
+        html: z.string().default(""),
+        description: z.string().optional(),
+      }),
+    )
+    .optional(),
 });
 
 export type ComponentSpec = z.infer<typeof componentSpecSchema>;

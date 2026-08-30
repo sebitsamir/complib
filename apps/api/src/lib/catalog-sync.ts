@@ -14,6 +14,7 @@ import {
   slugifyTag,
   titleCaseTag,
 } from "./variant-manifest";
+import { syncComponentRegistry } from "./component-registry";
 
 export type CatalogSearchFilters = {
   q?: string;
@@ -190,6 +191,14 @@ export async function syncComponentCatalog(slug: string): Promise<boolean> {
       },
     });
   }
+
+  await syncComponentRegistry({
+    componentId: component.id,
+    bundle,
+    variantRows,
+    componentPath,
+    tagSlugs,
+  });
 
   return true;
 }

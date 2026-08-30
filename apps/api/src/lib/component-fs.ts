@@ -61,6 +61,17 @@ export type ComponentJsonShape = {
   runtimeContract?: { mount?: string; unmount?: string };
   variants?: ComponentVariant[];
   themes?: Array<"light" | "dark" | "auto">;
+  dependencies?: string[];
+  documentation?: {
+    usage?: string;
+    accessibility?: string;
+    installation?: string;
+  };
+  examples?: Array<{
+    title: string;
+    html?: string;
+    description?: string;
+  }>;
 };
 
 export type ComponentDiskBundle = {

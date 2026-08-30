@@ -9,6 +9,7 @@ import playgroundRouter from "./routes/playground";
 import previewRouter from "./routes/preview";
 import stripeRouter from "./routes/stripe";
 import webhooksRouter from "./routes/webhooks";
+import registryRouter from "./routes/registry";
 import {
   globalRateLimit,
   rejectUnknownContentType,
@@ -75,6 +76,7 @@ app.get("/api/health", async (_req, res) => {
 
 app.use("/api/components", writeRateLimit, componentsRouter);
 app.use("/api/catalog", catalogRouter);
+app.use("/api/registry", registryRouter);
 app.use("/api/library", libraryRouter);
 app.use("/api/playground", playgroundRouter);
 app.use("/api/preview", previewRouter);

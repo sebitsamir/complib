@@ -21,6 +21,17 @@ complib/
   storage/generated     Generated framework bundles
 ```
 
+## Component registry (Phase 2)
+
+PostgreSQL holds the **registry mirror** of each component:
+
+- `CatalogComponent` — identity, taxonomy, search index
+- `CatalogVariant` — style families (`variants/{styleId}/`)
+- `ComponentRevision` — versioned source/manifest hashes
+- `ComponentDependency`, `ComponentFramework`, `ComponentExample`, `ComponentDocumentation`
+
+Catalog sync (`npm run sync:catalog`) indexes disk → registry. Public read API: `GET /api/registry/:slug`.
+
 ## What we will not do
 
 - Copy `lib/` from web into API (`sync-libs` is retired)
