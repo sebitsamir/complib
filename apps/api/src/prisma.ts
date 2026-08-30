@@ -10,6 +10,12 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env"), override: true });
 type PrismaClientInstance = any;
 
 let prismaClient: PrismaClientInstance | null = null;
+let prismaPoolerPreferred = false;
+let defaultPreferPooler = false;
+
+export function configurePrisma(options?: { preferPooler?: boolean }): void {
+  defaultPreferPooler = options?.preferPooler ?? false;
+}
 
 function isLocalHost(hostname: string): boolean {
   return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
@@ -36,11 +42,11 @@ function withNeonSsl(connectionString: string): string {
   }
 }
 
-function resolveConnectionString(): string {
+function resolveConnectionString(options?: { preferPooler?: boolean }): string {
   const direct = process.env.DIRECT_DATABASE_URL?.trim();
   const database = process.env.DATABASE_URL?.trim();
 
-  let chosen = direct || database;
+  let chosen = options?.preferPooler && database ? database : direct || database;
   if (!chosen) {
     throw new Error(
       "Set DIRECT_DATABASE_URL (preferred) or DATABASE_URL in apps/api/.env",
@@ -71,7 +77,18 @@ function resolveConnectionString(): string {
   return withNeonSsl(chosen);
 }
 
-export function getPrisma(): PrismaClientInstance {
+export async function resetPrisma(): Promise<void> {
+  if (prismaClient) {
+    await prismaClient.$disconnect();
+    prismaClient = null;
+  }
+}
+
+export function getPrisma(options?: { preferPooler?: boolean }): PrismaClientInstance {
+  const preferPooler = options?.preferPooler ?? defaultPreferPooler;
+  if (prismaClient && prismaPoolerPreferred !== preferPooler) {
+    void resetPrisma();
+  }
   if (!prismaClient) {
     try {
       const { PrismaClient } = require("@prisma/client") as {
@@ -83,9 +100,10 @@ export function getPrisma(): PrismaClientInstance {
       const { PrismaPg } = require("@prisma/adapter-pg") as {
         PrismaPg: new (args: { connectionString: string }) => unknown;
       };
-      const connectionString = resolveConnectionString();
+      const connectionString = resolveConnectionString({ preferPooler });
       const adapter = new PrismaPg({ connectionString });
       prismaClient = new PrismaClient({ adapter, log: ["warn", "error"] });
+      prismaPoolerPreferred = preferPooler;
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       throw new Error(

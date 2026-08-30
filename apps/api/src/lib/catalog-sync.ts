@@ -1,5 +1,6 @@
 import path from "node:path";
 import prisma from "../prisma";
+import { resetPrisma } from "../prisma";
 import {
   COMPONENTS_ROOT,
   listComponentSlugs,
@@ -242,6 +243,38 @@ export async function syncComponentCatalog(slug: string): Promise<boolean> {
   return true;
 }
 
+function isTransientDbError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return (
+    message.includes("Connection terminated unexpectedly") ||
+    message.includes("Can't reach database server") ||
+    message.includes("ECONNRESET") ||
+    message.includes("ETIMEDOUT") ||
+    message.includes("Connection timed out")
+  );
+}
+
+async function sleep(ms: number): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function syncComponentCatalogWithRetry(slug: string, maxAttempts = 5): Promise<boolean> {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      return await syncComponentCatalog(slug);
+    } catch (error) {
+      if (!isTransientDbError(error) || attempt === maxAttempts) {
+        throw error;
+      }
+      const delayMs = Math.min(2000 * 2 ** (attempt - 1), 15000);
+      console.warn(`  ↻ ${slug} — connection dropped, retrying in ${delayMs / 1000}s…`);
+      await resetPrisma();
+      await sleep(delayMs);
+    }
+  }
+  return false;
+}
+
 export async function syncAllComponentsCatalog(): Promise<{
   synced: number;
   total: number;
@@ -251,7 +284,7 @@ export async function syncAllComponentsCatalog(): Promise<{
   const keep = new Set(slugs);
   let synced = 0;
   for (const slug of slugs) {
-    if (await syncComponentCatalog(slug)) {
+    if (await syncComponentCatalogWithRetry(slug)) {
       synced += 1;
       console.log(`  ✓ ${slug}`);
     } else {
