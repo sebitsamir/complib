@@ -2,13 +2,9 @@ import { Router } from "express";
 import {
   getComponentBySlug,
   invalidateComponentCache,
-  type ComponentTier,
 } from "../lib/component-store";
 import {
-  publishComponentToDisk,
   readComponentBundleFromDisk,
-  type ComponentLayer,
-  type ComponentVariant,
 } from "../lib/component-fs";
 import {
   buildExportedBundleFiles,
@@ -26,184 +22,59 @@ import {
 import { safeSlug, validateTaxonomy } from "../lib/taxonomy";
 import { requireAdmin } from "../middleware/auth";
 import { downloadRateLimit } from "../middleware/security";
-import { logAuditEvent } from "../lib/audit-log";
-import { syncComponentCatalog, recordComponentDownload } from "../lib/catalog-sync";
+import { recordComponentDownload } from "../lib/catalog-sync";
 import { resolveDbUserId } from "../lib/user-resolve";
-
-const router = Router();
+import {
+  publishComponent,
+  validatePublishPayload,
+  type PublishComponentPayload,
+} from "../lib/publish-pipeline";
 
 const MAX_SOURCE_BYTES = 512 * 1024;
 
-type CreateComponentPayload = {
-  name?: string;
-  slug?: string;
-  description?: string;
-  html?: string;
-  css?: string;
-  js?: string;
-  tier?: ComponentTier;
-  layer?: string;
-  category?: string;
-  problemTags?: string[];
-  tags?: string[];
-  themes?: string[];
-  variants?: Array<{ id?: string; label?: string; props?: Record<string, string> }>;
-  styleFamilies?: string[];
-  activeStyleId?: string;
-};
-
-function titleCase(input: string): string {
-  return input
-    .replace(/[-_]+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim()
-    .replace(/\b\w/g, (m) => m.toUpperCase());
-}
-
-function buildStyleVariantIds(
-  styleFamilies: string[] | undefined,
-  activeStyleId?: string,
-): string[] {
-  const ids = new Set<string>();
-  ids.add("default");
-  for (const family of styleFamilies ?? []) {
-    const normalized = family.trim().toLowerCase();
-    if (normalized && normalized !== "standard") ids.add(normalized);
-  }
-  if (activeStyleId?.trim()) ids.add(activeStyleId.trim().toLowerCase());
-  return [...ids];
-}
-
-function normalizeVariants(
-  variants: CreateComponentPayload["variants"],
-): ComponentVariant[] {
-  if (!Array.isArray(variants)) return [];
-  return variants
-    .filter((v) => v && typeof v.id === "string" && typeof v.label === "string")
-    .map((v) => ({
-      id: String(v.id),
-      label: String(v.label),
-      props:
-        v.props && typeof v.props === "object"
-          ? Object.fromEntries(
-              Object.entries(v.props).map(([k, val]) => [String(k), String(val)]),
-            )
-          : undefined,
-    }));
-}
-
 function sourcePayloadTooLarge(html: string, css: string, js: string): boolean {
-  const total = Buffer.byteLength(html, "utf8") + Buffer.byteLength(css, "utf8") + Buffer.byteLength(js, "utf8");
+  const total =
+    Buffer.byteLength(html, "utf8") +
+    Buffer.byteLength(css, "utf8") +
+    Buffer.byteLength(js, "utf8");
   return total > MAX_SOURCE_BYTES;
 }
 
+const router = Router();
+
+router.post("/validate", requireAdmin, async (req, res) => {
+  const body = req.body as PublishComponentPayload;
+  if (!body || typeof body !== "object") {
+    res.status(400).json({ error: "Invalid JSON body." });
+    return;
+  }
+  const validation = validatePublishPayload(body);
+  res.status(200).json(validation);
+});
+
 router.post("/", requireAdmin, async (req, res) => {
-  const body = req.body as CreateComponentPayload;
+  const body = req.body as PublishComponentPayload;
   if (!body || typeof body !== "object") {
     res.status(400).json({ error: "Invalid JSON body." });
     return;
   }
 
-  const name = String(body.name ?? "").trim();
-  const slug = safeSlug(body.slug || name);
-  const taxonomy = validateTaxonomy({
-    layer: body.layer,
-    category: body.category,
-    problemTags: body.problemTags,
+  const result = await publishComponent({
+    body,
+    mode: "create",
+    userId: req.userId,
+    ip: req.ip,
   });
-  const tier =
-    body.tier === "PRO" || body.tier === "ENTERPRISE" ? body.tier : "FREE";
 
-  if (!name || !slug) {
-    res.status(400).json({ error: "Missing required fields: name and slug." });
-    return;
-  }
-  if (!assertSafeComponentSlug(slug)) {
-    res.status(400).json({ error: "Invalid slug format." });
-    return;
-  }
-  if (!taxonomy.ok) {
-    res.status(400).json({ error: taxonomy.error });
-    return;
-  }
-
-  const html = String(body.html ?? "");
-  const css = String(body.css ?? "");
-  const js = String(body.js ?? "");
-  if (sourcePayloadTooLarge(html, css, js)) {
-    res.status(413).json({ error: "Component source exceeds size limit." });
-    return;
-  }
-
-  const description = String(body.description ?? `${name} component`).trim();
-  const tags =
-    Array.isArray(body.tags) && body.tags.length > 0
-      ? body.tags.map((t) => String(t)).filter(Boolean)
-      : [taxonomy.category];
-
-  const themes: Array<"light" | "dark" | "auto"> = Array.isArray(body.themes)
-    ? body.themes.filter(
-        (t): t is "light" | "dark" | "auto" =>
-          t === "light" || t === "dark" || t === "auto",
-      )
-    : ["light", "dark", "auto"];
-
-  const variants = normalizeVariants(body.variants);
-
-  const component: import("../lib/component-fs").ComponentJsonShape = {
-    id: slug,
-    name,
-    slug,
-    description,
-    tags,
-    tier,
-    layer: taxonomy.layer,
-    category: taxonomy.category,
-    problemTags: taxonomy.problemTags,
-    viewCount: 0,
-    themes,
-    styleVariants: { vanilla: true, tailwind: false },
-  };
-
-  const styleIds = buildStyleVariantIds(body.styleFamilies, body.activeStyleId);
-  const primaryStyleId = body.activeStyleId?.trim().toLowerCase() || styleIds[0] || "default";
-
-  try {
-    await publishComponentToDisk({
-      slug,
-      layer: taxonomy.layer as ComponentLayer,
-      category: taxonomy.category,
-      component,
-      dimensions: variants,
-      styleVariants: styleIds.map((id) => ({
-        id,
-        label: titleCase(id),
-        html: id === primaryStyleId ? html : "",
-        css: id === primaryStyleId ? css : "",
-        js: id === primaryStyleId ? js : "",
-      })),
+  if (!result.ok) {
+    res.status(result.status).json({
+      error: result.error,
+      validation: result.validation,
     });
-    await ensureGeneratedBundle(slug);
-    invalidateComponentCache();
-    try {
-      await syncComponentCatalog(slug);
-    } catch {
-      // Catalog sync is best-effort when DB is unavailable.
-    }
-
-    await logAuditEvent({
-      userId: req.userId,
-      action: "component.create",
-      resource: slug,
-      ip: req.ip,
-      metadata: { tier, layer: taxonomy.layer, category: taxonomy.category },
-    });
-  } catch {
-    res.status(500).json({ error: "Failed to save component files to disk." });
     return;
   }
 
-  res.status(201).json({ ok: true, slug });
+  res.status(201).json({ ok: true, slug: result.slug, validation: result.validation });
 });
 
 router.get("/:slug/edit", requireAdmin, async (req, res) => {
@@ -252,120 +123,29 @@ router.put("/:slug", requireAdmin, async (req, res) => {
     return;
   }
 
-  const existing = await readComponentBundleFromDisk(decoded);
-  if (!existing) {
-    res.status(404).json({ error: "Component not found." });
-    return;
-  }
-
-  const body = req.body as CreateComponentPayload;
+  const body = req.body as PublishComponentPayload;
   if (!body || typeof body !== "object") {
     res.status(400).json({ error: "Invalid JSON body." });
     return;
   }
 
-  const name = String(body.name ?? "").trim();
-  const taxonomy = validateTaxonomy({
-    layer: body.layer,
-    category: body.category,
-    problemTags: body.problemTags,
+  const result = await publishComponent({
+    body,
+    mode: "update",
+    existingSlug: decoded,
+    userId: req.userId,
+    ip: req.ip,
   });
-  const tier =
-    body.tier === "PRO" || body.tier === "ENTERPRISE" ? body.tier : "FREE";
 
-  if (!name) {
-    res.status(400).json({ error: "Missing required field: name." });
-    return;
-  }
-  if (!taxonomy.ok) {
-    res.status(400).json({ error: taxonomy.error });
-    return;
-  }
-
-  const html = String(body.html ?? "");
-  const css = String(body.css ?? "");
-  const js = String(body.js ?? "");
-  if (sourcePayloadTooLarge(html, css, js)) {
-    res.status(413).json({ error: "Component source exceeds size limit." });
-    return;
-  }
-
-  const description = String(body.description ?? `${name} component`).trim();
-  const tags =
-    Array.isArray(body.tags) && body.tags.length > 0
-      ? body.tags.map((t) => String(t)).filter(Boolean)
-      : [taxonomy.category];
-
-  const themes: Array<"light" | "dark" | "auto"> = Array.isArray(body.themes)
-    ? body.themes.filter(
-        (t): t is "light" | "dark" | "auto" =>
-          t === "light" || t === "dark" || t === "auto",
-      )
-    : existing.json.themes ?? ["light", "dark", "auto"];
-
-  const variants = normalizeVariants(body.variants);
-
-  const component: import("../lib/component-fs").ComponentJsonShape = {
-    id: decoded,
-    name,
-    slug: decoded,
-    description,
-    tags,
-    tier,
-    layer: taxonomy.layer,
-    category: taxonomy.category,
-    problemTags: taxonomy.problemTags,
-    viewCount:
-      typeof existing.json.viewCount === "number" ? existing.json.viewCount : 0,
-    themes,
-    styleVariants: existing.json.styleVariants ?? { vanilla: true, tailwind: false },
-    defaultStyleId: body.activeStyleId?.trim().toLowerCase() || existing.json.defaultStyleId,
-  };
-
-  const styleIds = new Set([
-    ...buildStyleVariantIds(body.styleFamilies, body.activeStyleId),
-    ...existing.styleVariants.map((variant) => variant.id),
-  ]);
-  const primaryStyleId =
-    body.activeStyleId?.trim().toLowerCase() || existing.styleId || "default";
-
-  try {
-    await publishComponentToDisk({
-      slug: decoded,
-      layer: taxonomy.layer as ComponentLayer,
-      category: taxonomy.category,
-      component,
-      dimensions: variants,
-      existingDir: existing.dir,
-      styleVariants: [...styleIds].map((id) => ({
-        id,
-        label: titleCase(id),
-        html: id === primaryStyleId ? html : "",
-        css: id === primaryStyleId ? css : "",
-        js: id === primaryStyleId ? js : "",
-      })),
+  if (!result.ok) {
+    res.status(result.status).json({
+      error: result.error,
+      validation: result.validation,
     });
-    await ensureGeneratedBundle(decoded);
-    invalidateComponentCache();
-    try {
-      await syncComponentCatalog(decoded);
-    } catch {
-      // Catalog sync is best-effort when DB is unavailable.
-    }
-
-    await logAuditEvent({
-      userId: req.userId,
-      action: "component.update",
-      resource: decoded,
-      ip: req.ip,
-      metadata: { tier, layer: taxonomy.layer, category: taxonomy.category },
-    });
-  } catch {
-    res.status(500).json({ error: "Failed to update component files on disk." });
     return;
   }
 
-  res.status(200).json({ ok: true, slug: decoded });
+  res.status(200).json({ ok: true, slug: result.slug, validation: result.validation });
 });
 
 const VARIANT_KEYS = ["size", "tone", "density", "radius", "emphasis"] as const;

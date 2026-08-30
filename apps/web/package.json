@@ -20,6 +20,7 @@
   "dependencies": {
     "@complib/artifact-store": "*",
     "@complib/component-schema": "*",
+    "@complib/component-validation": "*",
     "@complib/contracts": "*",
     "@complib/entitlements": "*",
     "@complib/export-engine": "*",

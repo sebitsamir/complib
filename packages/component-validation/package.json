@@ -1,0 +1,17 @@
+{
+  "name": "@complib/component-validation",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CompLib component publish validation engine",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@complib/component-schema": "*",
+    "@complib/contracts": "*",
+    "@complib/taxonomy": "*"
+  }
+}

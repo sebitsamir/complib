@@ -18,6 +18,7 @@ import {
 import { clearAdminDraft, loadAdminDraft, saveAdminDraft } from '@/lib/admin-draft';
 import { getComponentStarter } from '@/lib/component-starters';
 import { getCategoriesForLayer, getCategoryDef } from '@/lib/taxonomy-defaults';
+import type { PublishPipelineStep } from '@complib/component-validation';
 
 type CatalogItem = {
   slug: string;
@@ -216,6 +217,49 @@ export default function AdminNewPage() {
     return () => window.clearTimeout(t);
   }, [form, view]);
 
+  const [pipelineSteps, setPipelineSteps] = useState<
+    Record<PublishPipelineStep, "pass" | "fail" | "warn" | "skip"> | undefined
+  >(undefined);
+
+  const refreshPipelineValidation = useCallback(async (current: AdminFormState) => {
+    try {
+      const res = await fetch("/api/components/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          name: current.name.trim(),
+          slug: sanitizeAdminSlug(current.slug),
+          description: current.description,
+          html: current.html,
+          css: current.css,
+          js: current.js,
+          tier: current.tier,
+          layer: current.layer,
+          category: current.categorySlug,
+          problemTags: current.problemTags,
+          tags: buildPublishTags(current),
+          themes: current.themes,
+          variants: current.variants,
+          styleFamilies: current.styleFamilies,
+          activeStyleId: current.activeStyleId,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (data?.steps) setPipelineSteps(data.steps);
+    } catch {
+      setPipelineSteps(undefined);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (view !== "studio") return;
+    const timer = window.setTimeout(() => {
+      void refreshPipelineValidation(form);
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [form, view, refreshPipelineValidation]);
+
   const handleSave = async () => {
     const layer = form.layer;
     const slug = sanitizeAdminSlug(form.slug);
@@ -275,12 +319,17 @@ export default function AdminNewPage() {
       );
       const data = await res.json().catch(() => null);
       if (!res.ok) {
+        if (data?.validation?.steps) setPipelineSteps(data.validation.steps);
         setSaveState({
           type: 'error',
-          message: data?.error || 'Publish failed. Check admin API access (COMPLIB_ADMIN_API_KEY or Clerk admin role).',
+          message:
+            data?.error ||
+            data?.validation?.issues?.find((i: { severity: string }) => i.severity === 'error')?.message ||
+            'Publish failed. Check admin API access (COMPLIB_ADMIN_API_KEY or Clerk admin role).',
         });
         return;
       }
+      if (data?.validation?.steps) setPipelineSteps(data.validation.steps);
       const publishedSlug = (data?.slug as string) || slug;
       clearAdminDraft();
       setSaveState({
@@ -355,6 +404,7 @@ export default function AdminNewPage() {
                 saveState={saveState}
                 componentCount={catalog.length}
                 draftSavedAt={draftSavedAt}
+                pipelineSteps={pipelineSteps}
                 onFormChange={(field, value) => {
                   setForm((prev) => {
                     if (field === 'name') {

@@ -24,6 +24,7 @@
     "@complib/artifact-store": "*",
     "@complib/component-registry": "*",
     "@complib/component-schema": "*",
+    "@complib/component-validation": "*",
     "@complib/contracts": "*",
     "@complib/entitlements": "*",
     "@complib/export-engine": "*",

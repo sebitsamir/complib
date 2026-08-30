@@ -36,6 +36,8 @@ import {
 } from "@/lib/taxonomy-defaults";
 import { STYLE_FAMILY_DEFS } from "@/lib/style-navigation";
 import { buildComponentContentPath, buildExplorerPlacementUrl, buildStyleVariantPath } from "@/lib/admin-form";
+import { AdminPublishPipeline } from "@/components/admin/admin-publish-pipeline";
+import type { PublishPipelineStep } from "@complib/component-validation";
 
 export type AdminFormState = {
   name: string;
@@ -158,6 +160,7 @@ export function AdminStudio({
   saveState,
   componentCount,
   draftSavedAt,
+  pipelineSteps,
   onFormChange,
   onLayerChange,
   onCategoryChange,
@@ -176,6 +179,7 @@ export function AdminStudio({
   saveState: SaveState;
   componentCount: number;
   draftSavedAt: string | null;
+  pipelineSteps?: Record<PublishPipelineStep, "pass" | "fail" | "warn" | "skip">;
   onFormChange: (
     field: keyof Pick<AdminFormState, "name" | "slug" | "description" | "html" | "css" | "js">,
     value: string,
@@ -542,6 +546,14 @@ export function AdminStudio({
 
           <AdminPanel title="Publish checklist" subtitle="All errors must be resolved before publishing">
             <ValidationBanner issues={validation} />
+            {pipelineSteps ? (
+              <div className="mt-4">
+                <p className={adm.sectionTitle}>Publish pipeline</p>
+                <div className="mt-2">
+                  <AdminPublishPipeline steps={pipelineSteps} />
+                </div>
+              </div>
+            ) : null}
             <p className="mt-3 text-[11px] text-muted-foreground">
               Writes to <code className="text-foreground/80">{contentPath}</code> with parametric
               dimensions in <code className="text-foreground/80">dimensions.json</code> and style
