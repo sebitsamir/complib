@@ -123,20 +123,34 @@ export default function PlaygroundArtboardViewport({
     <div className={pg.canvasStage}>
       {showZoomBar ? (
         <div className={pg.canvasViewportBar}>
-          <div className="flex min-w-0 flex-wrap items-center gap-2">
-            <PlaygroundSegmented
+          <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto">
+            <div className="hidden sm:block">
+              <PlaygroundSegmented
+                aria-label="Artboard zoom"
+                size="sm"
+                options={ZOOM_OPTIONS}
+                value={zoom}
+                onChange={onZoomChange}
+              />
+            </div>
+            <select
               aria-label="Artboard zoom"
-              size="sm"
-              options={ZOOM_OPTIONS}
               value={zoom}
-              onChange={onZoomChange}
-            />
-            <span className="hidden font-mono text-[10px] text-muted-foreground sm:inline">
+              onChange={(e) => onZoomChange(e.target.value as ArtboardZoom)}
+              className={`${pg.select} sm:hidden`}
+            >
+              {ZOOM_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+            <span className="hidden font-mono text-[10px] text-muted-foreground md:inline">
               {Math.round(scale * 100)}%
-              {zoom === "fit" ? " · fit width & height" : ""}
+              {zoom === "fit" ? " · fit" : ""}
             </span>
           </div>
-          <span className="font-mono text-[10px] text-muted-foreground">
+          <span className="hidden shrink-0 font-mono text-[10px] text-muted-foreground sm:inline">
             {width} × {height}px
           </span>
         </div>

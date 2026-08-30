@@ -50,8 +50,8 @@ export default function ComponentDetailTabs({
               {component.layer} / {component.category}
             </span>
           </div>
-          <h1 className="mt-2 text-4xl font-bold sm:text-5xl">{component.name}</h1>
-          <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">{component.name}</h1>
+          <p className="mt-3 text-base text-muted-foreground sm:mt-4 sm:text-lg lg:text-xl">
             {component.description}
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -100,13 +100,13 @@ export default function ComponentDetailTabs({
         />
       </section>
 
-      <div className="mb-4 flex flex-wrap gap-2 border-b border-border">
+      <div className="mb-4 flex gap-1 overflow-x-auto border-b border-border pb-px [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {tabs.map((entry) => (
           <button
             key={entry.id}
             type="button"
             onClick={() => setTab(entry.id)}
-            className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
+            className={`shrink-0 border-b-2 px-3 py-2 text-sm font-medium transition sm:px-4 ${
               tab === entry.id
                 ? "border-accent text-foreground"
                 : "border-transparent text-muted-foreground hover:text-foreground"

@@ -76,7 +76,7 @@ export default async function ComponentsPage({
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader title="Explorer" subtitle={subtitleParts.join(" ").trim()} />
-      <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 flex-1 overflow-hidden">
         <Suspense fallback={<LibrarySidebarSkeleton />}>
           <ExplorerClientShell
             navLayers={navLayers}

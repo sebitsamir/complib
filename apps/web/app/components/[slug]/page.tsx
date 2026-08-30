@@ -79,7 +79,7 @@ export default async function ComponentDetail({ params }: { params: Params }) {
         title={component.name}
         subtitle={`${component.layer} / ${component.category}`}
       />
-      <div className="container mx-auto max-w-5xl flex-1 px-6 py-10">
+      <div className="container mx-auto max-w-5xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
         <ComponentDetailTabs
           component={safeComponent}
           safeRuntime={safeComponent.runtime}

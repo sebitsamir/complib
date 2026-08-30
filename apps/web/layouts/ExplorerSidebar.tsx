@@ -17,13 +17,14 @@ import { useLibraryPersistence } from "@/lib/use-library-persistence";
 type NavItemProps = {
   href?: string;
   onClick?: () => void;
+  onNavigate?: () => void;
   active: boolean;
   icon: string;
   label: string;
   count?: number;
 };
 
-function NavItem({ href, onClick, active, icon, label, count }: NavItemProps) {
+function NavItem({ href, onClick, onNavigate, active, icon, label, count }: NavItemProps) {
   const className = `flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
     active
       ? "bg-accent/10 font-semibold text-foreground ring-1 ring-accent/20"
@@ -51,7 +52,7 @@ function NavItem({ href, onClick, active, icon, label, count }: NavItemProps) {
   }
 
   return (
-    <Link href={href!} className={className}>
+    <Link href={href!} className={className} onClick={onNavigate}>
       {content}
     </Link>
   );
@@ -77,6 +78,8 @@ type Props = {
   onBrowse?: () => void;
   /** Playground: Enter in search adds best match to canvas. */
   onQuickInsert?: (query: string) => void;
+  /** Mobile drawer: called after a navigation action to close the sheet. */
+  onNavSelect?: () => void;
   /** Render inside playground aside (no outer width/border). */
   embedded?: boolean;
   showBrowseButton?: boolean;
@@ -92,6 +95,7 @@ export default function ExplorerSidebar({
   onParamsChange,
   onBrowse,
   onQuickInsert,
+  onNavSelect,
   embedded = false,
   showBrowseButton = false,
   showFullLibraryLink = false,
@@ -111,13 +115,15 @@ export default function ExplorerSidebar({
     (overrides: Partial<ExplorerSearchParams>) => {
       if (onNavigate) {
         onNavigate(overrides);
+        onNavSelect?.();
         return;
       }
       startTransition(() => {
         router.push(buildExplorerUrl(searchParams, overrides));
+        onNavSelect?.();
       });
     },
-    [onNavigate, router, searchParams],
+    [onNavigate, onNavSelect, router, searchParams],
   );
 
   const patchParams = useCallback(
@@ -153,6 +159,8 @@ export default function ExplorerSidebar({
     [onNavigate, searchParams],
   );
 
+  const afterNav = onNavSelect;
+
   const browseTabOverrides = (mode: ExplorerBrowseMode): Partial<ExplorerSearchParams> => ({
     browse: mode,
     layer: null,
@@ -177,7 +185,7 @@ export default function ExplorerSidebar({
 
   const shellClass = embedded
     ? "flex min-h-0 flex-1 flex-col overflow-hidden bg-background"
-    : "flex h-full w-[min(100%,15rem)] shrink-0 flex-col border-r border-border bg-background lg:w-60";
+    : "flex h-full w-full shrink-0 flex-col border-r border-border bg-background lg:w-60";
 
   const Shell = embedded ? "div" : "aside";
 
@@ -258,6 +266,7 @@ export default function ExplorerSidebar({
                     })
                 : undefined
             }
+            onNavigate={afterNav}
             active={collection === "favorites"}
             icon="⭐"
             label="Favorites"
@@ -289,6 +298,7 @@ export default function ExplorerSidebar({
                     })
                 : undefined
             }
+            onNavigate={afterNav}
             active={collection === "recent"}
             icon="🕒"
             label="Recent"
@@ -327,6 +337,7 @@ export default function ExplorerSidebar({
                       })
                   : undefined
               }
+              onNavigate={afterNav}
               active={browse === "layer" && !params.layer && !collection && !params.q}
               icon="📦"
               label="All layers"
@@ -359,6 +370,7 @@ export default function ExplorerSidebar({
                         })
                     : undefined
                 }
+                onNavigate={afterNav}
                 active={isLayerActive(layer.slug)}
                 icon={LAYER_ICONS[layer.slug] ?? "📦"}
                 label={layerNavMeta(layer.slug).label}
@@ -376,6 +388,7 @@ export default function ExplorerSidebar({
             <NavItem
               href={urlFor(browseTabOverrides("style"))}
               onClick={onNavigate ? () => pushParams(browseTabOverrides("style")) : undefined}
+              onNavigate={afterNav}
               active={browse === "style" && !params.q}
               icon="🎨"
               label="Visual style"
@@ -383,6 +396,7 @@ export default function ExplorerSidebar({
             <NavItem
               href={urlFor(browseTabOverrides("problem"))}
               onClick={onNavigate ? () => pushParams(browseTabOverrides("problem")) : undefined}
+              onNavigate={afterNav}
               active={browse === "problem" && !params.q}
               icon="💡"
               label="Use case"

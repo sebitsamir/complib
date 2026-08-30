@@ -5,7 +5,7 @@ export default function GettingStartedPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader title="Getting started" subtitle="Documentation" />
-      <main className="container mx-auto max-w-3xl flex-1 px-6 py-10 prose prose-neutral dark:prose-invert">
+      <main className="docs-prose container mx-auto max-w-3xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
         <h1>Getting started</h1>
         <ol>
           <li>Browse the <Link href="/components">component explorer</Link>.</li>

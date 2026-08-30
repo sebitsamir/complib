@@ -45,6 +45,7 @@ type Props = {
   pickerMode?: boolean;
   onPick?: (slug: string, style: LibraryStyleOption) => void;
   onNavigate?: (overrides: Partial<ExplorerSearchParams>) => void;
+  onOpenNav?: () => void;
 };
 
 function levelHint(
@@ -90,6 +91,7 @@ export default function ExplorerMainBrowser({
   pickerMode = false,
   onPick,
   onNavigate,
+  onOpenNav,
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -234,25 +236,38 @@ export default function ExplorerMainBrowser({
     (level === "component-styles" || level === "style-variants");
 
   return (
-    <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden bg-muted/10">
+    <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden bg-muted/10 lg:flex-row">
       <div className="min-h-0 min-w-0 flex-1 overflow-auto">
-        <div className="mx-auto max-w-[1600px] p-5 lg:p-8">
+        <div className="mx-auto max-w-[1600px] p-4 sm:p-5 lg:p-8">
+          {onOpenNav ? (
+            <button
+              type="button"
+              onClick={onOpenNav}
+              className="mb-4 inline-flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted lg:hidden"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              Browse navigation
+            </button>
+          ) : null}
+
           <ExplorerBreadcrumbs
             params={{ ...params, browse }}
             pickedComponent={pickedComponent}
             onNavigate={onNavigate}
           />
 
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h1 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
+          <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+            <div className="min-w-0">
+              <h1 className="font-display text-xl font-bold tracking-tight sm:text-2xl lg:text-3xl">{title}</h1>
               <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
                 {pickerMode
                   ? "Browse layers and styles, then add a component to the canvas."
                   : levelHint(level, components.length)}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {!pickerMode ? (
                 <ExplorerToolbarFilters
                   params={params}
@@ -264,7 +279,7 @@ export default function ExplorerMainBrowser({
                   }
                 />
               ) : null}
-              <p className="text-xs text-muted-foreground">
+              <p className="hidden text-xs text-muted-foreground md:block">
                 <kbd className="rounded border border-border bg-background px-1.5 py-0.5 font-mono text-[10px]">
                   ⌘K
                 </kbd>{" "}
@@ -294,6 +309,7 @@ export default function ExplorerMainBrowser({
           component={pickedComponent}
           params={params}
           styleSlug={params.style}
+          onClose={() => navigate({ pick: null })}
         />
       ) : null}
     </div>

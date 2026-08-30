@@ -29,13 +29,29 @@ export default function ExplorerPreviewPanel({
   );
 
   return (
-    <aside
-      className={
-        compact
-          ? "flex min-h-0 flex-col overflow-hidden"
-          : "hidden w-[min(100%,22rem)] shrink-0 flex-col overflow-hidden border-l border-border/70 bg-muted/10 lg:flex xl:w-[26rem]"
-      }
-    >
+    <>
+      {onClose && !compact ? (
+        <button
+          type="button"
+          className="fixed inset-0 z-20 bg-black/40 backdrop-blur-[2px] lg:hidden"
+          aria-label="Close preview"
+          onClick={onClose}
+        />
+      ) : null}
+      <aside
+        className={
+          compact
+            ? "flex min-h-0 flex-col overflow-hidden"
+            : [
+                "flex shrink-0 flex-col overflow-hidden border-border bg-muted/10",
+                "fixed inset-x-0 bottom-0 z-30 max-h-[min(75dvh,560px)] rounded-t-2xl border-t shadow-[0_-12px_40px_rgba(0,0,0,0.12)] safe-bottom",
+                "lg:static lg:z-auto lg:max-h-none lg:w-[min(100%,22rem)] lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none xl:w-[26rem]",
+              ].join(" ")
+        }
+      >
+      {onClose && !compact ? (
+        <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-border lg:hidden" aria-hidden />
+      ) : null}
       <div className="flex shrink-0 items-start justify-between gap-2 border-b border-border/50 px-4 py-3">
         <div className="min-w-0">
           <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
@@ -92,7 +108,8 @@ export default function ExplorerPreviewPanel({
           Build page
         </Link>
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }
 

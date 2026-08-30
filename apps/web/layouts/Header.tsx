@@ -5,6 +5,7 @@ import { Logo } from "./Logo";
 import ThemeToggle from "@/components/theme-toggle";
 import { MotionNavLink } from "@/components/motion/motion-link";
 import HeaderAuth from "@/layouts/HeaderAuth";
+import MobileNavMenu from "@/components/layout/mobile-nav-menu";
 
 type SiteHeaderProps = {
   title?: string;
@@ -29,55 +30,54 @@ export default function SiteHeader({ title, subtitle }: SiteHeaderProps) {
           : "border-border bg-background/80"
       }`}
     >
-      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between gap-4 px-5 lg:px-8">
-        <div className="flex min-w-0 items-center gap-4 sm:gap-6">
-          <div className="ml-1 shrink-0 sm:ml-2">
+      <div className="mx-auto flex h-14 max-w-[1920px] items-center justify-between gap-2 px-4 sm:gap-4 sm:px-5 lg:px-8">
+        <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4 md:gap-6">
+          <div className="shrink-0 sm:ml-1">
             <Logo href="/" size="sm" />
           </div>
           {title ? (
             <>
               <span
-                className="hidden h-6 w-px shrink-0 bg-border sm:block"
+                className="hidden h-6 w-px shrink-0 bg-border md:block"
                 aria-hidden
               />
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-foreground">
-                  {title}
-                </p>
+                <p className="truncate text-sm font-semibold text-foreground">{title}</p>
                 {subtitle ? (
-                  <p className="truncate text-xs text-muted-foreground">{subtitle}</p>
+                  <p className="hidden truncate text-xs text-muted-foreground sm:block">
+                    {subtitle}
+                  </p>
                 ) : null}
               </div>
             </>
           ) : null}
         </div>
 
-        <nav className="mr-2 flex shrink-0 items-center gap-0.5 text-sm sm:mr-4 sm:gap-1">
+        <nav className="hidden shrink-0 items-center gap-0.5 text-sm lg:flex lg:gap-1">
           <MotionNavLink
             href="/components"
-            className="rounded-lg px-2 py-1.5 transition-colors hover:text-accent sm:px-3"
+            className="rounded-lg px-3 py-1.5 transition-colors hover:text-accent"
           >
             Explorer
           </MotionNavLink>
-
           <MotionNavLink
             href="/playground"
-            className="rounded-lg px-2 py-1.5 transition-colors hover:text-accent sm:px-3"
+            className="rounded-lg px-3 py-1.5 transition-colors hover:text-accent"
           >
             Playground
           </MotionNavLink>
-
           <MotionNavLink
             href="/pricing"
-            className="rounded-lg px-2 py-1.5 transition-colors hover:text-accent sm:px-3"
+            className="rounded-lg px-3 py-1.5 transition-colors hover:text-accent"
           >
             Pricing
           </MotionNavLink>
         </nav>
 
-        <div className="mr-1 flex shrink-0 items-center gap-2 text-sm sm:mr-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2 md:gap-3">
           <ThemeToggle />
           <HeaderAuth />
+          <MobileNavMenu />
         </div>
       </div>
     </header>

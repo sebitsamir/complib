@@ -37,9 +37,9 @@ export default async function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <SiteHeader title="My CompLib" subtitle="Workspace overview" />
-      <main className="container mx-auto max-w-6xl flex-1 px-6 py-10">
-        <section className="mb-10 rounded-2xl border border-border bg-card/50 p-6">
-          <h1 className="text-2xl font-bold">
+      <main className="container mx-auto max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
+        <section className="mb-10 rounded-2xl border border-border bg-card/50 p-4 sm:p-6">
+          <h1 className="text-xl font-bold sm:text-2xl">
             Welcome back{user?.firstName ? `, ${user.firstName}` : ""}.
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">

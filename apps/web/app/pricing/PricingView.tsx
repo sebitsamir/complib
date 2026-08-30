@@ -224,7 +224,8 @@ function ComparisonTable() {
 
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
-      <div className="overflow-x-auto">
+      <ComparisonMobile />
+      <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[640px] border-collapse text-left">
           <thead>
             <tr className="border-b border-border bg-muted/40">
@@ -265,6 +266,50 @@ function ComparisonTable() {
           </tbody>
         </table>
       </div>
+      <p className="border-t border-border px-4 py-2 text-center text-xs text-muted-foreground md:hidden">
+        Swipe the table on larger screens for a side-by-side view.
+      </p>
+    </div>
+  );
+}
+
+function ComparisonMobile() {
+  const plans = [
+    { id: "free" as const, label: "Free" },
+    { id: "pro" as const, label: "Pro", highlight: true },
+    { id: "enterprise" as const, label: "Enterprise" },
+  ];
+
+  const renderValue = (value: string | boolean) => {
+    if (value === true) return <CheckIcon className="mx-auto" />;
+    if (value === false) return <MinusIcon />;
+    return <span className="text-sm text-foreground/90">{value}</span>;
+  };
+
+  return (
+    <div className="divide-y divide-border md:hidden">
+      {plans.map((plan) => (
+        <div key={plan.id} className={plan.highlight ? "bg-accent/5" : ""}>
+          <h3
+            className={`border-b border-border px-4 py-3 text-sm font-bold ${
+              plan.highlight ? "text-accent" : "text-foreground"
+            }`}
+          >
+            {plan.label}
+          </h3>
+          <ul className="divide-y divide-border/60">
+            {comparisonRows.map((row) => (
+              <li
+                key={`${plan.id}-${row.label}`}
+                className="flex items-center justify-between gap-3 px-4 py-3 text-sm"
+              >
+                <span className="font-medium text-foreground">{row.label}</span>
+                <span className="shrink-0 text-right">{renderValue(row[plan.id])}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ExplorerCommandPalette, {
   useExplorerCommandPalette,
 } from "@/components/explorer/ExplorerCommandPalette";
 import ExplorerMainBrowser from "@/components/explorer/ExplorerMainBrowser";
 import ExplorerSidebar from "@/layouts/ExplorerSidebar";
+import MobileDrawer from "@/components/layout/mobile-drawer";
 import type { Component, LibraryNavLayer, ProblemNavGroup } from "@/lib/component-store";
 import {
   parseBrowseMode,
@@ -38,6 +39,7 @@ export default function ExplorerClientShell({
   canAccessSource,
 }: Props) {
   const { open, setOpen } = useExplorerCommandPalette();
+  const [navOpen, setNavOpen] = useState(false);
   const params = useMemo<ExplorerSearchParams>(
     () => ({
       ...searchParams,
@@ -68,13 +70,26 @@ export default function ExplorerClientShell({
     [allComponents, catalogSearchSlugs, components, favoriteSlugs, params, recentSlugs],
   );
 
+  const sidebar = (
+    <ExplorerSidebar
+      layers={navLayers}
+      params={params}
+      onOpenCommandPalette={() => {
+        setNavOpen(false);
+        setOpen(true);
+      }}
+      onNavSelect={() => setNavOpen(false)}
+    />
+  );
+
   return (
-    <>
-      <ExplorerSidebar
-        layers={navLayers}
-        params={params}
-        onOpenCommandPalette={() => setOpen(true)}
-      />
+    <div className="flex min-h-0 min-w-0 flex-1 overflow-hidden">
+      <div className="hidden h-full shrink-0 lg:flex">{sidebar}</div>
+
+      <MobileDrawer open={navOpen} onClose={() => setNavOpen(false)} title="Explorer">
+        {sidebar}
+      </MobileDrawer>
+
       <ExplorerMainBrowser
         navLayers={navLayers}
         problemGroups={problemGroups}
@@ -83,6 +98,7 @@ export default function ExplorerClientShell({
         params={params}
         framework={framework}
         canAccessSource={canAccessSource}
+        onOpenNav={() => setNavOpen(true)}
       />
       <ExplorerCommandPalette
         open={open}
@@ -90,6 +106,6 @@ export default function ExplorerClientShell({
         components={allComponents}
         params={params}
       />
-    </>
+    </div>
   );
 }

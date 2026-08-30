@@ -356,7 +356,7 @@ export default function HeaderAuthClerk() {
 
   if (!userId) {
     return (
-      <div className="flex items-center gap-2 sm:gap-2.5">
+      <div className="hidden items-center gap-2 sm:gap-2.5 lg:flex">
         <Link
           href="/sign-in"
           className="inline-flex h-9 items-center rounded-lg border border-border bg-background px-3 text-sm font-semibold text-foreground shadow-sm transition-colors hover:bg-muted sm:px-4"

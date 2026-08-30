@@ -5,8 +5,9 @@ import type { ReactNode } from "react";
 export const pg = {
   workbench: "flex min-h-0 flex-1 flex-col overflow-hidden",
   commandBar:
-    "flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border/70 bg-background/95 px-4 py-2.5 backdrop-blur-md sm:px-5",
-  commandBarLeft: "flex min-w-0 flex-wrap items-center gap-2 sm:gap-3",
+    "flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-border/70 bg-background/95 px-3 py-2.5 backdrop-blur-md sm:gap-3 sm:px-4 md:px-5",
+  commandBarLeft:
+    "flex min-w-0 max-w-full flex-1 items-center gap-2 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-3 [&::-webkit-scrollbar]:hidden",
   commandBarCenter: "hidden items-center gap-2 md:flex",
   commandBarRight: "flex flex-wrap items-center justify-end gap-2",
   subToolbar:
@@ -18,7 +19,7 @@ export const pg = {
   workspaceSidebarCollapsed:
     "lg:grid-cols-[5rem_minmax(0,1fr)]",
   sidebar:
-    "flex max-h-[42vh] min-h-0 flex-col overflow-hidden border-b border-border/60 bg-muted/10 lg:max-h-none lg:border-b-0 lg:border-r lg:bg-muted/15",
+    "flex max-h-[min(35dvh,280px)] min-h-0 flex-col overflow-hidden border-b border-border/60 bg-muted/10 lg:max-h-none lg:border-b-0 lg:border-r lg:bg-muted/15",
   inspector:
     "fixed inset-x-0 bottom-0 z-30 flex max-h-[min(72vh,520px)] min-h-0 flex-col overflow-hidden rounded-t-2xl border border-border/80 bg-background shadow-[0_-12px_40px_rgba(0,0,0,0.12)] lg:absolute lg:inset-x-auto lg:bottom-0 lg:right-0 lg:top-0 lg:z-20 lg:w-[min(320px,36%)] lg:max-w-[320px] lg:max-h-none lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-[-8px_0_24px_rgba(0,0,0,0.06)]",
   inspectorSheetHandle:
@@ -152,7 +153,7 @@ export const pg = {
   canvasToolbar:
     "flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border/50 bg-background/80 px-4 py-2.5 sm:px-5",
   canvasWell:
-    "relative min-h-0 flex-1 overflow-auto overscroll-contain bg-[radial-gradient(circle_at_1px_1px,hsl(var(--border)/0.35)_1px,transparent_0)] [background-size:20px_20px]",
+    "relative min-h-[12rem] flex-1 overflow-auto overscroll-contain bg-[radial-gradient(circle_at_1px_1px,hsl(var(--border)/0.35)_1px,transparent_0)] [background-size:20px_20px]",
   canvasStage: "flex min-h-0 flex-1 flex-col overflow-hidden",
   canvasViewportBar:
     "flex shrink-0 flex-wrap items-center justify-between gap-2 border-b border-border/40 bg-muted/20 px-3 py-2 sm:px-4",
@@ -165,7 +166,7 @@ export const pg = {
   canvasEmptyOverlay:
     "pointer-events-none absolute inset-0 flex items-center justify-center p-6",
   codeSplit:
-    "grid min-h-0 flex-1 grid-cols-1 xl:grid-cols-[minmax(300px,38%)_minmax(0,1fr)]",
+    "grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(280px,38%)_minmax(0,1fr)]",
   panelBody: "flex min-h-0 flex-1 flex-col overflow-hidden",
   canvasFrameWrap: "mx-auto w-fit",
   canvasFrameChrome:

@@ -45,9 +45,12 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
+  min-height: 100dvh;
+  overflow-x: clip;
   background: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-body), "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1,
@@ -90,6 +93,75 @@ a {
       linear-gradient(hsl(var(--grid-line)) 1px, transparent 1px),
       linear-gradient(90deg, hsl(var(--grid-line)) 1px, transparent 1px);
     background-size: 48px 48px;
+  }
+  .docs-prose {
+    line-height: 1.65;
+    color: hsl(var(--foreground) / 0.92);
+  }
+  .docs-prose > * + * {
+    margin-top: 1rem;
+  }
+  .docs-prose h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: hsl(var(--foreground));
+  }
+  .docs-prose h2 {
+    margin-top: 2rem;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: hsl(var(--foreground));
+  }
+  .docs-prose h3 {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+  }
+  .docs-prose p,
+  .docs-prose li {
+    color: hsl(var(--muted-foreground));
+  }
+  .docs-prose ul,
+  .docs-prose ol {
+    margin-top: 0.75rem;
+    padding-left: 1.25rem;
+  }
+  .docs-prose li + li {
+    margin-top: 0.35rem;
+  }
+  .docs-prose a {
+    color: hsl(var(--accent));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .docs-prose code {
+    border-radius: 0.25rem;
+    background: hsl(var(--muted));
+    padding: 0.1rem 0.35rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+  .docs-prose pre {
+    overflow-x: auto;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--muted) / 0.5);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  .docs-prose img {
+    max-width: 100%;
+    height: auto;
+  }
+  .docs-prose table {
+    display: block;
+    overflow-x: auto;
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 
