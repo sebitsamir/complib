@@ -9,6 +9,7 @@ import {
 } from "../lib/playground-merge";
 import { parsePlaygroundInstancesBody } from "../lib/playground-request";
 import { buildPlaygroundScaffoldFiles } from "../lib/export-scaffold/playground-scaffold";
+import { validateScaffoldFiles } from "../lib/export-pipeline";
 import {
   tierRequiresProSourceLock,
   userHasProSourceAccess,
@@ -160,10 +161,23 @@ router.post("/download", downloadRateLimit, async (req, res) => {
             )
           : await mergePlaygroundToFiles(parsed.instances, parsed.framework);
 
+    const exportFiles = Object.entries(files).map(([filePath, contents]) => ({
+      path: filePath,
+      contents,
+    }));
+    const validated = validateScaffoldFiles(parsed.framework, exportFiles);
+    if (!validated.ok) {
+      res.status(422).json({
+        error: "Export validation failed.",
+        issues: validated.issues,
+      });
+      return;
+    }
+
     const JSZip = (await import("jszip")).default;
     const zip = new JSZip();
-    for (const [filePath, contents] of Object.entries(files)) {
-      zip.file(filePath, contents);
+    for (const file of validated.files) {
+      zip.file(file.path, file.contents);
     }
     const buf = await zip.generateAsync({ type: "uint8array" });
     const filename = `complib-playground-${
