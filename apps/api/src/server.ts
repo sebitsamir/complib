@@ -13,6 +13,9 @@ import registryRouter from "./routes/registry";
 import artifactsRouter from "./routes/artifacts";
 import aiRouter from "./routes/ai";
 import entitlementsRouter from "./routes/entitlements";
+import playgroundProjectsRouter from "./routes/playground-projects";
+import teamsRouter from "./routes/teams";
+import communityRouter from "./routes/community";
 import {
   globalRateLimit,
   rejectUnknownContentType,
@@ -90,6 +93,9 @@ app.use("/api/ai", aiRouter);
 app.use("/api/entitlements", entitlementsRouter);
 app.use("/api/library", libraryRouter);
 app.use("/api/playground", playgroundRouter);
+app.use("/api/playground/projects", playgroundProjectsRouter);
+app.use("/api/teams", teamsRouter);
+app.use("/api/community", communityRouter);
 app.use("/api/preview", previewRouter);
 app.use("/api/stripe", stripeRouter);
 

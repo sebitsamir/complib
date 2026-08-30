@@ -9,6 +9,24 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: complib
+          POSTGRES_PASSWORD: complib
+          POSTGRES_DB: complib
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U complib -d complib"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://complib:complib@localhost:5432/complib
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,6 +41,12 @@ jobs:
       - name: Build shared packages
         run: npm run build:packages
 
+      - name: Generate Prisma client
+        run: npm run db:generate -w @complib/api
+
+      - name: Run database migrations
+        run: npm run db:migrate -w @complib/api
+
       - name: Typecheck API
         run: npm run typecheck -w @complib/api
 
@@ -31,6 +55,9 @@ jobs:
 
       - name: Test component validation
         run: npm run test -w @complib/component-validation
+
+      - name: Test export engine
+        run: npm run test -w @complib/export-engine
 
       - name: Lint web
         run: npm run lint -w @complib/web
